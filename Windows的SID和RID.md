@@ -26,7 +26,7 @@
 
 果用户被允许访问该对象，Windows NT将会分配给用户适当的访问权限。 
 
-​    访问令牌是用户在通过验证的时候有登陆进程所提供的，所以改变用户的权限需要注销后重新登陆，重新获取
+&ensp;&ensp;&ensp;&ensp;访问令牌是用户在通过验证的时候有登陆进程所提供的，所以改变用户的权限需要注销后重新登陆，重新获取
 
 访问令牌。
 
@@ -40,13 +40,13 @@
 
 一个完整的SID包括：
 
-• 用户和组的安全描述
+&ensp;&ensp;&ensp;&ensp;• 用户和组的安全描述
 
-• 48-bit的ID authority
+&ensp;&ensp;&ensp;&ensp;• 48-bit的ID authority
 
-• 修订版本
+&ensp;&ensp;&ensp;&ensp;• 修订版本
 
-• 可变的验证值Variable sub-authority values
+&ensp;&ensp;&ensp;&ensp;• 可变的验证值Variable sub-authority values
 
 &ensp;&ensp;&ensp;&ensp;例：S-1-5-21-310440588-250036847-580389505-500 它遵循的模式是：S－R－IA－SA－SA－RID。下面是
 
