@@ -112,6 +112,8 @@ Windows计算机和域中通用的账户和组，它们称为“已知RID”有�
 
 &ensp;&ensp;&ensp;&ensp;关于windows SID详解：https://www.cnblogs.com/mq0036/p/3518542.html
 
-&ensp;&ensp;&ensp;&ensp;关于windows SID解释：https://support.microsoft.com/zh-cn/help/243330/well-known-security-identifiers-in-windows-operating-systems
+&ensp;&ensp;&ensp;&ensp;关于windows SID解释：https://support.microsoft.com/zh-cn/help/243330/well-known-security-identifiers-in-windows-
+
+operating-systems
 
  
