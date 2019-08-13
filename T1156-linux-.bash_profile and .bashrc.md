@@ -14,7 +14,7 @@ echo“＃{command_to_add}”>>〜/ .bash_profile
 
 ## 检测日志源
 
-linux audit 日志（值得注意的是：你需要自己手动配置audit规则）
+linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
