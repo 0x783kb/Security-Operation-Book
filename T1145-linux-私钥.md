@@ -1,0 +1,51 @@
+# T1145-linux-私钥
+
+## 来自ATT&CK的描述
+
+攻击者可以从被入侵的系统上收集私钥，用于对SSH等远程服务进行身份验证（暴力破解等），或者用于解密其他收集的文件，如电子邮件。通用密钥和证书文件扩展名包括：.key, .pgp, .gpg, .ppk., .p12, .pem, .pfx, .cer, .p7b, .asc. ；攻击者还可以查看常见的密钥目录，例如基于linux/unix的系统下的~/.ssh目录或Windows 上的SSH密钥C:\Users(username).ssh\。
+
+私钥应该需要密码来进行操作，因此对手也可以使用键盘记录获取密码或尝试离线爆破账号密码。
+
+## 模拟攻击
+
+find / -type f ( -name "*.pem" -o -name "*.pgp" -o -name "*.gpg" -o -name "*.ppk" -o -name "*.p12" -o -name "*.key" -o -name "*.pfx" -o -name "*.cer" -o -name "*.p7b" -o -name "*.asc" -o -name "authorized*" )
+
+
+
+查找用户的SSH私钥：find / -name id_rsa OR find / -name id_dsa
+
+使用CP复制SSH私钥：find / -name id_rsa -exec cp --parents {} #{output_folder} ;
+
+find / -name id_dsa -exec cp --parents {} #{output_folder} ;
+
+使用rsync复制SSH私钥：find / -name id_rsa -exec rsync -R {} #{output_folder} ;
+
+find / -name id_dsa -exec rsync -R {} #{output_folder} ;
+
+## 检测日志源
+
+bash历史记录
+
+## 攻击复现
+
+icbc@icbc:/$ sudo find / -name id_rsa
+
+不再进行一一测试！
+
+## 攻击留痕
+
+icbc@icbc:/$ history
+
+  639  sudo find / -name id_rsa
+
+## 检测规则
+
+index=* sourcetype=bash_history find AND (.pem OR authorized OR gpg OR pgp OR .ppk OR .cer OR .key OR .asc)
+
+index=* sourcetype=bash_history find AND (id_rsa OR id_dsa)
+
+## 参考推荐
+
+MITRE-ATT&CK-T1145:https://attack.mitre.org/techniques/T1145/
+
+linux下的rsync六个使用实例：https://www.linuxprobe.com/how-linux-rsync.html
