@@ -14,7 +14,7 @@
 
 ## 检测日志源
 
-linux audit 日志
+linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 ## 攻击复现
 
