@@ -220,7 +220,7 @@ Content-Type: text/html
 
 #### 3）正常流量VS冰蝎通讯流量
 
-从中可以看到冰蝎V1.0版本在初期交互通讯时，特征较为明显，user-agent与正常业务流量明显不同。可以通过对**user-agent**进行检测分析。其次在POST返回包中相对正常流量多了**Transfer-Encoding: chunked**，Transfer-Encoding主要是用来改变报文格式，这里指的是利用分块进行传输。你可以基于此特征值进行检测，当然，你也可以用更简单的方法进行检测，比如url中包含***.php?pass=**来进行检测。
+从中可以看到冰蝎V1.0版本在初期交互通讯时，特征较为明显，user-agent与正常业务流量明显不同。可以通过对**user-agent**进行检测分析。其次在POST返回包中相对正常流量多了**Transfer-Encoding: chunked**，Transfer-Encoding主要是用来改变报文格式，这里指的是利用分块进行传输。你可以基于此特征值进行检测，当然，你也可以用更简单的方法进行检测，比如url中包含**.php?pass=**来进行检测。
 
 ### 冰蝎V2.1
 
@@ -340,7 +340,7 @@ Content-Type: text/html
 
 ### 3）正常流量VS冰蝎通讯流量
 
-通过对比可以看到，冰蝎V2.1在初期交互通讯时流量中多了**Transfer-Encoding: chunked**，Transfer-Encoding主要是用来改变报文格式，这里指的是利用分块进行传输。你可以基于此特征值进行检测，当然，你也可以用更简单的方法进行检测，比如url中包含***.php?id=**来进行检测。
+通过对比可以看到，冰蝎V2.1在初期交互通讯时流量中多了**Transfer-Encoding: chunked**，Transfer-Encoding主要是用来改变报文格式，这里指的是利用分块进行传输。你可以基于此特征值进行检测，当然，你也可以用更简单的方法进行检测，比如url中包含**.php?pass=**来进行检测。
 
 ## 检测特征
 
@@ -348,7 +348,7 @@ Content-Type: text/html
 
 基于GET请求包的检测特征：url包含.php?pass=，useragent包含Java/*；
 
-基于POST返回包的检测特征：useragent包含Java/* ，Transfer-Encoding: chunked；
+基于POST请求包的检测特征：useragent包含Java/* ，返回包包含：Transfer-Encoding: chunked；
 
 ### 冰蝎V2.1
 
