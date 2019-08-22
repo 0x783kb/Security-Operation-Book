@@ -6,15 +6,15 @@
 
 这些Net user命令可用于创建本地或域账户。
 
-## 模拟攻击
+## 测试案例
 
 useradd -o -u 0 -g 0 -M -d / root -s / bin / bash＃{用户名}
 
-## 检测日志源
+## 检测日志
 
 /var/log/auth.log （如果可以的话，我更希望你能够使用audit日志进行检测，它会很方便）
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/$ sudo useradd -o -u 0 -g 0 -M -d /root -s /bin/bash abc(用户名)
 
@@ -26,7 +26,7 @@ root: x:0:0:root:/root:/bin/bash
 
 abc: x:0:0:root:/root:/bin/bash
 
-## 攻击留痕
+## 测试留痕
 
 icbc@icbc:/$sudo cat /var/log/auth.log
 
@@ -34,7 +34,7 @@ Aug  9 13:42:33 icbc sudo:     icbc : TTY=pts/0 ; PWD=/ ; USER=root ; COMMAND=/u
 Aug  9 13:42:34 icbc sudo: pam_unix(sudo:session): session opened for user root by (uid=0)
 Aug  9 13:42:34 icbc useradd[18979]: new user: name=abc, UID=0, GID=0, home=/root, shell=/bin/bash
 
-## 检测规则
+## 检测规则/思路
 
 Root Account Creation: index=linux  source="/var/log/auth.log" eventtype=useradd UID=0 OR GID=0
 

@@ -8,19 +8,19 @@
 
 网络上公开了很多优秀的攻击框架，他们允许安全测试人员和攻击者以脚本的形式进行攻击测试。Metasploit、vial、powersploit是渗透测试人员在漏洞利用和后渗透阶段中经常用到的三款典型工具，包括逃避防御检测的功能。
 
-## 模拟攻击
+## 测试案例
 
 如何在linux下进行模拟和测试？我们可以创建一个简单bash脚本，并执行它。观察它在日志中留下的痕迹。
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/hacker$ bash 1.bash 
 
-## 攻击留痕
+## 测试留痕
 
 icbc@icbc:/$ cat /var/log/audit/audit.log
 
@@ -29,7 +29,7 @@ type=EXECVE msg=audit(1565352677.388:1524): argc=2 a0="bash" a1="1.bash"
 type=CWD msg=audit(1565352677.388:1524): cwd="/hacker"
 type=PATH msg=audit(1565352677.388:1524): item=0 name="/usr/bin/bash" inode=2228277 dev=08:01 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL cap_fp=0 cap_fi=0 cap_fe=0 cap_fver=0
 
-## 检测规则
+## 检测规则/思路
 
 index = linux sourcetype = linux_audit syscall = 59  | table host，syscall，syscall_name，exe，auid
 

@@ -6,7 +6,7 @@
 
 私钥应该需要密码来进行操作，因此对手也可以使用键盘记录获取密码或尝试离线爆破账号密码。
 
-## 模拟攻击
+## 测试案例
 
 find / -type f ( -name "*.pem" -o -name "*.pgp" -o -name "*.gpg" -o -name "*.ppk" -o -name "*.p12" -o -name "*.key" -o -name "*.pfx" -o -name "*.cer" -o -name "*.p7b" -o -name "*.asc" -o -name "authorized*" )
 
@@ -22,23 +22,23 @@ find / -name id_dsa -exec cp --parents {} #{output_folder} ;
 
 find / -name id_dsa -exec rsync -R {} #{output_folder} ;
 
-## 检测日志源
+## 检测日志
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/$ sudo find / -name id_rsa
 
 不再进行一一测试！
 
-## 攻击留痕
+## 测试留痕
 
 icbc@icbc:/$ history
 
   639  sudo find / -name id_rsa
 
-## 检测规则
+## 检测规则/思路
 
 index=* sourcetype=bash_history find AND (.pem OR authorized OR gpg OR pgp OR .ppk OR .cer OR .key OR .asc)
 

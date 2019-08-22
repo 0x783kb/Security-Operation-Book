@@ -6,7 +6,7 @@ sudoers文件`/etc/sudoers`描述了哪些用户可以运行哪些命令以及�
 
 攻击者可以利用这些配置来执行其他用户的命令或生成具有更高权限的进程。您必须具有提升权限才能编辑此文件。
 
-## 模拟攻击
+## 测试案例
 
  cat /etc/sudoers
 
@@ -14,11 +14,11 @@ sudoers文件`/etc/sudoers`描述了哪些用户可以运行哪些命令以及�
 
 值得注意的是：攻击者可以利用这些配置来执行其他用户的命令或生成具有更高权限的进程。您必须具有提升权限才能编辑此文件。
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
-## 攻击复现
+## 测试复现
 
 ### 场景一
 
@@ -28,13 +28,13 @@ icbc@icbc:/$ sudo cat /etc/sudoers
 
 icbc@icbc:/$ sudo vim /etc/sudoers
 
-## 攻击留痕
+## 测试留痕
 
 type=USER_CMD msg=audit(1563520773.609:436): pid=3530 uid=1000 auid=1000 ses=3 msg='cwd="/" cmd=636174202F6574632F7375646F657273 terminal=pts/0 res=success'
 
 值得注意的是：这里只提取出了异常日志，故省略了很多日志细节。
 
-## 检测规则
+## 检测规则/规则
 
 index=linux sourcetype="linux_audit" sudoers_110
 

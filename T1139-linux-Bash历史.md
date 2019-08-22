@@ -4,23 +4,23 @@
 
 Bash使用“history”实用程序跟踪用户在命令行上键入的命令。用户注销后，会将历史记录刷新到用户的`.bash_history`文件中。对于每个用户，此文件位于同一位置：`~/.bash_history`。通常，此文件会跟踪用户的最近500个命令。用户通常在命令行上键入用户名和密码作为程序的参数，然后在注销时将其保存到此文件中。攻击者可以通过查看文件来查看潜在凭据来滥用此功能。
 
-## 模拟攻击
+## 测试案例
 
 cat #{bash历史命令名字} | grep #{bash历史命令关键词检索} > #{输出文件名}
 
 sudo cat  ~/.bash_history | grep password > bash.txt
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/$ sudo cat ~/.bash_history | grep password > bash.txt
 
-## 攻击留痕
+## 测试留痕
 
 ### audit日志
 
@@ -40,7 +40,7 @@ icbc@icbc:/$ history
 
 1  sudo cat ~/.bash_history | grep password > bash.txt
 
-## 检测规则
+## 检测规则/思路
 
 ### audit日志
 

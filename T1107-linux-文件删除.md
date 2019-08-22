@@ -6,7 +6,7 @@
 
 主机操作系统提供了可用于执行清理的工具，但攻击者也可以使用其他工具。示例包括本机cmd功能（如del），安全删除工具（如Windows Sysinternals SDelete）或其他第三方文件删除工具。
 
-## 模拟攻击
+## 测试案例
 
 rm -rf abc. text    #强制删除abc.txt
 
@@ -14,19 +14,19 @@ rm -f abc.txt      #强制删除abc.txt
 
 shred -u abc.txt  #彻底粉碎删除文件abc.txt
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:~$ rm -r abc.txt 
 
 icbc@icbc:~$ shred -u abc.txt 
 
-## 攻击留痕
+## 测试留痕
 
 基于audit日志
 
@@ -40,9 +40,9 @@ icbc@icbc:~$ history
 
   654  shred -u abc.txt 
 
-## 检测规则
+## 检测规则/思路
 
-基于audit日志检测
+### 基于audit日志
 
 index=linux sourcetype=linux_audit syscall=59 comm=shred | table host,auid,msg
 
@@ -52,7 +52,7 @@ index=linux sourcetype=linux_audit syscall=263 | table host,auid,uid,eid,exe
 
 index=linux sourcetype=linux_audit syscall=82 exe=/usr/bin/shred | table host,auid,uid,eid,exe
 
-基于bash历史记录检测
+### 基于bash历史记录
 
 index=linux sourcetype="bash_history" bash_command="rm *" OR  bash_command="shred -u *"
 

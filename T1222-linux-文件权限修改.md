@@ -6,7 +6,7 @@
 
 攻击者可以修改文件权限/属性来逃避预定的DACL策略，修改可能包括更改特定的访问权限，这可能需要获取文件的所有权或提升权限，例如：administer/root，具体取决于文件的现有权限。特定文件修改可能是许多技术的必需步骤，例如通过辅助功能，登陆脚本建立持久性，或者污染/劫持其他工具的配置文件等。
 
-## 模拟攻击
+## 测试案例
 
 chmod 766 abc.txt   
 
@@ -16,19 +16,19 @@ chmod  o-x abc.txt   #取消其他用户对abc.txt的执行权限
 
 chown runoob:runoobgroup abc.txt  将文件 abc.txt 的拥有者设为 runoob，群体的使用者 runoobgroup
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:~$ sudo chmod 766 abc.txt 
 ......
 icbc@icbc:~$ sudo chmod u+x abc.txt 
 
-## 攻击留痕
+## 测试留痕
 
 基于audit日志
 
@@ -42,13 +42,13 @@ icbc@icbc:~$ sudo chmod u+x abc.txt
 
   647  sudo chmod u+x abc.txt 
 
-## 检测规则
+## 检测规则/思路
 
-基于audit日志
+### 基于audit日志
 
 index=linux sourcetype=linux_audit syscall=90 OR syscall=91 OR sycall=268 | table msg,syscall,syscall_name,success,auid,comm,exe
 
-基于bash历史记录
+### 基于bash历史记录
 
 index=linux sourcetype="bash_history" bash_command="chmod *" OR bash_command="chown *" | table host,user_name,bash_command
 

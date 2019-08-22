@@ -6,23 +6,23 @@
 
 可以通过凭据转储从备份或保存的虚拟机中提取密码。也可以从存储在Windows域控制器上的组策略首选项中获得密码。
 
-## 模拟攻击
+## 测试案例
 
 grep -riP password #{想要查找的文件路径}
 
 grep -riP password /
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/$ grep -riP passwd /etc/passwd
 
-## 攻击留痕
+## 测试留痕
 
 ### audit日志
 
@@ -41,7 +41,7 @@ icbc@icbc:/$ history
 
 1  grep -riP passwd /etc/passwd
 
-## 检测规则
+## 检测规则/思路
 
 ### audit日志
 

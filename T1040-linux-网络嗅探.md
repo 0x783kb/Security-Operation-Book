@@ -6,17 +6,17 @@
 
 通过该技术可以捕获的数据包括用户凭证，尤其是通过不安全的未加密协议发送的凭证；网络嗅探还可以获取到配置细节，例如运行服务，版本号以及后续横向移动和/或防御逃避活动所需的其他网络特征（例如：IP寻址，主机名，VLAN ID）。
 
-## 模拟攻击
+## 测试案例
 
 tcpdump -c 5 -nnni #{网卡接口}
 
 tshark -c 5 -i #{网卡接口}
 
-## 检测日志源
+## 检测日志
 
 linux /var/log/message （值得注意的是：Ubuntu下默认不开启message日志，需要手动开启）
 
-## 攻击复现
+## 测试复现
 
 ### 场景一
 
@@ -44,7 +44,7 @@ Capturing on 'ens33'
     5 0.039670671 192.168.66.148 → 35.222.85.5  TCP 74 57812 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM=1 TSval=136575048 TSecr=0 WS=128
 5 packets captured
 
-## 攻击留痕
+## 测试留痕
 
 ### 场景一
 
@@ -60,7 +60,7 @@ Jul 19 10:47:42 icbc systemd[1]: Started Cleanup of Temporary Directories.
 Jul 19 10:47:50 icbc kernel: [  915.199848] device ens33 left promiscuous mode
 Jul 19 10:47:50 icbc start.sh[734]: 2019-07-19 10:47:50,165: DEBUG helpers.application.health RAM: 65MB
 
-## 检测规则
+## 检测规则/思路
 
 index=linux sourcetype=syslog entered promiscuous mode | table host,message
 

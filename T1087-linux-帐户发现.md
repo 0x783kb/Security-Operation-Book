@@ -6,7 +6,7 @@
 
 在Linux上，可以通过使用/etc/passwd世界可读的文件来枚举本地用户。在mac中，除文件外，此相同文件仅用于单用户模式/etc/master.passwd。此外，可以通过groups和id命令枚举组。
 
-## 模拟攻击
+## 测试案例
 
 枚举所有账户：cat /etc/passwd
 
@@ -18,11 +18,11 @@
 
 枚举用户和组：groups 或者 id
 
-## 检测日志源
+## 检测日志
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 枚举所有账户：cat /etc/passwd
 
@@ -34,7 +34,7 @@ bash历史记录
 
 枚举用户和组：groups（需要root权限） 或者 id
 
-## 攻击留痕
+## 测试留痕
 
 root@icbc:~/Desktop$ history
 
@@ -46,7 +46,7 @@ root@icbc:~/Desktop$ history
   390  id
   391  history
 
-## 检测规则
+## 检测规则/思路
 
 index=linux sourcetype=bash_history cat /etc/passwd | table host,user_name,bash_command
 

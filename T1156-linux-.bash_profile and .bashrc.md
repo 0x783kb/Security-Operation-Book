@@ -6,23 +6,23 @@
 
 这些文件是由本地用户编写的，用于配置自己的环境; 但是，每次用户登录或打开新的shell时，攻击者可以在这些文件中插入代码以获得持久性。
 
-## 模拟攻击
+## 测试案例
 
 echo“＃{command_to_add}”>>〜/ .bashrc
 
 echo“＃{command_to_add}”>>〜/ .bash_profile
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
+暂无
 
-
-## 攻击留痕
+## 测试留痕
 
 linux_audit日志
 
@@ -39,9 +39,9 @@ icbc@icbc:~$ history
   100  sudo echo "/home/icbc/1.sh">> ~/.bashrc
   101  sudo echo "/home/icbc/1.sh">> ~/.bash_profile
 
-## 检测规则
+## 检测规则/思路
 
-基于linux_audit检测
+### 基于audit检测
 
 index = linux sourcetype = linux_audit bashrc_changes
 
@@ -53,7 +53,7 @@ index = linux sourcetype = linux_audit bashrc_changes
 
 注意：我们需要为每个用户的bashrc和bash_profile文件添加审核规则。在audit规则中不接受正则表达式，所以我们无法创建这样的监视规则：/home/*/.bash_history
 
-基于bash历史记录检测
+### 基于bash历史记录
 
 index=linux sourcetype=bash_history bash_command="nano .bashrc" OR bash_command="vi .bashrc" OR echo .bashrc | table host,user_name,bash_command
 

@@ -10,25 +10,25 @@ linux/mac
 
 用户可以将特定文件标记为隐藏，只需将“.”作为文件或文件夹名称中的第一个字符。默认情况下，以点“.”开头的文件和文件夹无法在Finder应用程序和标准命令行实用程序（如“ls”）中查看。用户必须专门更改设置才能查看这些文件。对于命令行用法，通常会有一个标志来查看所有文件（包括隐藏文件）。要在Finder应用程序中查看这些文件，必须执行以下命令：defaults write com.apple.finder AppleShowAllFiles YES，然后重新启动Finder应用程序。
 
-## 模拟攻击
+## 测试案例
 
 mkdir .xx-a   #创建一个隐藏文件夹
 
 mv file to a  .file   #移动文件到目录a下并修改为隐藏文件
 
-## 检测日志源
+## 检测日志
 
 bash历史记录
 
 值得注意的是：你可以从一些特定目录路径中查找到隐藏文件/目录，并将其转储到某个位置。提取出可以文件夹并查找恶意隐藏文件。
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/xx$ sudo mkdir .xx-a
 
 icbc@icbc:/xx$ sudo mv 1.sh /xx/.sh
 
-## 攻击留痕
+## 测试留痕
 
 icbc@icbc:/$ history
 
@@ -36,7 +36,7 @@ icbc@icbc:/$ history
 
 2  sudo mv 1.sh /xx/.sh
 
-## 检测规则
+## 检测规则/思路
 
 index=linux sourcetype=bash_history bash_command="mkdir .*" | table host,user_name,bash_command
 

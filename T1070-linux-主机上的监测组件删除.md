@@ -6,21 +6,21 @@
 
 攻击者干扰事件的记录，可以破坏安全设备的检测与告警，从而导致恶意攻击事件未被通报。由于缺乏足够的数据来确定发生的异常情况，还可能使安全人员的分析和事件响应更加困难。
 
-## 模拟攻击
+## 测试案例
 
 rm -rf  /var/log/*
 
-## 检测日志源
+## 检测日志
 
 linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需要下载安装并配置相关策略）
 
 bash历史记录
 
-## 攻击复现
+## 测试复现
 
 icbc@icbc:/$ sudo rm -r /var/log/icbc.log
 
-## 攻击留痕
+## 测试留痕
 
 基于audit日志
 
@@ -32,14 +32,14 @@ icbc@icbc:/$ history
 
    20  sudo rm -r /var/log/icbc.log   （注意这里删除的是测试log文件）
 
-## 检测规则
+## 检测规则/思路
 
-基于audit日志
+### 基于audit日志
 
 index=linux sourcetype=linux_audit syscall=263 | table host,auid,uid,euid,exe,key
 index=linux sourcetype=linux_audit type=PATH name=*.log nametype=delete
 
-基于bash历史记录
+### 基于bash历史记录
 
 index=linux sourcetype="bash_history" rm * .log | table host, user_name, bash_command
 
