@@ -173,12 +173,15 @@ detection:
     selection1:
         EventID: 4 #sysmon日志
         State: Stopped
-    selection2: 7036 #system日志
+    selection2:
+        EventID: 7036 #system日志
         keyword: 'Sysmon* 服务处于 停止 状态。'
-    selection3: 7040  #system日志
+    selection3: 
+        EventID: 7040  #system日志
         keyword: 'Sysmon64 服务的启动类型从 自动启动 更改为 已禁用。'
-    selection4: 7034 #system
-    condition: selection or selection2 or selection3 or selection4
+    selection4: 
+        EventID: 7034 #system
+    condition: selection or selection2 or selection3
 level: medium
 ```
 
