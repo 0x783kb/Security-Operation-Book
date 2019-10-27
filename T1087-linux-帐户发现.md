@@ -58,11 +58,7 @@ index=linux sourcetype=bash_history lastlog | table host,user_name,bash_command
 
 index=linux sourcetype=bash_history group OR id | table host,user_name,bash_command
 
-
-
 值得注意的是：应该结合上下文中查看研判，而不是单独依靠关键词检测，因为系统管理员经常使用这些命令进行合法操作。
-
-
 
 ## 参考推荐
 

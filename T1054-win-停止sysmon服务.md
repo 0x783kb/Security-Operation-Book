@@ -155,7 +155,7 @@ detection:
         ID: 'DriverCommunication'
         Description: 'Failed to retrieve events - Last error: 由于线程退出或应用程序请求，已中止 I/O 操作。'
     timeframe: last 1m
-    condition: selection1 and selection2
+    condition: all of them
 level: medium
 ```
 

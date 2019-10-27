@@ -98,7 +98,7 @@ detection:
 ​        Image: 'Image: C:\Windows\System32\reg.exe'
 ​        CommandLine: 'reg  save hklm\system system.hiv'
 ​    timeframe: last 2m
-​    condition: selection1 and selection2
+​    condition: all of them
 level: high
 ```
 

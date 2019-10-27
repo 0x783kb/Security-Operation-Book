@@ -92,7 +92,7 @@ detection:
         SourceImage: '*\procdump*.exe'
         TargetImage: 'C:\Windows\system32\lsass.exe'
     timeframe: last 1m
-    condition: selection1 and selection2
+    condition: all of them
 level: medium
 ```
 

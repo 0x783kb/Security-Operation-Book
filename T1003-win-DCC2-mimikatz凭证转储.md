@@ -101,7 +101,7 @@ detection:
         Processname: '*\mimikatz.exe' #进程>进程名称
         Privilege: 'SeTcbPrivilege'  #服务请求信息>特权：SeTcbPrivilege
     timeframe: last 5s  
-    condition: selection1 and selection2
+    condition: all of them
 level: medium
 ```
 
