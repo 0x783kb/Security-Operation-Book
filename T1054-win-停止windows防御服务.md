@@ -38,7 +38,7 @@ logsource:
 ​    product: windows
 ​    service: system
 detection:
-​    selection1:
+​    selection:
 ​        EventID: 7036
 ​        Message: 'Windows Firewall 服务处于 停止 状态。'
 ​    condition: selection

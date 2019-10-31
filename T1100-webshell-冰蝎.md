@@ -352,7 +352,7 @@ Content-Type: text/html
 
 ### 冰蝎V2.1
 
-基于GET请求包的检测特征：url包含.php?pass=；（密码如果被修改后，此检测特征无效）
+基于GET请求包的检测特征：url包含.php?pass=；（如果与业务冲突，误报较大）
 
 基于POST返回包的检测特征：Transfer-Encoding: chunked；
 

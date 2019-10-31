@@ -10,8 +10,6 @@
 
 find / -type f ( -name "*.pem" -o -name "*.pgp" -o -name "*.gpg" -o -name "*.ppk" -o -name "*.p12" -o -name "*.key" -o -name "*.pfx" -o -name "*.cer" -o -name "*.p7b" -o -name "*.asc" -o -name "authorized*" )
 
-
-
 查找用户的SSH私钥：find / -name id_rsa OR find / -name id_dsa
 
 使用CP复制SSH私钥：find / -name id_rsa -exec cp --parents {} #{output_folder} ;
@@ -36,14 +34,30 @@ icbc@icbc:/$ sudo find / -name id_rsa
 
 icbc@icbc:/$ history
 
-  639  sudo find / -name id_rsa
+639  sudo find / -name id_rsa
 
 ## 检测规则/思路
 
-index=* sourcetype=bash_history find AND (.pem OR authorized OR gpg OR pgp OR .ppk OR .cer OR .key OR .asc)
-
-index=* sourcetype=bash_history find AND (id_rsa OR id_dsa)
-
+```
+title: 攻击者查找linux下私钥文件
+description: Ubuntu18.04
+references: https://github.com/12306Bro/Threathunting/blob/master/T1145-linux-私钥.md
+tags: T1145
+status: experimental
+author: 12306Bro
+logsource:
+    product: linux
+    service: history
+detection:
+    keywords:
+       - sudo find / -name *.pgp
+       - sudo find / -name *.pem
+       - sudo find / -name *.ppk
+       - sudo find / -name *.p12
+       - sudo find / -name *.key 
+    condition: keywords
+level: medium
+```
 ## 参考推荐
 
 MITRE-ATT&CK-T1145:https://attack.mitre.org/techniques/T1145/

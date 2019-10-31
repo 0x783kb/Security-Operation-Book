@@ -53,7 +53,36 @@ index=linux sourcetype=linux_audit type=execve a0=grep   a0="grep" a1="--color=a
 
 index=linux sourcetype="bash_history" grep password | table host,user_name,bash_command
 
+### sigma
+```
+title: 攻击者查看linux下可能包含用户账户密码的文件
+description: Ubuntu18.04
+references: https://github.com/12306Bro/Threathunting/blob/master/T1081-linux-文件中的凭证.md
+tags: T1081
+status: experimental
+author: 12306Bro
+logsource:
+  product: linux
+  service: audit（需要自行配置audit规则）
+detection:
+  keywords:
+​    - comm="grep" exe="/bin/grep" key="audit_110"
+  condition: keywords
+-----------------------------------------------------------------------------------------
+logsource:
+  product: linux
+  service: history
+detection:
+  selection:
+  keywords: 
+​    - grep * passwd
+  condition: keywords
+level: medium
+```
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1081:ttps://attack.mitre.org/techniques/T1081/
+
+
 

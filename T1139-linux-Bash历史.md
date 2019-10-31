@@ -1,8 +1,8 @@
-# T1039-linux-Bash历史记录
+# 23T1039-linux-Bash历史记录
 
 ## 来自ATT&CK的描述
 
-Bash使用“history”实用程序跟踪用户在命令行上键入的命令。用户注销后，会将历史记录刷新到用户的`.bash_history`文件中。对于每个用户，此文件位于同一位置：`~/.bash_history`。通常，此文件会跟踪用户的最近500个命令。用户通常在命令行上键入用户名和密码作为程序的参数，然后在注销时将其保存到此文件中。攻击者可以通过查看文件来查看潜在凭据来滥用此功能。
+Bash使用“history”实用程序跟踪用户在命令行上键入的命令。用户注销后，会将历史记录刷新到用户的`.bash_history`文件中。对于每个用户，此文件位于同一位置：`~/.bash_history`。通常，此文件会跟踪用户的最近500个命令。用户通常在命令行上键入用户名和密码作为程序的参数，然后在注销时将其保存到此文件中。攻击者可以通过滥用此功能来查看文件来查看潜在凭据。
 
 ## 测试案例
 
@@ -48,9 +48,43 @@ index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table ho
 
 值得注意的是：你需要自行配置Audit审核规则
 
+```
+sudo auditctl -w ~/.bash_history -k bash_history_110
+```
+
 ### bash历史记录
 
 index=linux sourcetype=bash_history cat bash_history | table _time,host,user_name,bash_command
+
+### **sigma规则**
+
+```
+title: 攻击者读取linux下~/.bash_history文件，查看是否包含相关凭据密码
+description: Ubuntu18.04
+references: https://github.com/12306Bro/Threat-hunting/blob/master/T1139-linux-Bash历史记录.md
+tags: T1139
+status: experimental
+author: 12306Bro
+logsource:
+​    product: linux
+​    service: audit
+detection:
+​    keywords:
+​       - syscall=257 key=bash_history_110
+​    condition: keywords
+----------------------------------------------------------------------------------------   
+logsource:
+​    product: linux
+​    service: history
+detection:
+​    selection:
+​    keywords: 
+​       - cat bash_history
+​    condition: keywords
+level: medium
+```
+
+
 
 ## 参考推荐
 

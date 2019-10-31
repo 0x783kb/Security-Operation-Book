@@ -84,7 +84,7 @@ description: windows 7 模拟测试结果
 references: https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
 tags: ATT&CK T1003
 status: experimental
-author: Mr liu
+author: 12306Bro
 logsource:
 ​    product: windows
 ​    service: sysmon
@@ -92,11 +92,11 @@ detection:
 ​    selection1:
 ​        EventID: 1
 ​        Image: 'C:\Windows\System32\reg.exe'
-​        CommandLine: 'reg  save hklm\sam sam.hiv'
+​        CommandLine: 'reg  save hklm\sam *.hiv'
 ​    selection2:
 ​        EventID: 1
 ​        Image: 'Image: C:\Windows\System32\reg.exe'
-​        CommandLine: 'reg  save hklm\system system.hiv'
+​        CommandLine: 'reg  save hklm\system *.hiv'
 ​    timeframe: last 2m
 ​    condition: all of them
 level: high

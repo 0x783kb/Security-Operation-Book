@@ -19,7 +19,7 @@
 - gsecdump
 - ······
 
-或者，可以使用reg.exe从Registry和用于收集凭据的Creddump7或者hashcat中提取。
+或者，可以使用reg.exe从注册表中提取文件，并使用Creddump7收集凭据。
 
 注意：由机制问题提取的密码是UTF-16编码的，这意味着它们以明文形式返回.Windows 10增加了对缓解中描述的LSA秘密的保护
 
