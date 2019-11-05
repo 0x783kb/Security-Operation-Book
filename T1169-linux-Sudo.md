@@ -45,6 +45,3 @@ index=linux sourcetype="linux_audit" sudoers_110
 MITRE-ATT&CK-T1169:https://attack.mitre.org/techniques/T1169/
 
 Audit配置手册:https://www.cnblogs.com/bldly1989/p/7204358.html
-
-
-

@@ -8,7 +8,7 @@
 
 ## 测试案例
 
-chmod 766 abc.txt   
+chmod 766 abc.txt
 
 chmod  u+x abc.txt  #abc.txt文件属主权限，具有执行权限
 
@@ -38,9 +38,9 @@ icbc@icbc:~$ sudo chmod u+x abc.txt
 
  icbc@icbc:~$ histroy
 
-  646  sudo chmod 766 abc.txt 
+  646  sudo chmod 766 abc.txt
 
-  647  sudo chmod u+x abc.txt 
+  647  sudo chmod u+x abc.txt
 
 ## 检测规则/思路
 
@@ -65,4 +65,3 @@ DACL自主访问控制列表：https://baike.baidu.com/item/DACL/10681774?fr=ala
 linux下chmod命令用法：https://blog.csdn.net/shinehoo/article/details/5821354
 
 linux下chown命令用法：https://www.runoob.com/linux/linux-comm-chown.html
-

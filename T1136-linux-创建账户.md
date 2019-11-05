@@ -43,4 +43,3 @@ Root Account Creation: index=linux  source="/var/log/auth.log" eventtype=useradd
 MITRE-ATT&CK-T1136:https://attack.mitre.org/techniques/T1136/
 
 linux命令详解之useradd命令使用方法:https://blog.csdn.net/u011537073/article/details/51987121
-

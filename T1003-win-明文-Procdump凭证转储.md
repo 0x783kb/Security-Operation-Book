@@ -46,7 +46,7 @@ sysmon日志
 
 场景：攻击者利用Procdump获取lsass进程内存文件，本地使用mimikatz获取密码(administrator)。
 
-```
+```dos
 Microsoft Windows [版本 6.1.7601]
 版权所有 (c) 2009 Microsoft Corporation。保留所有权利。
 
@@ -74,7 +74,7 @@ sysmon事件，进程创建、进程访问、进程结束
 
 ## 检测规则/思路
 
-```
+```yml
 title: 明文获取凭证——Procdump
 description: windows server 2008 模拟测试结果
 status: experimental

@@ -28,7 +28,7 @@ Windows 7
 
 思路：在windows安全事件日志中，查找事件ID4688，进程创建事件。
 
-```
+```elk
 process = search Process:Create
 cmd = filter process where (exe == "cmd.exe")
 output cmd

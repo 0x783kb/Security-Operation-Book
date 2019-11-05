@@ -8,13 +8,13 @@
 
 ## 测试案例
 
-windows 7 
+windows 7
 
 DOS命令关闭windows防火墙：netsh advfilewall set publicprofile state off
 
 ## 检测日志
 
-windows system 
+windows system
 
 ## 测试复现
 
@@ -29,7 +29,7 @@ windows system事件ID7036
 
 ## 检测规则/思路
 
-```
+```yml
 title: 停止Windows防御服务
 description: win7 模拟测试结果
 status: experimental
@@ -48,8 +48,3 @@ level: medium
 ## 参考推荐
 
 MITRE-ATT&CK-T1054：https://attack.mitre.org/techniques/T1054/
-
-
-
-
-

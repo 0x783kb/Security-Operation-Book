@@ -69,4 +69,3 @@ index=linux sourcetype=syslog left promiscuous mode | table host,message
 ## 参考推荐
 
 MITRE-ATT&CK-T1040: https://attack.mitre.org/techniques/T1040/
-

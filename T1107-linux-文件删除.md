@@ -61,4 +61,3 @@ index=linux sourcetype="bash_history" bash_command="rm *" OR  bash_command="shre
 MITRE-ATT&CK-T1107:https://attack.mitre.org/techniques/T1107/
 
 linux下rm命令详解：https://www.cnblogs.com/ftl1012/p/9247107.html
-

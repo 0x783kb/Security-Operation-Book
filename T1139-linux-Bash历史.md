@@ -48,7 +48,7 @@ index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table ho
 
 值得注意的是：你需要自行配置Audit审核规则
 
-```
+```history
 sudo auditctl -w ~/.bash_history -k bash_history_110
 ```
 
@@ -58,7 +58,7 @@ index=linux sourcetype=bash_history cat bash_history | table _time,host,user_nam
 
 ### **sigma规则**
 
-```
+```yml
 title: 攻击者读取linux下~/.bash_history文件，查看是否包含相关凭据密码
 description: Ubuntu18.04
 references: https://github.com/12306Bro/Threat-hunting/blob/master/T1139-linux-Bash历史记录.md
@@ -83,8 +83,6 @@ detection:
 ​    condition: keywords
 level: medium
 ```
-
-
 
 ## 参考推荐
 

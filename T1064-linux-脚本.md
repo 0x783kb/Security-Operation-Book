@@ -18,7 +18,7 @@ linux audit日志 （值得注意的是：Ubuntu默认情况下没有audit，需
 
 ## 测试复现
 
-icbc@icbc:/hacker$ bash 1.bash 
+icbc@icbc:/hacker$ bash 1.bash
 
 ## 测试留痕
 
@@ -35,13 +35,8 @@ index = linux sourcetype = linux_audit syscall = 59  | table host，syscall，sy
 
 值得注意的是：我们只是把环境中的脚本执行行为记录下来，如果没有设置白名单，那么我们需要消耗大量的精力用于处理误报。
 
-
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1064:https://attack.mitre.org/techniques/T1064/
 
 Audit配置手册:https://www.cnblogs.com/bldly1989/p/7204358.html
-
-
-

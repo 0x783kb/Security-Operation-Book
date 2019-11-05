@@ -64,4 +64,3 @@ index=linux sourcetype="bash_history"  "rm * .bash_history"  #值得注意的是
 ## 参考推荐
 
 MITRE-ATT&CK-T1146:https://attack.mitre.org/techniques/T1146/
-

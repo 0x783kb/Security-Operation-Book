@@ -38,7 +38,7 @@ icbc@icbc:/$ history
 
 ## 检测规则/思路
 
-```
+```yml
 title: 攻击者查找linux下私钥文件
 description: Ubuntu18.04
 references: https://github.com/12306Bro/Threathunting/blob/master/T1145-linux-私钥.md
@@ -58,6 +58,7 @@ detection:
     condition: keywords
 level: medium
 ```
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1145:https://attack.mitre.org/techniques/T1145/

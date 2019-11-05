@@ -38,4 +38,3 @@ index=linux sourcetype="bash_history" export HISTCONTROL | table host, user_name
 MITRE-ATT&CK-T1148:https://attack.mitre.org/techniques/T1148/
 
 linux history命令详解：https://www.cnblogs.com/keithtt/p/7040549.html
-

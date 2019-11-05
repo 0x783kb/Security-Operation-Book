@@ -28,28 +28,28 @@ linux audit日志
 
 ## 测试复现
 
-```
+```shell
 root@icbc:/hacker/mima# hydra -l root -P passwd.txt  ssh://192.168.159.132 -V
 Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 ```
 
 ## 测试留痕
 
-### auth.log
+auth.log
 
-```
+```log
 Failed password for root from 192.168.159.129 port 43728 ssh2
 ```
 
-### audit.log
+audit.log
 
-```
+```log
 type=USER_AUTH msg=audit(1572163129.581:316): pid=2165 uid=0 auid=4294967295 ses=4294967295 msg='op=PAM:authentication acct="root" exe="/usr/sbin/sshd" hostname=192.168.159.129 addr=192.168.159.129 terminal=ssh res=failed'
 ```
 
 ## 检测规则/思路
-### sigma
-```
+
+```yml
 title: linux下ssh暴力破解
 description: Ubuntu18.04、kali
 references: 

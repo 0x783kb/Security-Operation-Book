@@ -8,7 +8,7 @@
 
 Domain Cached Credentials 简称 DDC域缓存凭据，是缓存的域登录信息，这些信息本地存储在Windows操作系统的windows注册表中，可以通过以下键中的regedit（以SYSTEM特权运行）来查看。
 
-```
+```dos
 HKEY_LOCAL_MACHINE\SECURITY\Cache
 ```
 
@@ -24,7 +24,7 @@ DCC2（域缓存凭据版本2），Windows Vista和更新版本的操作系统�
 
 授权凭据被缓存在注册表里的这些用户，在机器连不上域控的时候也可以登陆这台机器（只能交互式登陆，比如控制台或远程桌面。远程桌面的时候要注意，不能使用带有 NLA（网络级别身份验证 ） 功能的 RDP 客户端，要用老的比如 XP 上默认 RDP 客户端），但是没有被缓存在注册表里的用户是无法登陆的。
 
-### 网络级别身份验证 (NLA) 
+### 网络级别身份验证 (NLA)
 
 在这里简单介绍一下NLA是什么？
 
@@ -65,13 +65,13 @@ windows sysmon日志
 
 场景：攻击者利用mimikatz读取mscash密码哈希
 
-```
+```dos
 mimikatz.exe  "privilege::debug"  "token::whoami" "token::elevate"   "LSADUMP::Cache"
 ```
 
 注意权限问题（administrator），如果权限存在问题需要执行以上命令。如果权限没有问题建议执行以下命名：
 
-```
+```dos
 mimikatz.exe  "privilege::debug"   "LSADUMP::Cache"
 ```
 
@@ -81,7 +81,7 @@ mimikatz.exe  "privilege::debug"   "LSADUMP::Cache"
 
 ## 检测规则/思路
 
-```
+```yml
 title: 基于DCC2凭证获取
 description: windows server 2008 模拟测试结果
 references: https://baijiahao.baidu.com/s?id=1611304657392579351
@@ -118,6 +118,3 @@ DCC2算法介绍：https://openwall.info/wiki/john/MSCash2
 Windows密码缓存（mscache / mscash）v2：https://www.jedge.com/wordpress/windows-password-cache-mscache-mscash-v2/
 
 转储和破解mscash-缓存的域凭据：https://ired.team/offensive-security/credential-access-and-credential-dumping/dumping-and-cracking-mscash-cached-domain-credentials
-
-
-

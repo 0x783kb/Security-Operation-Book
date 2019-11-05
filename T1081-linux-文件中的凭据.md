@@ -45,16 +45,12 @@ icbc@icbc:/$ history
 
 ### audit日志
 
-index=linux sourcetype=linux_audit type=execve a0=grep   a0="grep" a1="--color=auto" a2="-riP" a3="passwd" 
+index=linux sourcetype=linux_audit type=execve a0=grep   a0="grep" a1="--color=auto" a2="-riP" a3="passwd"
 
 值得注意的是：你需要自行配置Audit审核规则
 
-### bash历史记录
 
-index=linux sourcetype="bash_history" grep password | table host,user_name,bash_command
-
-### sigma
-```
+```yml
 title: 攻击者查看linux下可能包含用户账户密码的文件
 description: Ubuntu18.04
 references: https://github.com/12306Bro/Threathunting/blob/master/T1081-linux-文件中的凭证.md
@@ -80,9 +76,10 @@ detection:
 level: medium
 ```
 
+### bash历史记录
+
+index=linux sourcetype="bash_history" grep password | table host,user_name,bash_command
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1081:ttps://attack.mitre.org/techniques/T1081/
-
-
-

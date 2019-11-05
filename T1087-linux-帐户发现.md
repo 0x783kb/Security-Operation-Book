@@ -67,4 +67,3 @@ MITRE-ATT&CK-T1087:https://attack.mitre.org/techniques/T1087/
 linux UID详解:https://blog.csdn.net/jthivan/article/details/50530955
 
 linux ID查看命令详解:https://blog.csdn.net/qq_21808961/article/details/78532487
-

@@ -52,23 +52,23 @@ chmod 4775 xxx # 设置setuid权限
 
 chmod 2775 xxx # 设置setgid权限
 
-chmod 1775 xxx # 设置stick bit权限，针对目录 
+chmod 1775 xxx # 设置stick bit权限，针对目录
 
  在这里只讲第一位8进制代表权限
 
-0: 不设置特殊权限 
+0: 不设置特殊权限
 
-1：只设置sticky 
+1：只设置sticky
 
-2：只设置SGID 
+2：只设置SGID
 
-3：只设置SGID和sticky 
+3：只设置SGID和sticky
 
-4：只设置SUID 
+4：只设置SUID
 
-5：只设置SUID和sticky 
+5：只设置SUID和sticky
 
-6：只设置SUID和SGID 
+6：只设置SUID和SGID
 
 7：设置3种权限
 
@@ -181,6 +181,3 @@ linux文件特殊权限：https://www.cnblogs.com/patriot/p/7874725.html
 linux中chmod命令详解：https://www.cnblogs.com/lianstyle/p/8571975.html
 
 linux下的chmod参数详解：https://blog.csdn.net/taiyang1987912/article/details/41121131
-
-
-

@@ -45,7 +45,7 @@ sysmon日志
 
 ### 攻击方法：本地导出sam、system文件，离线进行hash提取(administrator)
 
-```
+```dos
 C:\Users\me\Desktop>reg save hklm\sam sam.hiv
 The operation completed successfully.
 
@@ -76,9 +76,9 @@ User : test2
 
 ## 检测规则/思路
 
-### 攻击方法：本地导出sam、system文件，离线进行hash提取(administrator)
+### 攻击方法：本地导出sam、system文件，离线进行hash提取(administrator)·
 
-```
+```yml
 title: 本地导出sam、system文件，离线进行hash提取(administrator)
 description: windows 7 模拟测试结果
 references: https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
@@ -113,6 +113,3 @@ powershell：https://raw.githubusercontent.com/EmpireProject/Empire/master/data/
 mimikatz wiki：https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
 
 关于更多通过SAM数据库获取本地用户hash你可以参考：https://www.4hou.com/technology/10878.html
-
-
-

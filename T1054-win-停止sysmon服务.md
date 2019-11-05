@@ -24,7 +24,7 @@
 
 使用fltmc.exe得到的altitude号：
 
-```
+```dos
 Windows PowerShell
 版权所有 (C) 2009 Microsoft Corporation。保留所有权利。
 
@@ -40,13 +40,13 @@ luafv                                   1       135000         0
 
 在Mimikatz中使用misc::mflt命令得到的altitude号：
 
-```
+```dos
 mimikatz # misc::mflt
 0 2     385201 SysmonDrv
 0 1     135000 luafv
 ```
 
-关于更多的如何检测被入侵的主机是否存在sysmon，你可以参考：https://anquan.baidu.com/article/350，如何检测sysmon不是本文的重点。
+关于更多的如何检测被入侵的主机是否存在sysmon，你可以参考：https://anquan.baidu.com/article/350，如何检测sysmon不是本文的重点.
 
 ### **绕过Sysmon的两种方法**
 
@@ -72,7 +72,7 @@ sysmon日志、Windows-WMI-Activity日志，system日志
 
 #### 删除配置项
 
-```
+```dos
 $query = "SELECT * FROM RegistryKeyChangeEvent " + 
     "WHERE Hive ='HKEY_LOCAL_MACHINE' " + 
     "AND KeyPath ='SYSTEM\\CurrentControlSet\\Services\\SysmonDrv\\Parameters'"
@@ -86,7 +86,7 @@ Register-WMIEvent -Query $query -Action {
 
 #### 卸载SysmonDrv驱动
 
-```
+```dos
 Windows PowerShell
 版权所有 (C) 2009 Microsoft Corporation。保留所有权利。
 
@@ -117,7 +117,7 @@ PS C:\Users\Administrator>
 
 #### 删除配置项
 
-```
+```yml
 title: 删除sysmon配置项
 description: win7 模拟测试结果
 status: experimental
@@ -136,7 +136,7 @@ level: medium
 
 #### 卸载SysmonDrv驱动—sysmon
 
-```
+```yml
 title: fltmc卸载sysmon
 description: windows server 2008 模拟测试结果
 status: experimental
@@ -161,7 +161,7 @@ level: medium
 
 #### 关闭sysmon服务
 
-```
+```yml
 title: 以其他方式关闭sysmon服务
 description: win7 模拟测试结果
 status: experimental
@@ -189,6 +189,3 @@ MITRE-ATT&CK-T1054：https://attack.mitre.org/techniques/T1054/
 审核策略相关介绍：https://www.malwarearchaeology.com/logging
 
 如何规避sysmon：https://www.anquanke.com/post/id/161630
-
-
-
