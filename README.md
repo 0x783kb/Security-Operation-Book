@@ -4,7 +4,7 @@
 
 如果你想知道Threathunting-book中涉及的TTP及相关阶段，我建议你查看Threathunting-book Wiki地址
 
-https://github.com/12306Bro/Threathunting-book/wiki/Threathunting-Book（持续建设中）
+https://github.com/12306Bro/Threathunting-book/wiki/Threathunting-Book
 
 如果你想知道Threathuntingbook覆盖了那些TTP，请看下图。当然你也可下载我们的表格文档
 
