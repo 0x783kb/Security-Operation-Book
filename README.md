@@ -10,4 +10,8 @@
 
 <https://drive.google.com/file/d/1cN4v19n9my7qwOT3HLAVfr0Eec_2Xpxf/view?usp=sharing>
 
+关于ATT&CK矩阵图，是在各位大牛公开资料的基础上完善成型的。
+
 目前已覆盖36个TID，未来我们将会持续更新！
+
+
