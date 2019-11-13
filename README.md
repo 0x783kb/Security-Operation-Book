@@ -6,8 +6,8 @@
 
 <https://github.com/12306Bro/Threathunting-book/wiki/Threathunting-Book>
 
-如果你想知道Threathuntingbook覆盖了哪些TID，请看下图。当然您也可下载我们的图表文档。
+如果你想知道Threathuntingbook覆盖了哪些TID，请移步查看图表文档。
 
-正在建设中······
+<https://drive.google.com/file/d/1cN4v19n9my7qwOT3HLAVfr0Eec_2Xpxf/view?usp=sharing>
 
 目前已覆盖32个TID，未来我们将会持续更新！
