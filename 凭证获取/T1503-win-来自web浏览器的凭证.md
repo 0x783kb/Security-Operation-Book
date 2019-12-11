@@ -27,14 +27,14 @@ windows 安全日志
 
 ## 测试留痕
 
-windows 安全日志 事件ID：4633
+windows 安全日志 事件ID：4633 注意此类事件只有2016以上系统才会产生。
 值得注意的是：正常情况下不会有用户选择导出web浏览器缓存凭据。当网内出现此类告警事件，值得引起安全人员的警惕！
 
 ## 检测规则/思路
 
 ```yml
 title: windows系统 web浏览器获取凭证
-description: windows server 2012 测试结果
+description: windows server 2016 测试结果
 references: 暂无
 tags: T1503
 status: experimental
