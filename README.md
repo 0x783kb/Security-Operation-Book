@@ -6,10 +6,10 @@
 
 <https://github.com/12306Bro/Threathunting-book/wiki/Threathunting-Book>
 
-如果你想知道Threathuntingbook覆盖了哪些TID，请移步查看图表文档。
+如果你想知道Threathuntingbook覆盖了哪些TID，请移步查看图表文档（暂停更新）。
 
 <https://drive.google.com/file/d/1cN4v19n9my7qwOT3HLAVfr0Eec_2Xpxf/view?usp=sharing>
 
 关于ATT&CK矩阵图，是在各位大牛公开资料的基础上完善成型的。
 
-目前已覆盖52个TID，未来我们将会持续更新！
+目前已覆盖53个TID，未来我们将会持续更新！
