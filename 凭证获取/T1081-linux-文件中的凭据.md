@@ -82,4 +82,4 @@ index=linux sourcetype="bash_history" grep password | table host,user_name,bash_
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1081:ttps://attack.mitre.org/techniques/T1081/
+MITRE-ATT&CK-T1081:<https://attack.mitre.org/techniques/T1081/>
