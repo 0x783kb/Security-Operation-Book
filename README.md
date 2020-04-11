@@ -6,4 +6,4 @@
 
 <https://github.com/12306Bro/Threathunting-book/wiki/Threathunting-Book>
 
-目前已覆盖54个TID，77个场景，未来我们将会持续更新！
+目前已覆盖55个TID，78个场景，未来我们将会持续更新！
