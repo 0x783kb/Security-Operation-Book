@@ -255,8 +255,14 @@ Server SID: S-1-5-21-3661619627-1912079458-2426250727-500
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1211:<https://attack.mitre.org/techniques/T1211/>
+MITRE-ATT&CK-T1211
 
-基于白名单Regasm.exe执行payload:<https://micro8.gitbook.io/micro8/contents-1/71-80/73-ji-yu-bai-ming-dan-regasm.exe-zhi-hang-payload-di-san-ji>
+<https://attack.mitre.org/techniques/T1211/>
 
-免杀远控专题:<http://sec.nmask.cn/article_content?a_id=8233eefd6b2671799b46d7cbab7ee672>
+基于白名单Regasm.exe执行payload
+
+<https://micro8.gitbook.io/micro8/contents-1/71-80/73-ji-yu-bai-ming-dan-regasm.exe-zhi-hang-payload-di-san-ji>
+
+免杀远控专题
+
+<http://sec.nmask.cn/article_content?a_id=8233eefd6b2671799b46d7cbab7ee672>
