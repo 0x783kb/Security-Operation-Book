@@ -146,14 +146,26 @@ C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe file.xml
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1127:<https://attack.mitre.org/techniques/T1127/>
+MITRE-ATT&CK-T1127
 
-利用msbuild.exe绕过应用程序白名单安全机制的多种姿势:<https://www.freebuf.com/articles/network/197706.html>
+<https://attack.mitre.org/techniques/T1127/>
 
-GreatSCT|MSF|白名单:<http://www.secist.com/archives/6082.html>
+利用msbuild.exe绕过应用程序白名单安全机制的多种姿势
 
-对亮神基于白名单 Msbuild.exe 执行 payload 第一季复现:<https://blog.csdn.net/ws13129/article/details/89736941>
+<https://www.freebuf.com/articles/network/197706.html>
 
-检测白名单Msbuild.exe执行payload:<https://blog.csdn.net/qq_36334464/article/details/105487176>
+GreatSCT|MSF|白名单
 
-基于白名单执行payload:<https://www.jianshu.com/p/cdb1867c6abb>
+<http://www.secist.com/archives/6082.html>
+
+对亮神基于白名单 Msbuild.exe 执行 payload 第一季复现
+
+<https://blog.csdn.net/ws13129/article/details/89736941>
+
+检测白名单Msbuild.exe执行payload
+
+<https://blog.csdn.net/qq_36334464/article/details/105487176>
+
+基于白名单执行payload
+
+<https://www.jianshu.com/p/cdb1867c6abb>
