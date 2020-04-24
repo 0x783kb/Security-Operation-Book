@@ -1,4 +1,4 @@
-# T1218-win-基于白名单Msiexec执行Payload
+# T1218-win-基于白名单Odbcconf.exe执行Payload
 
 ## 来自ATT&CK的描述
 
