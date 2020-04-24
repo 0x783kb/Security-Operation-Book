@@ -63,8 +63,14 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1178：<https://attack.mitre.org/techniques/T1178/>
+MITRE-ATT&CK-T1178
 
-域渗透-域维权： <https://uknowsec.cn/posts/notes/域渗透-域维权.html>
+<https://attack.mitre.org/techniques/T1178/>
 
-如何利用 SID History 创建域控权限后门？<https://www.4hou.com/penetration/5476.html>
+域渗透-域维权
+
+<https://uknowsec.cn/posts/notes/域渗透-域维权.html>
+
+如何利用 SID History 创建域控权限后门？
+
+<https://www.4hou.com/penetration/5476.html>
