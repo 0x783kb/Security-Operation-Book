@@ -1,4 +1,4 @@
-# T1003-windows-基于NTDS凭证获取1
+# T1003-windows-基于NTDS凭证获取
 
 ## 来自ATT&CK的描述
 
