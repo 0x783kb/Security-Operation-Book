@@ -1,4 +1,4 @@
-# T1077-windows-管理员共享
+# T1077-win-基于白名单PsExec执行payload
 
 ## 来自ATT&CK的描述
 
