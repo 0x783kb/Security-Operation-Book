@@ -75,6 +75,10 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1097：<https://attack.mitre.org/techniques/T1097/>
+MITRE-ATT&CK-T1097
 
-内网渗透之PTH&PTT&PTK：<https://www.bbsmax.com/A/A7zgkjRPz4/>
+<https://attack.mitre.org/techniques/T1097/>
+
+内网渗透之PTH&PTT&PTK
+
+<https://www.bbsmax.com/A/A7zgkjRPz4/>

@@ -91,10 +91,18 @@ BITS作为服务运行。可使用Sc查询实用程序（sc query bits）来检�
 
 ## 参考推荐
 
-Window权限维持（六）：BITS Jobs <https://www.cnblogs.com/xiaozi/p/11833583.html>
+Window权限维持（六）
 
-MITRE-ATT&CK-T1197：<https://attack.mitre.org/techniques/T1197/>
+BITS Jobs <https://www.cnblogs.com/xiaozi/p/11833583.html>
 
-MITRE ATT&CK 攻击知识库（企业）中文版：<https://hansight.github.io/#/detail>
+MITRE-ATT&CK-T1197
 
-BITS持久化留痕日志文件下载地址：<https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/blob/master/Persistence/persist_bitsadmin_Microsoft-Windows-Bits-Client-Operational.evtx>
+<https://attack.mitre.org/techniques/T1197/>
+
+MITRE ATT&CK 攻击知识库（企业）中文版
+
+<https://hansight.github.io/#/detail>
+
+BITS持久化留痕日志文件下载地址
+
+<https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/blob/master/Persistence/persist_bitsadmin_Microsoft-Windows-Bits-Client-Operational.evtx>

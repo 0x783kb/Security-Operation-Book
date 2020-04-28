@@ -153,6 +153,10 @@ ParentCommandLine: C:\Windows\SysWOW64\odbcconf.exe  /a {regsvr C:\payload.dll}
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1218:<https://attack.mitre.org/techniques/T1218/>
+MITRE-ATT&CK-T1218
 
-windows下基于白名单获取shell的方法整理（下）:<http://www.safe6.cn/article/157#directory030494471069429444>
+<https://attack.mitre.org/techniques/T1218/>
+
+windows下基于白名单获取shell的方法整理（下）
+
+<http://www.safe6.cn/article/157#directory030494471069429444>

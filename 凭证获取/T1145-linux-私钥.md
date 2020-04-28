@@ -54,13 +54,17 @@ detection:
        - sudo find / -name *.pem
        - sudo find / -name *.ppk
        - sudo find / -name *.p12
-       - sudo find / -name *.key 
+       - sudo find / -name *.key
     condition: keywords
 level: medium
 ```
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1145:https://attack.mitre.org/techniques/T1145/
+MITRE-ATT&CK-T1145
 
-linux下的rsync六个使用实例：https://www.linuxprobe.com/how-linux-rsync.html
+<https://attack.mitre.org/techniques/T1145/>
+
+linux下的rsync六个使用实例
+
+<https://www.linuxprobe.com/how-linux-rsync.html>

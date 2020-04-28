@@ -50,6 +50,10 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1208：<https://attack.mitre.org/techniques/T1208/>
+MITRE-ATT&CK-T1208
 
-检测kerberosing活动：<https://adsecurity.org/?p=3458>
+<https://attack.mitre.org/techniques/T1208/>
+
+检测kerberosing活动
+
+<https://adsecurity.org/?p=3458>

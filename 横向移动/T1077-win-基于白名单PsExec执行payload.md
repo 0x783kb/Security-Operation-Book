@@ -192,6 +192,10 @@ ParentCommandLine: C:\Windows\PSEXESVC.exe
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1077：<https://attack.mitre.org/techniques/T1077/>
+MITRE-ATT&CK-T1077
 
-基于白名单PsExec执行payload：<https://blog.csdn.net/ws13129/article/details/89879771>
+<https://attack.mitre.org/techniques/T1077/>
+
+基于白名单PsExec执行payload
+
+<https://blog.csdn.net/ws13129/article/details/89879771>

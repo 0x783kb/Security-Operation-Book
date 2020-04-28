@@ -24,9 +24,9 @@ bash历史记录
 
 ## 测试复现
 
-icbc@icbc:~$ sudo chmod 766 abc.txt 
+icbc@icbc:~$ sudo chmod 766 abc.txt
 ......
-icbc@icbc:~$ sudo chmod u+x abc.txt 
+icbc@icbc:~$ sudo chmod u+x abc.txt
 
 ## 测试留痕
 
@@ -56,12 +56,22 @@ index=linux sourcetype="bash_history" bash_command="chmod *" OR bash_command="ch
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1222:https://attack.mitre.org/techniques/T1222/
+MITRE-ATT&CK-T1222
 
-Audit配置手册:https://www.cnblogs.com/bldly1989/p/7204358.html
+<https://attack.mitre.org/techniques/T1222/>
 
-DACL自主访问控制列表：https://baike.baidu.com/item/DACL/10681774?fr=aladdin
+Audit配置手册
 
-linux下chmod命令用法：https://blog.csdn.net/shinehoo/article/details/5821354
+<https://www.cnblogs.com/bldly1989/p/7204358.html>
 
-linux下chown命令用法：https://www.runoob.com/linux/linux-comm-chown.html
+DACL自主访问控制列表
+
+<https://baike.baidu.com/item/DACL/10681774?fr=aladdin>
+
+linux下chmod命令用法
+
+<https://blog.csdn.net/shinehoo/article/details/5821354>
+
+linux下chown命令用法
+
+<https://www.runoob.com/linux/linux-comm-chown.html>

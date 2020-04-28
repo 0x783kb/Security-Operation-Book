@@ -34,7 +34,7 @@ s：表示套接字
 
 操作这些标志与操作文件权限的命令是一样的, 都是 chmod. 有两种方法来操作：
 
-#### 方法一
+### 方法一
 
 chmod u+s xxx # 设置setuid权限，加上setuid标志(setuid 只对文件有效)
 
@@ -42,7 +42,7 @@ chmod g+s xxx # 设置setgid权限，加上setgid标志 (setgid 只对目录有�
 
 chmod o+t xxx # 设置stick bit权限，针对目录
 
-#### 方法二
+### 方法二
 
  采用八进制方式. 对一般文件通过三组八进制数字来置标志, 如 666, 777, 644等. 如果设置这些特殊标志, 则在这组
 
@@ -108,37 +108,37 @@ bash历史记录
 
 ## 测试复现
 
-### 方法一
+### 方法一/
 
 icbc@icbc:/hacker$ ls -l
 
 -rw-r--r--  1 root root    0 7月  19 17:22 bas.txt
 
-icbc@icbc:/hacker$ sudo chmod u+s bas.txt 
+icbc@icbc:/hacker$ sudo chmod u+s bas.txt
 
 icbc@icbc:/hacker$ ls -l
 
 -rwSr--r--  1 root root    0 7月  19 17:22 bas.txt
 
-icbc@icbc:/hacker$ sudo chmod g+s bas.txt 
+icbc@icbc:/hacker$ sudo chmod g+s bas.txt
 
 icbc@icbc:/hacker$ ls -l
 
 -rwSr-Sr--  1 root root    0 7月  19 17:22 bas.txt
 
-### 方法二
+### 方法二/
 
 icbc@icbc:/hacker$ ls -l
 
 -rwxr-xr-x  1 root root    0 8月  28 15:16 admin.txt
 
-icbc@icbc:/hacker$ sudo chmod 4777 admin.txt 
+icbc@icbc:/hacker$ sudo chmod 4777 admin.txt
 
 icbc@icbc:/hacker$ ls -l
 
 -rwsrwxrwx  1 root root    0 8月  28 15:16 admin.txt
 
-icbc@icbc:/hacker$ sudo chmod 2777 admin.txt 
+icbc@icbc:/hacker$ sudo chmod 2777 admin.txt
 
 icbc@icbc:/hacker$ ls -l
 
@@ -146,27 +146,27 @@ icbc@icbc:/hacker$ ls -l
 
 ## 测试留痕
 
-### 方法一
+### 方法一 /
 
 icbc@icbc:/hacker$ history
 
-650  chmod u+s bas.txt 
+650  chmod u+s bas.txt
 
-651  sudo chmod u+s bas.txt 
+651  sudo chmod u+s bas.txt
 
 652  ls -l
 
-653  sudo chmod g+s bas.txt 
+653  sudo chmod g+s bas.txt
 
-### 方法二
+### 方法二 /
 
 icbc@icbc:/hacker$ history
 
-683  sudo chmod 4777 admin.txt 
+683  sudo chmod 4777 admin.txt
 
 684  ls -l
 
-685  sudo chmod 2777 admin.txt 
+685  sudo chmod 2777 admin.txt
 
 ## 检测规则/思路
 
@@ -174,10 +174,18 @@ splunk检测规则：index=linux sourcetype=bash_history "chmod `4***`" OR "chmo
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1166：https://attack.mitre.org/techniques/T1166/
+MITRE-ATT&CK-T1166
 
-linux文件特殊权限：https://www.cnblogs.com/patriot/p/7874725.html
+<https://attack.mitre.org/techniques/T1166/>
 
-linux中chmod命令详解：https://www.cnblogs.com/lianstyle/p/8571975.html
+linux文件特殊权限
 
-linux下的chmod参数详解：https://blog.csdn.net/taiyang1987912/article/details/41121131
+<https://www.cnblogs.com/patriot/p/7874725.html>
+
+linux中chmod命令详解
+
+<https://www.cnblogs.com/lianstyle/p/8571975.html>
+
+linux下的chmod参数详解
+
+<https://blog.csdn.net/taiyang1987912/article/details/41121131>

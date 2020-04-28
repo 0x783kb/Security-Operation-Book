@@ -32,7 +32,7 @@ DCC2（域缓存凭据版本2），Windows Vista和更新版本的操作系统�
 
 - 最初只需要少量的远程计算机资源。对用户进行身份验证之前，远程计算机仅使用有限的资源，而不是像在先前版本中启动整个远程桌面连接。  
 - 可以通过降低拒绝服务攻击（尝试限制或阻止访问 Internet）的风险提供更高的安全保障。  
-- 使用远程计算机身份验证可以防止我们连接到因恶意目的而安装的远程计算机。 
+- 使用远程计算机身份验证可以防止我们连接到因恶意目的而安装的远程计算机。
 
 ### MSCACHE 解密 - Bootkey, LSA Key, NLKM Key
 
@@ -43,7 +43,7 @@ DCC2（域缓存凭据版本2），Windows Vista和更新版本的操作系统�
 3. 利用 LSA Key 解密 NLKM Key
 4. 利用 NLKM Key 解密 MSCACHE
 
-以上内容引用自：https://baijiahao.baidu.com/s?id=1611304657392579351
+以上内容引用自：<https://baijiahao.baidu.com/s?id=1611304657392579351>
 
 ## 测试案例
 
@@ -96,7 +96,7 @@ detection:
         EventID: 4688  # 进程创建
         NewProcessname: '*\mimikatz.exe' #新进程名称
         Tokenpromotiontype: 'TokenElevationTypeFull (2)' #令牌提升类型
-    selection2: 
+    selection2:
         EventID: 4673  #已调用特权服务。
         Processname: '*\mimikatz.exe' #进程>进程名称
         Privilege: 'SeTcbPrivilege'  #服务请求信息>特权：SeTcbPrivilege
@@ -109,12 +109,22 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：https://attack.mitre.org/techniques/T1003/
+MITRE-ATT&CK-T1003
 
-你并不懂 Mimikatz Part 2 - MSCACHE：https://baijiahao.baidu.com/s?id=1611304657392579351
+<https://attack.mitre.org/techniques/T1003/>
 
-DCC2算法介绍：https://openwall.info/wiki/john/MSCash2
+你并不懂 Mimikatz Part 2 - MSCACHE
 
-Windows密码缓存（mscache / mscash）v2：https://www.jedge.com/wordpress/windows-password-cache-mscache-mscash-v2/
+<https://baijiahao.baidu.com/s?id=1611304657392579351>
 
-转储和破解mscash-缓存的域凭据：https://ired.team/offensive-security/credential-access-and-credential-dumping/dumping-and-cracking-mscash-cached-domain-credentials
+DCC2算法介绍
+
+<https://openwall.info/wiki/john/MSCash2>
+
+Windows密码缓存（mscache / mscash）v2
+
+<https://www.jedge.com/wordpress/windows-password-cache-mscache-mscash-v2/>
+
+转储和破解mscash-缓存的域凭据
+
+<https://ired.team/offensive-security/credential-access-and-credential-dumping/dumping-and-cracking-mscash-cached-domain-credentials>

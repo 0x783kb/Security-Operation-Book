@@ -158,7 +158,7 @@ GreatSCT|MSF|白名单
 
 <http://www.secist.com/archives/6082.html>
 
-对亮神基于白名单 Msbuild.exe 执行 payload 第一季复现
+对亮神基于白名单Msbuild.exe执行payload第一季复现
 
 <https://blog.csdn.net/ws13129/article/details/89736941>
 

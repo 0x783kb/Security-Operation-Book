@@ -10,9 +10,9 @@
 
 目录还原模式账户
 
-每一个域控制器都有一个本地管理员账户其实也就是所谓的目录服务还原模式（DSRM）账户。DSRM的密码是在DC安装的时候就需要设置，并且很少会被重置。修改DSRM密码最基本的方法是在DC上运行ntdsutil命令行工具。 
+每一个域控制器都有一个本地管理员账户其实也就是所谓的目录服务还原模式（DSRM）账户。DSRM的密码是在DC安装的时候就需要设置，并且很少会被重置。修改DSRM密码最基本的方法是在DC上运行ntdsutil命令行工具。
 
-在安装了KB961320补丁的Windows Server 2008以及之后发布的Windows Server中，开始支持在DC上使用指定的域帐户同步DSRM密码。但是这个同步操作是一次性的，也就是说你必须在每次更改了DSRM密码后进行一次密码同步。 
+在安装了KB961320补丁的Windows Server 2008以及之后发布的Windows Server中，开始支持在DC上使用指定的域帐户同步DSRM密码。但是这个同步操作是一次性的，也就是说你必须在每次更改了DSRM密码后进行一次密码同步。
 
 如果一个攻击者可以得到运行在Windows Server 2008 R2 或 Windows Server 2012 R2（DsrmAdminLogonBehavior 的值为 2）的域控的DSRM账户密码或者HASH值，那么DSRM账户就可以被用于“HASH传递攻击”方式。这就使得攻击者可以保持域控制器的管理员权限，即使所有的域用户和计算机密码被修改了。
 
@@ -101,8 +101,14 @@ windows 安全日志4794
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1078:<https://attack.mitre.org/techniques/T1078/>
+MITRE-ATT&CK-T1078
 
-域控权限持久化之DSRM:<https://www.freebuf.com/articles/system/80968.html>
+<https://attack.mitre.org/techniques/T1078/>
 
-巧用DSRM密码同步将域控权限持久化:<https://www.uedbox.com/post/10269/>
+域控权限持久化之DSRM
+
+<https://www.freebuf.com/articles/system/80968.html>
+
+巧用DSRM密码同步将域控权限持久化
+
+<https://www.uedbox.com/post/10269/>

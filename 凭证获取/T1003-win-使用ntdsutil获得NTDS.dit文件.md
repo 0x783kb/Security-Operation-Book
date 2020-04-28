@@ -86,10 +86,18 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：<https://attack.mitre.org/techniques/T1003/>
+MITRE-ATT&CK-T1003
 
-域渗透——获得域控服务器的NTDS.dit文件：<https://xz.aliyun.com/t/2187>
+<https://attack.mitre.org/techniques/T1003/>
 
-NTDS.dit密码快速提取工具：<https://www.secpulse.com/archives/6301.html>
+域渗透——获得域控服务器的NTDS.dit文件
 
-域hash值破解的总结经验：<https://www.cnblogs.com/backlion/p/6785639.html?utm_source=itdadao&utm_medium=referral>
+<https://xz.aliyun.com/t/2187>
+
+NTDS.dit密码快速提取工具
+
+<https://www.secpulse.com/archives/6301.html>
+
+域hash值破解的总结经验
+
+<https://www.cnblogs.com/backlion/p/6785639.html?utm_source=itdadao&utm_medium=referral>

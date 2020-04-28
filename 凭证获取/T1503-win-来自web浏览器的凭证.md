@@ -27,8 +27,10 @@ windows 安全日志
 
 ## 测试留痕
 
-windows 安全日志 事件ID：4633 注意此类事件只有2016以上系统才会产生。
+windows 安全日志 事件ID：4633
 值得注意的是：正常情况下不会有用户选择导出web浏览器缓存凭据。当网内出现此类告警事件，值得引起安全人员的警惕！
+
+此类事件只有2016以上版本系统才存在此类事件。
 
 ## 检测规则/思路
 
@@ -43,11 +45,11 @@ logsource:
     product: windows
     service: security
 detection:
-    selection: 
+    selection:
         EventID: 4663 #试图访问对象。
         Objectserver: Security #对象>对象服务器
         Objecttype: file #对象>对象类型
-        Objectname: 
+        Objectname:
            - 'C:\users\*\appdata\roaming\opera software\opera stable\login data' #对象>对象名 Opera
            - 'C:\Users\IEUser\AppData\Roaming\Mozilla\Firefox\Profiles\kushu3sd.default\key4.db' #Firefox
            - 'C:\Users\IEUser\AppData\Roaming\Mozilla\Firefox\Profiles\kushu3sd.default\logins.json' #Firefox
@@ -59,6 +61,10 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1503：https://attack.mitre.org/techniques/T1503/
+MITRE-ATT&CK-T1503
 
-如何窃取和解密远程存储在Chrome和Firefox中的密码：https://null-byte.wonderhowto.com/how-to/hacking-windows-10-steal-decrypt-passwords-stored-chrome-firefox-remotely-0183600/
+<https://attack.mitre.org/techniques/T1503/>
+
+如何窃取和解密远程存储在Chrome和Firefox中的密码
+
+<https://null-byte.wonderhowto.com/how-to/hacking-windows-10-steal-decrypt-passwords-stored-chrome-firefox-remotely-0183600/>

@@ -26,7 +26,7 @@ icbc@icbc:/$ grep -riP passwd /etc/passwd
 
 ### audit日志
 
-icbc@icbc:/$ gedit /var/log/audit/audit.log 
+icbc@icbc:/$ gedit /var/log/audit/audit.log
 
 type=SYSCALL msg=audit(1563526266.080:744): arch=c000003e syscall=59 success=yes exit=0 a0=55f3435691b0 a1=55f3434345d0 a2=55f343573580 a3=8 items=2 ppid=2031 pid=4855 auid=1000 uid=1000 gid=1000 euid=1000 suid=1000 fsuid=1000 egid=1000 sgid=1000 fsgid=1000 tty=pts0 ses=3 comm="grep" exe="/usr/bin/grep" key="auditcmd"
 type=EXECVE msg=audit(1563526266.080:744): argc=5 a0="grep" a1="--color=auto" a2="-riP" a3="passwd" a4="/etc/passwd"
@@ -43,12 +43,11 @@ icbc@icbc:/$ history
 
 ## 检测规则/思路
 
-### audit日志
+### audit 日志
 
 index=linux sourcetype=linux_audit type=execve a0=grep   a0="grep" a1="--color=auto" a2="-riP" a3="passwd"
 
 值得注意的是：你需要自行配置Audit审核规则
-
 
 ```yml
 title: 攻击者查看linux下可能包含用户账户密码的文件
@@ -70,16 +69,18 @@ logsource:
   service: history
 detection:
   selection:
-  keywords: 
+  keywords:
 ​    - grep * passwd
   condition: keywords
 level: medium
 ```
 
-### bash历史记录
+### bash 历史记录
 
 index=linux sourcetype="bash_history" grep password | table host,user_name,bash_command
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1081:<https://attack.mitre.org/techniques/T1081/>
+MITRE-ATT&CK-T1081
+
+<https://attack.mitre.org/techniques/T1081/>

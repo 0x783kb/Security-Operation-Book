@@ -139,8 +139,14 @@ EventID:4688 #安全日志，windows server 2012以上配置审核策略，可�
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1118:<https://attack.mitre.org/techniques/T1118/>
+MITRE-ATT&CK-T1118
 
-基于白名单Installutil.exe执行payload:<https://micro8.gitbook.io/micro8/contents-1/71-80/72-ji-yu-bai-ming-dan-installutil.exe-zhi-hang-payload-di-er-ji>
+<https://attack.mitre.org/techniques/T1118/>
 
-基于白名单的Payload:<https://blog.csdn.net/weixin_30790841/article/details/101848854>
+基于白名单Installutil.exe执行payload
+
+<https://micro8.gitbook.io/micro8/contents-1/71-80/72-ji-yu-bai-ming-dan-installutil.exe-zhi-hang-payload-di-er-ji>
+
+基于白名单的Payload
+
+<https://blog.csdn.net/weixin_30790841/article/details/101848854>

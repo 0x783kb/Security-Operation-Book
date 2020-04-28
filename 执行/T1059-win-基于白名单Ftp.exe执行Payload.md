@@ -152,4 +152,4 @@ MITRE-ATT&CK-T1059
 
 基于白名单的Payload
 
-<https://blog.csdn.net/weixin_30790841/article/details/101848854>
+s<https://blog.csdn.net/weixin_30790841/article/details/101848854>

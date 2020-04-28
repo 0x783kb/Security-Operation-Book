@@ -52,4 +52,6 @@ level: critical
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1086：<https://attack.mitre.org/techniques/T1086/>
+MITRE-ATT&CK-T1086
+
+<https://attack.mitre.org/techniques/T1086/>

@@ -45,4 +45,6 @@ index=linux sourcetype="bash_history" rm * .log | table host, user_name, bash_co
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1070:https://attack.mitre.org/techniques/T1070/
+MITRE-ATT&CK-T1070
+
+<https://attack.mitre.org/techniques/T1070/>

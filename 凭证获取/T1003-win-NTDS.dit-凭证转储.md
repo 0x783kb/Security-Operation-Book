@@ -1,4 +1,4 @@
-# T1003-windows-基于NTDS凭证获取
+# T1003-windows-基于NTDS凭证获取1
 
 ## 来自ATT&CK的描述
 
@@ -99,30 +99,56 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：<https://attack.mitre.org/techniques/T1003/>
+MITRE-ATT&CK-T1003
 
-从活动目录中获取域管理员权限的6种方法：<https://www.4hou.com/technology/4256.html>
+<https://attack.mitre.org/techniques/T1003/>
 
-如何巧妙的从ntds.dit中提取Hash和域信息：<https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-%E8%8E%B7%E5%BE%97%E5%9F%9F%E6%8E%A7%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84NTDS.dit%E6%96%87%E4%BB%B6/>
+从活动目录中获取域管理员权限的6种方法
 
-域渗透——获得域控服务器的NTDS.dit文件：<https://xz.aliyun.com/t/2187>
+<https://www.4hou.com/technology/4256.html>
 
-从NTDS.dit获取密码hash的三种方法：<https://www.freebuf.com/sectool/176876.html>
+如何巧妙的从ntds.dit中提取Hash和域信息
 
-从NTDS.dit文件中提取密码哈希值：<https://blog.stealthbits.com/extracting-password-hashes-from-the-ntds-dit-file/>
+<https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-%E8%8E%B7%E5%BE%97%E5%9F%9F%E6%8E%A7%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84NTDS.dit%E6%96%87%E4%BB%B6/>
 
-攻击者如何转储AD数据库凭据：<https://adsecurity.org/?p=2398>
+域渗透——获得域控服务器的NTDS.dit文件
 
-在AD中获得域管理员权限的攻击方法：<https://adsecurity.org/?p=2362>
+<https://xz.aliyun.com/t/2187>
+
+从NTDS.dit获取密码hash的三种方法
+
+<https://www.freebuf.com/sectool/176876.html>
+
+从NTDS.dit文件中提取密码哈希值
+
+<https://blog.stealthbits.com/extracting-password-hashes-from-the-ntds-dit-file/>
+
+攻击者如何转储AD数据库凭据
+
+<https://adsecurity.org/?p=2398>
+
+在AD中获得域管理员权限的攻击方法
+
+<https://adsecurity.org/?p=2362>
 
 **强力推荐**a
 
-转储活动目录数据库方法总结： <http://ju.outofmemory.cn/entry/232676>
+转储活动目录数据库方法总结
 
-powershell开启远程管理的方法请参考： <https://blog.51cto.com/1163739403/1826546>
+<http://ju.outofmemory.cn/entry/232676>
 
-卷影复制NTDS.dit域散列远程-第1部分： <https://room362.com/post/2013/2013-06-10-volume-shadow-copy-ntdsdit-domain-hashes-remotely-part-1/>
+powershell开启远程管理的方法请参考
 
-从NTDS.dit文件获取哈希：<https://www.swordshield.com/blog/getting-hashes-from-ntds-dit-file/>
+<https://blog.51cto.com/1163739403/1826546>
 
-转储活动目录数据库凭证的方法总结：<https://blog.csdn.net/weixin_33713707/article/details/87980463>
+卷影复制NTDS.dit域散列远程-第1部分
+
+<https://room362.com/post/2013/2013-06-10-volume-shadow-copy-ntdsdit-domain-hashes-remotely-part-1/>
+
+从NTDS.dit文件获取哈希
+
+<https://www.swordshield.com/blog/getting-hashes-from-ntds-dit-file/>
+
+转储活动目录数据库凭证的方法总结
+
+<https://blog.csdn.net/weixin_33713707/article/details/87980463>

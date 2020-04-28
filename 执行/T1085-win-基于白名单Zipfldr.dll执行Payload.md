@@ -112,6 +112,10 @@ Server username: WIN-IFPMACUK8BT\Administrator
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1085:<https://attack.mitre.org/techniques/T1085/>
+MITRE-ATT&CK-T1085
 
-基于白名单的Payload:<https://blog.csdn.net/weixin_30790841/article/details/101848854>
+<https://attack.mitre.org/techniques/T1085/>
+
+基于白名单的Payload
+
+<https://blog.csdn.net/weixin_30790841/article/details/101848854>

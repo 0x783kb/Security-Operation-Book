@@ -199,6 +199,10 @@ Autoruns下载：<https://docs.microsoft.com/zh-cn/sysinternals/downloads/autoru
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1101：<https://attack.mitre.org/techniques/T1101/>
+MITRE-ATT&CK-T1101
 
-AD域SSP权限维持与安全防护：<https://xz.aliyun.com/t/7432>
+<https://attack.mitre.org/techniques/T1101/>
+
+AD域SSP权限维持与安全防护
+
+<https://xz.aliyun.com/t/7432>

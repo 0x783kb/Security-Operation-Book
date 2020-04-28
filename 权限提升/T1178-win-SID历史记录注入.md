@@ -71,6 +71,6 @@ MITRE-ATT&CK-T1178
 
 <https://uknowsec.cn/posts/notes/域渗透-域维权.html>
 
-如何利用 SID History 创建域控权限后门？
+如何利用SID History创建域控权限后门？
 
 <https://www.4hou.com/penetration/5476.html>

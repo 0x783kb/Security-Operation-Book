@@ -69,6 +69,10 @@ C:\Windows\system32\ntdsutil.exe: q
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：<https://attack.mitre.org/techniques/T1003/>
+MITRE-ATT&CK-T1003
 
-NTDSutil简介：<https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc753343(v=ws.10)?redirectedfrom=MSDN>
+<https://attack.mitre.org/techniques/T1003/>
+
+NTDSutil简介
+
+<https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc753343(v=ws.10)?redirectedfrom=MSDN>

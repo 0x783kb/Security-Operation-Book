@@ -36,7 +36,10 @@ output cmd
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1059：https://attack.mitre.org/techniques/T1059/
+MITRE-ATT&CK-T1059
 
-windows重点监控事件ID表：https://www.96007.club/2019/08/21/21/
+<https://attack.mitre.org/techniques/T1059/>
 
+windows重点监控事件ID表
+
+<https://www.96007.club/2019/08/21/21/>

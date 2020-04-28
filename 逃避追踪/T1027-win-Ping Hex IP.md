@@ -51,6 +51,10 @@ level: high
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1027：<https://attack.mitre.org/techniques/T1027/>
+MITRE-ATT&CK-T1027
 
-IP地址进制转换：<https://tool.520101.com/wangluo/jinzhizhuanhuan/>
+<https://attack.mitre.org/techniques/T1027/>
+
+IP地址进制转换
+
+<https://tool.520101.com/wangluo/jinzhizhuanhuan/>

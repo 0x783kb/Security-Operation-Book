@@ -42,7 +42,7 @@ icbc@icbc:/$ history
 
 ## 检测规则/思路
 
-### audit日志
+### audit 日志
 
 index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table host,auid,syscall,syscall_name,exe
 
@@ -52,7 +52,7 @@ index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table ho
 sudo auditctl -w ~/.bash_history -k bash_history_110
 ```
 
-### bash历史记录
+### bash 历史记录
 
 index=linux sourcetype=bash_history cat bash_history | table _time,host,user_name,bash_command
 
@@ -72,13 +72,13 @@ detection:
 ​    keywords:
 ​       - syscall=257 key=bash_history_110
 ​    condition: keywords
-----------------------------------------------------------------------------------------   
+----------------------------------------------------------------------------------------
 logsource:
 ​    product: linux
 ​    service: history
 detection:
 ​    selection:
-​    keywords: 
+​    keywords:
 ​       - cat bash_history
 ​    condition: keywords
 level: medium
@@ -86,6 +86,10 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1139:https://attack.mitre.org/techniques/T1139/
+MITRE-ATT&CK-T1139
 
-Audit配置手册:https://www.cnblogs.com/bldly1989/p/7204358.html
+<https://attack.mitre.org/techniques/T1139/>
+
+Audit配置手册
+
+<https://www.cnblogs.com/bldly1989/p/7204358.html>

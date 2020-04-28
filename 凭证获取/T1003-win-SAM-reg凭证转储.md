@@ -104,12 +104,22 @@ level: high
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：https://attack.mitre.org/techniques/T1003/
+MITRE-ATT&CK-T1003
 
-pwdump7：http://passwords.openwall.net/b/pwdump/pwdump7.zip
+<https://attack.mitre.org/techniques/T1003/>
 
-powershell：https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-PowerDump.ps1
+pwdump7
 
-mimikatz wiki：https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
+<http://passwords.openwall.net/b/pwdump/pwdump7.zip>
 
-关于更多通过SAM数据库获取本地用户hash你可以参考：https://www.4hou.com/technology/10878.html
+powershell
+
+<https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-PowerDump.ps1>
+
+mimikatz wiki
+
+<https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump>
+
+关于更多通过SAM数据库获取本地用户hash你也可以参考
+
+<https://www.4hou.com/technology/10878.html>

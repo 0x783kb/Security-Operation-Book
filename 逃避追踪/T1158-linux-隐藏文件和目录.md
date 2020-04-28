@@ -40,7 +40,7 @@ icbc@icbc:/$ history
 
 index=linux sourcetype=bash_history bash_command="mkdir .*" | table host,user_name,bash_command
 
-index=linux sourcetype=bash_history bash_command="mv * .*" | table host,user_name,bash_command
+index=linux sourcetype=bash_history bash_command="mv *.*" | table host,user_name,bash_command
 
 值得注意的是：你也可以通过命令直接在问题主机上进行查找，当然，你可以使用白名单来过滤掉linux系统中的标准隐藏文件/目录。这样可以减轻误报。
 
@@ -54,4 +54,6 @@ find /home/ -type f -name ".*"
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1158:https://attack.mitre.org/techniques/T1158/
+MITRE-ATT&CK-T1158
+
+<https://attack.mitre.org/techniques/T1158/>

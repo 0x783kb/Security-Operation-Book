@@ -22,9 +22,9 @@ bash历史记录
 
 ## 测试复现
 
-icbc@icbc:~$ rm -r abc.txt 
+icbc@icbc:~$ rm -r abc.txt
 
-icbc@icbc:~$ shred -u abc.txt 
+icbc@icbc:~$ shred -u abc.txt
 
 ## 测试留痕
 
@@ -36,9 +36,9 @@ icbc@icbc:~$ shred -u abc.txt
 
 icbc@icbc:~$ history
 
-  650  rm -r abc.txt 
+  650  rm -r abc.txt
 
-  654  shred -u abc.txt 
+  654  shred -u abc.txt
 
 ## 检测规则/思路
 
@@ -58,6 +58,10 @@ index=linux sourcetype="bash_history" bash_command="rm *" OR  bash_command="shre
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1107:https://attack.mitre.org/techniques/T1107/
+MITRE-ATT&CK-T1107
 
-linux下rm命令详解：https://www.cnblogs.com/ftl1012/p/9247107.html
+<https://attack.mitre.org/techniques/T1107/>
+
+linux下rm命令详解
+
+<https://www.cnblogs.com/ftl1012/p/9247107.html>

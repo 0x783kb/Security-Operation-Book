@@ -46,10 +46,18 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1047：<https://attack.mitre.org/techniques/T1047/>
+MITRE-ATT&CK-T1047
 
-CAR-2016-03-002通过WMIC创建远程进程：<https://car.mitre.org/analytics/CAR-2016-03-002/>
+<https://attack.mitre.org/techniques/T1047/>
 
-wmic命令收集与整理：<https://blog.csdn.net/qq_20307987/article/details/7322203>
+CAR-2016-03-002通过WMIC创建远程进程
 
-wmic内网使用：<https://www.cnblogs.com/0xdd/p/11393392.html>
+<https://car.mitre.org/analytics/CAR-2016-03-002/>
+
+wmic命令收集与整理
+
+<https://blog.csdn.net/qq_20307987/article/details/7322203>
+
+wmic内网使用
+
+<https://www.cnblogs.com/0xdd/p/11393392.html>

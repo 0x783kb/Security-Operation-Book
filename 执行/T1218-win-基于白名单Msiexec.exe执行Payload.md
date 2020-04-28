@@ -122,6 +122,10 @@ ParentCommandLine: "C:\Windows\system32\cmd.exe"
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1218:<https://attack.mitre.org/techniques/T1218/>
+MITRE-ATT&CK-T1218
 
-基于白名单的Payload:<https://blog.csdn.net/weixin_30790841/article/details/101848854>
+<https://attack.mitre.org/techniques/T1218/>
+
+基于白名单的Payload
+
+<https://blog.csdn.net/weixin_30790841/article/details/101848854>

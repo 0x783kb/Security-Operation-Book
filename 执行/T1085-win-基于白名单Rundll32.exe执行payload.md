@@ -136,6 +136,10 @@ EVentID: 5156 #Windows 筛选平台已允许连接。
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1085:<https://attack.mitre.org/techniques/T1085/>
+MITRE-ATT&CK-T1085
 
-windows下基于白名单获取shell的方法整理（上）:<http://www.safe6.cn/article/155>
+<https://attack.mitre.org/techniques/T1085/>
+
+windows下基于白名单获取shell的方法整理（上）
+
+<http://www.safe6.cn/article/155>

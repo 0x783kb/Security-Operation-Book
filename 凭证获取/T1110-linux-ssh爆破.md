@@ -52,7 +52,7 @@ type=USER_AUTH msg=audit(1572163129.581:316): pid=2165 uid=0 auid=4294967295 ses
 ```yml
 title: linux下ssh暴力破解
 description: Ubuntu18.04、kali
-references: 
+references:
 tags: T1110
 status: experimental
 author: 12306Bro
@@ -69,7 +69,6 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1110：https://attack.mitre.org/techniques/T1110/
+MITRE-ATT&CK-T1110
 
-
-
+<https://attack.mitre.org/techniques/T1110/>

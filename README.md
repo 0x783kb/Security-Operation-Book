@@ -1,9 +1,9 @@
 # Threatunting-book
 
-本资料均参考开源资料，经过本地实测后形成sigma规则，帮助安全分析人员快速理解规则原理及检测特征。如果你选择使用此规则库，您需要留意这些检测规则的注意事项，比如版本限制、安全审计项、audit审核策略等，如果您对此感兴趣，也可以加入我们的Threathunting团队！
+本来是想做一个sigma规则库，涉及ATT&CK技术、场景测试(PS:少走点坑)、检测思路，后来发现一个人的力量实在难以支撑下去(PS:毕竟还要生活，还有保命)，再加上自己学习重心的偏移。后续将以AD域渗透技巧学习+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信我。我们可以互相探讨学习！
 
-如果你想知道Threathunting-book中涉及的TID及相关阶段，我建议您查看Threathunting-book Wiki地址。
+同样，Threathunting-book wiki将会停止维护。
 
-<https://github.com/12306Bro/Threathunting-book/wiki/Threathunting-Book>
+目前已覆盖71个TID，104个场景，未来将会随缘更新！如果你发现哪里存在问题，可以及时反馈给我，它可能会被修改！
 
-目前已覆盖70个TID，101个场景，未来我们将会持续更新！
+最后，提醒大家，保命要紧！

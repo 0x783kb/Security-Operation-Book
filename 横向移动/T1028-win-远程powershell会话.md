@@ -48,6 +48,10 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1028：<https://attack.mitre.org/techniques/T1028/>
+MITRE-ATT&CK-T1028
 
-winrm service：<https://www.cnblogs.com/gamewyd/p/6805595.html>
+<https://attack.mitre.org/techniques/T1028/>
+
+winrm service
+
+<https://www.cnblogs.com/gamewyd/p/6805595.html>

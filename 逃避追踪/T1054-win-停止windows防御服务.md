@@ -47,4 +47,6 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1054：https://attack.mitre.org/techniques/T1054/
+MITRE-ATT&CK-T1054
+
+<https://attack.mitre.org/techniques/T1054/>

@@ -102,19 +102,26 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：https://attack.mitre.org/techniques/T1003/
+MITRE-ATT&CK-T1003
 
-windows SSPI模型：https://docs.microsoft.com/zh-cn/windows/win32/secauthn/sspi-model
+<https://attack.mitre.org/techniques/T1003/>
 
-MSV身份验证包：https://blog.csdn.net/lionzl/article/details/7725116
+windows SSPI模型
 
-Wdigest摘要认证协议：https://www.4hou.com/info/news/8126.html
+<https://docs.microsoft.com/zh-cn/windows/win32/secauthn/sspi-model>
 
-Kerberos身份认证协议技术参考：https://www.cnblogs.com/adylee/articles/893448.html
+MSV身份验证包
 
-CredSSP凭证安全支持提供程序协议：https://docs.microsoft.com/zh-cn/windows/win32/secauthn/credential-security-support-provider
+<https://blog.csdn.net/lionzl/article/details/7725116>
 
+Wdigest摘要认证协议
 
+<https://www.4hou.com/info/news/8126.html>
 
+Kerberos身份认证协议技术参考
 
+<https://www.cnblogs.com/adylee/articles/893448.html>
 
+CredSSP凭证安全支持提供程序协议
+
+<https://docs.microsoft.com/zh-cn/windows/win32/secauthn/credential-security-support-provider>

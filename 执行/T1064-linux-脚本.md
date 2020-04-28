@@ -37,6 +37,10 @@ index = linux sourcetype = linux_audit syscall = 59  | table host，syscall，sy
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1064:https://attack.mitre.org/techniques/T1064/
+MITRE-ATT&CK-T1064
 
-Audit配置手册:https://www.cnblogs.com/bldly1989/p/7204358.html
+<https://attack.mitre.org/techniques/T1064/>
+
+Audit配置手册
+
+s<https://www.cnblogs.com/bldly1989/p/7204358.html>

@@ -46,7 +46,7 @@ mimikatz # misc::mflt
 0 1     135000 luafv
 ```
 
-关于更多的如何检测被入侵的主机是否存在sysmon，你可以参考：https://anquan.baidu.com/article/350，如何检测sysmon不是本文的重点.
+关于更多的如何检测被入侵的主机是否存在sysmon，你可以参考：<https://anquan.baidu.com/article/350，如何检测sysmon不是本文的重点.>
 
 ### **绕过Sysmon的两种方法**
 
@@ -70,21 +70,21 @@ sysmon日志、Windows-WMI-Activity日志，system日志
 
 ## 测试复现
 
-#### 删除配置项
+### 删除配置项1
 
 ```dos
-$query = "SELECT * FROM RegistryKeyChangeEvent " + 
-    "WHERE Hive ='HKEY_LOCAL_MACHINE' " + 
+$query = "SELECT * FROM RegistryKeyChangeEvent " +
+    "WHERE Hive ='HKEY_LOCAL_MACHINE' " +
     "AND KeyPath ='SYSTEM\\CurrentControlSet\\Services\\SysmonDrv\\Parameters'"
 
-Register-WMIEvent -Query $query -Action { 
+Register-WMIEvent -Query $query -Action {
     Write-host "Sysmon config updated, deleting config."
     Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\SysmonDrv\Parameters" -Name "Rules" }
 ```
 
 需要注意一点，此时Sysmon会恢复默认配置，因此会记录进程创建和进程终止事件。
 
-#### 卸载SysmonDrv驱动
+### 卸载SysmonDrv驱动1
 
 ```dos
 Windows PowerShell
@@ -105,7 +105,7 @@ luafv                                   1       135000         0
 PS C:\Users\Administrator>
 ```
 
-#### 关闭sysmon服务
+### 关闭sysmon服务
 
 任务管理器>服务>sysmon服务>停止
 
@@ -115,7 +115,7 @@ PS C:\Users\Administrator>
 
 ## 检测规则/思路
 
-#### 删除配置项
+### 删除配置项2
 
 ```yml
 title: 删除sysmon配置项
@@ -159,7 +159,7 @@ detection:
 level: medium
 ```
 
-#### 关闭sysmon服务
+#### 关闭sysmon服务2
 
 ```yml
 title: 以其他方式关闭sysmon服务
@@ -184,8 +184,14 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1054：https://attack.mitre.org/techniques/T1054/
+MITRE-ATT&CK-T1054：
 
-审核策略相关介绍：https://www.malwarearchaeology.com/logging
+<https://attack.mitre.org/techniques/T1054/>
 
-如何规避sysmon：https://www.anquanke.com/post/id/161630
+审核策略相关介绍
+
+<https://www.malwarearchaeology.com/logging>
+
+如何规避sysmon
+
+<https://www.anquanke.com/post/id/161630>

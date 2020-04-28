@@ -53,8 +53,14 @@ detection:
 level: medium
 ```
 
+其中4768需要排除正常条件，比如服务 ID:S-1-0-0或者用户名为ntp$ 计算机时间同步
+
 ## 参考推荐
 
-MITRE-ATT&CK-T1097：<https://attack.mitre.org/techniques/T1097/>
+MITRE-ATT&CK-T1097
 
-内网渗透之PTH&PTT&PTK：<https://www.bbsmax.com/A/A7zgkjRPz4/>
+<https://attack.mitre.org/techniques/T1097/>
+
+内网渗透之PTH&PTT&PTK
+
+<https://www.bbsmax.com/A/A7zgkjRPz4/>

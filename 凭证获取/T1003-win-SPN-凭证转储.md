@@ -121,20 +121,38 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1003：<https://attack.mitre.org/techniques/T1003/>
+MITRE-ATT&CK-T1003
 
-SPN扫描SQL服务主体脚本：<https://github.com/PyroTek3/PowerShell-AD-Recon/blob/master/Discover-PSMSSQLServers>
+<https://attack.mitre.org/techniques/T1003/>
 
-powershell探测脚本：<https://github.com/PyroTek3/PowerShell-AD-Recon>
+SPN扫描SQL服务主体脚本
 
-Active Directory中获取域管理员权限的攻击方法：<https://www.cnblogs.com/backlion/p/7159296.html>
+<https://github.com/PyroTek3/PowerShell-AD-Recon/blob/master/Discover-PSMSSQLServers>
 
-使用KERBEROASTING提取服务帐户密码：<https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/>
+powershell探测脚本
 
-Active Directory中服务主体名称的说明：<https://thebackroomtech.com/2018/08/21/explanation-of-service-principal-names-in-active-directory/>
+<https://github.com/PyroTek3/PowerShell-AD-Recon>
 
-检测Kerberoasting活动：<https://adsecurity.org/?p=3458>
+Active Directory中获取域管理员权限的攻击方法
 
-检测Kerberoasting活动第2部分：<https://adsecurity.org/?p=3513>
+<https://www.cnblogs.com/backlion/p/7159296.html>
 
-Active Directory PowerShell模块收集AD信息：<https://www.cnblogs.com/backlion/p/9267100.html>
+使用KERBEROASTING提取服务帐户密码
+
+<https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/>
+
+Active Directory中服务主体名称的说明
+
+<https://thebackroomtech.com/2018/08/21/explanation-of-service-principal-names-in-active-directory/>
+
+检测Kerberoasting活动
+
+<https://adsecurity.org/?p=3458>
+
+检测Kerberoasting活动第2部分
+
+<https://adsecurity.org/?p=3513>
+
+Active Directory PowerShell模块收集AD信息
+
+<https://www.cnblogs.com/backlion/p/9267100.html>

@@ -114,7 +114,7 @@ Import-Module .\PowerView.ps1
 Add-ObjectAcl -TargetADSprefix 'CN=AdminSDHolder,CN=System' -PrincipalSamAccountName xiaomi -Verbose -Rights All
 ```
 
-**注意:本文提到的百度社区参考链接此处存在问题。是Rights不是文中提到的Right**
+注意:本文提到的百度社区参考链接此处存在问题。是Rights不是文中提到的Right
 
 真实测试情况
 
@@ -178,10 +178,18 @@ level: medium
 
 ## 参考推荐
 
-域渗透——AdminSDHolder:<https://anquan.baidu.com/article/877>
+域渗透——AdminSDHolder
 
-PowerView:<https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1>
+<https://anquan.baidu.com/article/877>
 
-SDPROP说明:<https://xz.aliyun.com/t/7276>
+PowerView
 
-MITRE-ATT&CK-T1098:<https://attack.mitre.org/techniques/T1098/>
+<https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1>
+
+SDPROP说明
+
+<https://xz.aliyun.com/t/7276>
+
+MITRE-ATT&CK-T1098
+
+<https://attack.mitre.org/techniques/T1098/>

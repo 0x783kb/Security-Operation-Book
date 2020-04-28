@@ -100,6 +100,10 @@ msf5 exploit(windows/misc/hta_server) > [*] 192.168.126.156  hta_server - Delive
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1170:<https://attack.mitre.org/techniques/T1170/>
+MITRE-ATT&CK-T1170
 
-远控免杀专题(37)-白名单Mshta.exe执行payload:<http://sec.nmask.cn/article_content?a_id=d1a4d20858c9283aef9ef49d2e98352c>
+<https://attack.mitre.org/techniques/T1170/>
+
+远控免杀专题(37)-白名单Mshta.exe执行payload
+
+<http://sec.nmask.cn/article_content?a_id=d1a4d20858c9283aef9ef49d2e98352c>
