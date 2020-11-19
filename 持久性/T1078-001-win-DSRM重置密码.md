@@ -14,7 +14,7 @@
 
 在安装了KB961320补丁的Windows Server 2008以及之后发布的Windows Server中，开始支持在DC上使用指定的域帐户同步DSRM密码。但是这个同步操作是一次性的，也就是说你必须在每次更改了DSRM密码后进行一次密码同步。
 
-如果一个攻击者可以得到运行在Windows Server 2008 R2 或 Windows Server 2012 R2（DsrmAdminLogonBehavior 的值为 2）的域控的DSRM账户密码或者HASH值，那么DSRM账户就可以被用于“HASH传递攻击”方式。这就使得攻击者可以保持域控制器的管理员权限，即使所有的域用户和计算机密码被修改了。
+如果一个攻击者可以得到运行在Windows Server 2008 R2或 Windows Server 2012 R2（DsrmAdminLogonBehavior的值为2）的域控的DSRM账户密码或者HASH值，那么DSRM账户就可以被用于“HASH传递攻击”方式。这就使得攻击者可以保持域控制器的管理员权限，即使所有的域用户和计算机密码被修改了。
 
 ## 检测日志
 
@@ -73,7 +73,7 @@ Q
 
 ### 0x03 使用DSRM凭证的一种更为高级的方法
 
-正如0x02所述，DSRM账户实际上是一个可用的本地管理员账户，并且可以通过网络验证并登录到DC中，当然，**要确保DsrmAdminLogonBehavior注册表键的值为 2**。另外，攻击者并不需要知道DSRM账户的真实密码，只需要知道这个账户的HASH值。这就意味着一旦攻击者有了DSRM账户的HASH值，就可以通过网络使用“HASH传递攻击”方式，并以一个管理员的身份访问DC。这个方法在Windows Server 2008 R2 和Windows Server 2012 R2的域控中已经测试成功了。
+正如0x02所述，DSRM账户实际上是一个可用的本地管理员账户，并且可以通过网络验证并登录到DC中，当然，**要确保DsrmAdminLogonBehavior注册表键的值为 2**。另外，攻击者并不需要知道DSRM账户的真实密码，只需要知道这个账户的HASH值。这就意味着一旦攻击者有了DSRM账户的HASH值，就可以通过网络使用“HASH传递攻击”方式，并以一个管理员的身份访问DC。这个方法在Windows Server 2008 R2和Windows Server 2012 R2的域控中已经测试成功了。
 
 使用法国佬神器（mimikatz）执行如下命令行：
 
@@ -89,6 +89,32 @@ windows 安全日志4794
 
 ## 检测规则/思路
 
+### Sigma规则
+
+```yml
+title: 目录服务还原模式（DSRM）帐户上的密码更改
+status: 稳定
+description: 目录服务还原模式（DSRM）帐户是域控制器上的本地管理员帐户。攻击者可以更改密码以获得持久性。
+references:
+    - https://adsecurity.org/?p=1714
+tags:
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.t1098
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4794 #试图设置目录服务还原模式管理员密码
+    condition: selection
+falsepositives:
+    - Initial installation of a domain controller
+level: high
+```
+
+### 建议
+
 1.监控与DSRM密码重置和使用相关的事件日志
 
   4794：试图设置目录服务还原模式管理员密码。
@@ -96,7 +122,7 @@ windows 安全日志4794
 2.监控如下注册表位置的值，当值为 1 或 2时，应引起警示
 
 ```reg
-  HKLM\System\CurrentControlSet\Control\Lsa\DSRMAdminLogonBehavior
+HKLM\System\CurrentControlSet\Control\Lsa\DSRMAdminLogonBehavior
 ```
 
 ## 参考推荐

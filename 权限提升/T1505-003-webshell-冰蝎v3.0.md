@@ -22,20 +22,24 @@ HTTP流量
 
 ## 检测规则/思路
 
-检测规则参考suricata
+### suricata规则
 
-<https://github.com/suricata-rules/suricata-rules/tree/master/Behinder>
+参考来源：<https://github.com/suricata-rules/suricata-rules/tree/master/Behinder>
 
 ```yml
 alert http any any -> any any  (msg: "Behinder3 PHP HTTP Request"; flow: established, to_server; content:".php"; http_uri;  pcre:"/[a-zA-Z0-9+/]{1000,}=/i"; flowbits:set,behinder3;noalert; classtype:shellcode-detect; sid: 3016017; rev: 1; metadata:created_at 2020_08_17,by al0ne;)
 alert http any any -> any any (msg: "Behinder3  PHP HTTP Response"; flow: established,to_client; content:"200"; http_stat_code; flowbits: isset,behinder3; pcre:"/[a-zA-Z0-9+/]{100,}=/i"; classtype:shellcode-detect; sid: 3016018; rev: 1; metadata:created_at 2020_08_17,by al0ne;)
 ```
 
-检测规则参考(WAF/IDS/IPS)
+### 自定义检测规则
 
 ```
 自定义规则进行防护：(uri_path * rco \.(jsp|jspx|php)$)&&(method * belong POST)&&(request_body * req ^[\w+/]{1000,}=?=?$)
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

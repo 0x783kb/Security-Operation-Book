@@ -76,7 +76,9 @@ User : test2
 
 ## 检测规则/思路
 
-### 攻击方法：本地导出sam、system文件，离线进行hash提取(administrator)·
+### sigma规则
+
+攻击方法：本地导出sam、system文件，离线进行hash提取(administrator)·
 
 ```yml
 title: 本地导出sam、system文件，离线进行hash提取(administrator)
@@ -101,6 +103,12 @@ detection:
 ​    condition: all of them
 level: high
 ```
+
+### 建议
+
+暂无
+
+### 
 
 ## 参考推荐
 

@@ -98,7 +98,60 @@ EventID：4688
 
 ## 检测规则/思路
 
-无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
+### sigma规则
+
+```yml
+title: 可疑的Certutil命令
+status: experimental
+description: 使用诸如“decode”子命令之类的子命令检测可疑的Microsoft certutil执行，该子命令有时用于使用内置的certutil实用程序
+references:
+    - https://twitter.com/JohnLaTwC/status/835149808817991680
+    - https://twitter.com/subTee/status/888102593838362624
+    - https://twitter.com/subTee/status/888071631528235010
+    - https://blogs.technet.microsoft.com/pki/2006/11/30/basic-crl-checking-with-certutil/
+    - https://www.trustedsec.com/2017/07/new-tool-release-nps_payload/
+    - https://twitter.com/egre55/status/1087685529016193025
+    - https://lolbas-project.github.io/lolbas/Binaries/Certutil/
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine:
+            - '* -decode *'
+            - '* /decode *'
+            - '* -decodehex *'
+            - '* /decodehex *'
+            - '* -urlcache *'
+            - '* /urlcache *'
+            - '* -verifyctl *'
+            - '* /verifyctl *'
+            - '* -encode *'
+            - '* /encode *'
+            - '*certutil* -URL*'
+            - '*certutil* /URL*'
+            - '*certutil* -ping*'
+            - '*certutil* /ping*'
+    condition: selection
+fields:
+    - CommandLine
+    - ParentCommandLine
+tags:
+    - attack.defense_evasion
+    - attack.t1140
+    - attack.t1105
+    - attack.t1059
+    - attack.s0189
+    - attack.g0007
+falsepositives:
+    - False positives depend on scripts and administrative tools used in the monitored environment
+level: high
+
+```
+
+### 建议
+
+根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
 ## 参考推荐
 

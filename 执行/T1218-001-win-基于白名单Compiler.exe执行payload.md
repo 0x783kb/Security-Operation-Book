@@ -367,6 +367,35 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Microsoft.Workflow.Compiler.exe 
 
 ## 检测规则/思路
 
+### sigma规则
+
+```yml
+title: Microsoft Compiler
+status: experimental
+description: 检测Microsoft工作流编译器的调用，该编译器可能允许执行任意无符号代码
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1218
+references:
+    - https://posts.specterops.io/arbitrary-unsigned-code-execution-vector-in-microsoft-workflow-compiler-exe-3d9294bc5efb
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: '*\Microsoft.Workflow.Compiler.exe'
+    condition: selection
+fields:
+    - CommandLine
+    - ParentCommandLine
+falsepositives:
+    - Legitimate MWC use (unlikely in modern enterprise environments)
+level: high
+```
+
+### 建议
+
 无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
 ## 参考推荐

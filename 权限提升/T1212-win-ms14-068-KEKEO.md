@@ -28,6 +28,8 @@ windows 安全日志（AD域控日志）
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: MS14-068-PYKEK
 description: windows server 2008 / windows 7
@@ -54,6 +56,10 @@ level: medium
 ```
 
 其中4768需要排除正常条件，比如服务 ID:S-1-0-0或者用户名为ntp$ 计算机时间同步
+
+### 建议
+
+本规则未经过实际环境测试，谨慎使用
 
 ## 参考推荐
 

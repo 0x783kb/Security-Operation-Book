@@ -30,6 +30,8 @@ windows 安全日志，事件ID4688
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: T1086  非交互式PowerShell
 description: 通过将powershell.exe以explorer.exe作为父级，来检测非交互式PowerShell活动。
@@ -49,6 +51,10 @@ falsepositives:
     - Unknown
 level: critical
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

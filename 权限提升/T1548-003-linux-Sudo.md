@@ -36,9 +36,17 @@ type=USER_CMD msg=audit(1563520773.609:436): pid=3530 uid=1000 auid=1000 ses=3 m
 
 ## 检测规则/规则
 
+### splunk规则
+
+```yml
 index=linux sourcetype="linux_audit" sudoers_110
+```
 
 值得注意的是：你需要自行配置Audit审核规则：root@icbc:~# auditctl -w /etc/sudoers -p war -k sudoers_110
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

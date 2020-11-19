@@ -96,7 +96,49 @@ msf5 exploit(windows/misc/hta_server) > [*] 192.168.126.156  hta_server - Delive
 
 通过进程监控来检测和分析mshta.exe的执行和参数。查找在命令行中执行原始或混淆脚本的mshta.exe。比较mshta.exe的近期调用与历史已知合法参数及已执行二进制文件来确定是否有异常和潜在的攻击活动。在mshta.exe调用之前和之后使用的命令参数也可用于确定正在执行的二进制文件的来源和目的。
 
-监控HTA文件的使用。在环境中执行不经常使用的HTA文件是可疑的。
+### sigma规则
+
+```yml
+title: MSHTA Suspicious Execution 01
+id: cc7abbd0-762b-41e3-8a26-57ad50d2eea3
+status: experimental
+description: Detection for mshta.exe suspicious execution patterns sometimes involving file polyglotism
+date: 2019/02/22
+modified: 2019/02/22
+author: Diego Perez (@darkquassar), Markus Neis, Swisscom (Improve Rule)
+references:
+    - http://blog.sevagas.com/?Hacking-around-HTA-files
+    - https://0x00sec.org/t/clientside-exploitation-in-2018-how-pentesting-has-changed/7356
+    - https://docs.microsoft.com/en-us/dotnet/standard/data/xml/xslt-stylesheet-scripting-using-msxsl-script
+    - https://medium.com/tsscyber/pentesting-and-hta-bypassing-powershell-constrained-language-mode-53a42856c997
+tags:
+    - attack.defense_evasion
+    - attack.t1140
+logsource:
+    category: process_creation
+    product: windows
+falsepositives: 
+    - False positives depend on scripts and administrative tools used in the monitored environment
+level: high
+detection:
+    selection1:
+        Image: '*\mshta.exe'
+        CommandLine: 
+            - '*vbscript*' 
+            - '*.jpg*'
+            - '*.png*'
+            - '*.lnk*'
+            # - '*.chm*'  # could be prone to false positives
+            - '*.xls*'
+            - '*.doc*'
+            - '*.zip*'
+    condition:
+        selection1 
+```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

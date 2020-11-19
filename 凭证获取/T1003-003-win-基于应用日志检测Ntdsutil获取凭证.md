@@ -41,6 +41,8 @@ windows 应用日志留痕文件：<https://github.com/12306Bro/Threathunting-bo
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: 应用日志检测ntdsutil获取NTDS.dit文件
 description: windows server 2008 + AD域控
@@ -78,7 +80,9 @@ detection:
 level: medium
 ```
 
-注意：此检测仅适用于windows AD域控主机。
+### 建议
+
+此检测特征仅适用于windows AD域控主机。
 
 ## 参考推荐
 

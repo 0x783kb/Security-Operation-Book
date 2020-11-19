@@ -74,6 +74,8 @@ sysmon事件，进程创建、进程访问、进程结束
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: 明文获取凭证——Procdump
 description: windows server 2008 模拟测试结果
@@ -83,20 +85,22 @@ logsource:
     product: windows
     service: sysmon
 detection:
-    selection1:
-        EventID: 1
-        Image: '*\procdump*.exe'
-        Product: ProcDump
-        OriginalFileName: procdump
-        CommandLine: 'procdump*.exe  -ma lsass.exe *.dmp'
-    selection2:
-        EventID: 10
-        SourceImage: '*\procdump*.exe'
-        TargetImage: 'C:\Windows\system32\lsass.exe'
+    selection:
+        OriginalFileName: 'procdump'
+    filter:
+        Image: 
+            - '*\procdump.exe'
+            - '*\procdump64.exe'
+    condition: selection and not filter
+falsepositives:
+    - Procdump illegaly bundled with legitimate software
+    - Weird admins who renamed binaries
+level: critical
     timeframe: last 1m
     condition: all of them
-level: medium
 ```
+
+### 建议
 
 建议您关注一下sysmon10.2的新特性OriginalFileName，经过安全人员研究测试发现，在进程创建事件中，procdump修改为ABC，但OriginalFileName依旧能够清晰的识别出该款工具是procdump。
 

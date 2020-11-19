@@ -42,9 +42,13 @@ icbc@icbc:/$ history
 
 ## 检测规则/思路
 
-### audit 日志
+### splunk规则
 
+audit 日志
+
+```yml
 index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table host,auid,syscall,syscall_name,exe
+```
 
 值得注意的是：你需要自行配置Audit审核规则
 
@@ -52,11 +56,15 @@ index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table ho
 sudo auditctl -w ~/.bash_history -k bash_history_110
 ```
 
-### bash 历史记录
+### splunk规则
 
+bash 历史记录
+
+```yml
 index=linux sourcetype=bash_history cat bash_history | table _time,host,user_name,bash_command
+```
 
-### **sigma规则**
+### sigma规则
 
 ```yml
 title: 攻击者读取linux下~/.bash_history文件，查看是否包含相关凭据密码
@@ -83,6 +91,10 @@ detection:
 ​    condition: keywords
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

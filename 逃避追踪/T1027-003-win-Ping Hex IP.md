@@ -30,6 +30,8 @@ windows 2012以上操作系统
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: Ping Hex IP
 description: win7 模拟测试结果
@@ -48,6 +50,10 @@ detection:
     condition: selection
 level: high
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

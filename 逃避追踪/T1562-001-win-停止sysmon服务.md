@@ -115,7 +115,9 @@ PS C:\Users\Administrator>
 
 ## 检测规则/思路
 
-### 删除配置项2
+### sigma规则
+
+#### 删除配置项2
 
 ```yml
 title: 删除sysmon配置项
@@ -181,6 +183,10 @@ detection:
     condition: selection or selection2 or selection3 or selection4
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

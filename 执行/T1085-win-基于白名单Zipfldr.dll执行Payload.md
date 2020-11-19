@@ -108,13 +108,54 @@ Server username: WIN-IFPMACUK8BT\Administrator
 
 ## 检测规则/思路
 
-无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
+### sigma规则
+
+```yml
+title: 可疑Rundll32活动
+description: 基于参数检测与rundll32相关的可疑进程
+status: experimental
+references:
+    - http://www.hexacorn.com/blog/2017/05/01/running-programs-via-proxy-jumping-on-a-edr-bypass-trampoline/
+    - https://twitter.com/Hexacorn/status/885258886428725250
+    - https://gist.github.com/ryhanson/227229866af52e2d963cf941af135a52
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1085
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine:
+            - '*\rundll32.exe* url.dll,*OpenURL *'
+            - '*\rundll32.exe* url.dll,*OpenURLA *'
+            - '*\rundll32.exe* url.dll,*FileProtocolHandler *'
+            - '*\rundll32.exe* zipfldr.dll,*RouteTheCall *'
+            - '*\rundll32.exe* Shell32.dll,*Control_RunDLL *'
+            - '*\rundll32.exe javascript:*'
+            - '* url.dll,*OpenURL *'
+            - '* url.dll,*OpenURLA *'
+            - '* url.dll,*FileProtocolHandler *'
+            - '* zipfldr.dll,*RouteTheCall *'
+            - '* Shell32.dll,*Control_RunDLL *'
+            - '* javascript:*'
+            - '*.RegisterXLL*'
+    condition: selection
+falsepositives:
+    - False positives depend on scripts and administrative tools used in the monitored environment
+level: medium
+```
+
+### 建议
+
+可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1218-011
+MITRE-ATT&CK-T1085
 
-<https://attack.mitre.org/techniques/T1218/011/>
+<https://attack.mitre.org/techniques/T1085/>
 
 基于白名单的Payload
 

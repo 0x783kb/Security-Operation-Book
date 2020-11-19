@@ -26,13 +26,17 @@ Windows 7
 
 ## 检测规则/思路
 
-思路：在windows安全事件日志中，查找事件ID4688，进程创建事件。
+### elk规则
 
 ```elk
 process = search Process:Create
 cmd = filter process where (exe == "cmd.exe")
 output cmd
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

@@ -94,7 +94,9 @@ detection:
 level: medium
 ```
 
-注意：此检测仅适用于windows AD域控主机。
+### 建议
+
+此检测特征仅适用于windows AD域控主机。
 
 ## 参考推荐
 

@@ -28,6 +28,8 @@ netflow流量
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: kerberos 弱加密
 description: 域环境测试
@@ -47,6 +49,10 @@ detection:
     condition: selection and not reduction
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

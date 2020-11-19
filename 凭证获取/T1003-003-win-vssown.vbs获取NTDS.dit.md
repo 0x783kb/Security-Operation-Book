@@ -100,6 +100,8 @@ Microsoft (R) Windows Script Host Version 5.812
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: 使用vssown.vbs拿到NTDS.dit文件
 description: windows server 2016+ AD域控
@@ -139,7 +141,9 @@ detection:
 level: medium
 ```
 
-注意：此检测仅适用于windows AD域控主机。
+### 建议
+
+此检测特征仅适用于windows AD域控主机。
 
 ## 参考推荐
 

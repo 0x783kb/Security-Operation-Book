@@ -79,6 +79,8 @@ Event-ID: 4663
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: 使用SDelete安全删除
 status: experimental
@@ -109,6 +111,10 @@ falsepositives:
     - 合法使用SDelete，测试结果不如人意，建议谨慎使用
 level: low
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

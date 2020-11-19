@@ -142,13 +142,15 @@ ParentCommandLine: "C:\Windows\System32\cmd.exe"
 
 ## 检测规则/思路
 
-无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
-
-splunk检测规则如下：
+### splunk规则
 
 ```yml
 index=windows source=”WinEventLog:Microsoft-Windows-Sysmon/Operational” (EventCode=1 Image=”*\\cmstp.exe”) OR (EventCode=10 SourceImage=”*\\cmstp.exe” ) OR (EventCode=10 CallTrace=”*CMLUA.dll*”) (EventCode IN (12,13) TargetObject=”*\\CMMGR32.exe” OR (EventCode=12 TargetObject=”HKLM\\SOFTWARE\\Microsoft\\Tracing\\cmstp*”)
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

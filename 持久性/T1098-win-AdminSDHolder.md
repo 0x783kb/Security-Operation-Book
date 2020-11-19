@@ -156,12 +156,16 @@ windows安全日志
 
 ## 检测规则/思路
 
+### Sigma规则
+
 ```yml
 title: Windows-AdminSDHolder
 description: Windows server 2008 R2（AD域控）
-references: https://github.com/infosecn1nja/AD-Attack-Defense/blob/master/README.md OR https://github.com/0Kee-Team/WatchAD/blob/master/modules/detect/event_log/persistence/AdminSDHolder.py
+references: 
+    - https://github.com/infosecn1nja/AD-Attack-Defense/blob/master/README.md
+    - https://github.com/0Kee-Team/WatchAD/blob/master/modules/detect/event_log/persistence/AdminSDHolder.py
 tags: 1098
-status: experimental
+status: 测试阶段 
 author: 12306Bro
 logsource:
     product: windows
@@ -175,6 +179,10 @@ detection:
     condition: all of them
 level: medium
 ```
+
+### 建议
+
+无
 
 ## 参考推荐
 

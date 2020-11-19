@@ -79,49 +79,41 @@ SID               : S-1-5-21-4083414316-2806399370-2225847366-1000
 
 ## 检测规则/思路
 
-### sysmon日志
+### sigma规则
 
 ```yml
-title: T1003-win-基于LSA-mimikatz凭证获取
-description: win7 模拟测试结果
-status: experimental
-author: 12306Bro
-references: https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
-tags: ATT&CK T1003-004
+title: Mimikatz使用
+description: 检测常见的mimikatz命令参数
+tags:
+    - attack.s0002
+    - attack.t1003
+    - attack.lateral_movement
+    - attack.credential_access
 logsource:
-​    product: windows
-​    service: sysmon
+    product: windows
 detection:
-​    selection:
-​        EventID: 10
-​        TargetImage: 'C:\Windows\system32\lsass.exe'
-​    condition: selection
-level: high
+    keywords:
+        Message:
+        - "* mimikatz *"
+        - "* mimilib *"
+        - "* <3 eo.oe *"
+        - "* eo.oe.kiwi *"
+        - "* privilege::debug *"
+        - "* sekurlsa::logonpasswords *"
+        - "* lsadump::sam *"
+        - "* mimidrv.sys *"
+        - "* p::d *"
+        - "* s::l *"
+    condition: keywords
+falsepositives:
+    - Naughty administrators
+    - Penetration test
+level: critical
 ```
 
-### windows security日志
+### 建议
 
-```yml
-title: T1003-win-基于LSA-mimikatz凭证获取
-description: win7 模拟测试结果
-status: experimental
-author: 12306Bro
-references: https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
-tags: ATT&CK T1003-004
-logsource:
-​    product: windows
-​    service: security
-detection:
-​    selection:
-​        EventID: 4673
-​        LoginIO: 0x3E7
-​        Server: 'NT Local Security Authority / Authentication Service'
-​        ServiceName: 'LsaRegisterLogonProcess()'
-​        Processname: 'C:\Windows\System32\lsass.exe'
-​        Privilege: SeTcbPrivilege
-​    condition: selection
-level: high
-```
+对数据源要求较高，可适用范围为：2012及以上操作系统，需要开启审核策略；部署sysmon的Windows操作系统，进程创建日志。
 
 ## 参考推荐
 

@@ -149,6 +149,43 @@ ParentCommandLine: C:\Windows\SysWOW64\odbcconf.exe  /a {regsvr C:\payload.dll}
 
 ## 检测规则/思路
 
+### sigma规则
+
+```yml
+title: Application Whitelisting Bypass via DLL Loaded by odbcconf.exe
+description: Detects defence evasion attempt via odbcconf.exe execution to load DLL
+status: experimental
+references:
+    - https://github.com/LOLBAS-Project/LOLBAS/blob/master/yml/OSBinaries/Odbcconf.yml
+    - https://twitter.com/Hexacorn/status/1187143326673330176
+author: Kirill Kiryanov, Beyu Denis, Daniil Yugoslavskiy, oscd.community
+date: 2019/10/25
+modified: 2019/11/07
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1218
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_1:
+        Image|endswith: '\odbcconf.exe'
+        CommandLine|contains:
+            - '-f'
+            - '/a'
+            - 'regsvr'
+    selection_2:
+        ParentImage|endswith: '\odbcconf.exe'
+        Image|endswith: '\rundll32.exe'
+    condition: selection_1 or selection_2
+level: medium
+falsepositives:
+    - Legitimate use of odbcconf.exe by legitimate user
+```
+
+### 建议
+
 无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
 ## 参考推荐

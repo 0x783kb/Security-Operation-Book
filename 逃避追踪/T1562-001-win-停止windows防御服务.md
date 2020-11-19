@@ -29,6 +29,8 @@ windows system事件ID7036
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: 停止Windows防御服务
 description: win7 模拟测试结果
@@ -44,6 +46,10 @@ detection:
 ​    condition: selection
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

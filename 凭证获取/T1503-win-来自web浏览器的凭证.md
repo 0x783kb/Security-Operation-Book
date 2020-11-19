@@ -34,6 +34,8 @@ windows 安全日志 事件ID：4633
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: windows系统 web浏览器获取凭证
 description: windows server 2016 测试结果
@@ -58,6 +60,10 @@ detection:
     condition: selection
 level: medium
 ```
+
+### 建议
+
+规则未经过实际测试，谨慎使用
 
 ## 参考推荐
 

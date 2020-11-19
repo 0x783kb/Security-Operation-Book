@@ -79,6 +79,8 @@ windows sysmon日志 进程创建、命令行参数
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: VSS卷影复制本地读取Ntds.dit文件(域控主机操作，也适用于VSS卷影复制远程读取Ntds.dit文件)
 description: windows server 2008 模拟测试结果
@@ -108,6 +110,10 @@ detection:
     condition: selection1 or selection2 or selection3
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 
@@ -143,7 +149,7 @@ MITRE-ATT&CK-T1003-003
 
 <https://adsecurity.org/?p=2362>
 
-**强力推荐**a
+**强力推荐**
 
 转储活动目录数据库方法总结
 

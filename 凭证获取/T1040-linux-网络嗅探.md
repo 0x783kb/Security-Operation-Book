@@ -62,9 +62,15 @@ Jul 19 10:47:50 icbc start.sh[734]: 2019-07-19 10:47:50,165: DEBUG helpers.appli
 
 ## 检测规则/思路
 
+### splunk检测规则
+
 index=linux sourcetype=syslog entered promiscuous mode | table host,message
 
 index=linux sourcetype=syslog left promiscuous mode | table host,message
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

@@ -45,6 +45,8 @@ windows安全日志下载地址：
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: win-vaultcmd获取系统凭据基本信息
 description: windows server 2016
@@ -69,6 +71,8 @@ detection:
            - vaultcmd  /listproperties:{*} #中文系统，列出GUID为{*}的保管库(vault)的属性，包括文件位置、包含的凭据数量、保护方法
     condition: selection
 ```
+
+### 建议
 
 注：在低版本操作系统中，可使用windows 安全日志4688，进程VaultCmd.exe进行检测分析；也可使用Sysmon进行行为记录，分析检测。
 

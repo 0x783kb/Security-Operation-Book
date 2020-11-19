@@ -130,7 +130,38 @@ EVentID: 5156 #Windows 筛选平台已允许连接。
 
 ## 检测规则/思路
 
-无具体检测规则。事实上在windows server 2008以上版本可对进程命令行进行监控。windows server 2008以下建议通过部署sysmon来进行监控，也可以根据多事件关联分析。
+### sigma
+
+```yml
+title: Suspicious Call by Ordinal
+id: e79a9e79-eb72-4e78-a628-0e7e8f59e89c
+description: Detects suspicious calls of DLLs in rundll32.dll exports by ordinal
+status: experimental
+references:
+    - https://techtalk.pcmatic.com/2017/11/30/running-dll-files-malware-analysis/
+    - https://github.com/Neo23x0/DLLRunner
+    - https://twitter.com/cyb3rops/status/1186631731543236608
+tags:
+    - attack.defense_evasion
+    - attack.execution
+    - attack.t1085
+author: Florian Roth
+date: 2019/10/22
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine: '*\rundll32.exe *,#*'
+    condition: selection
+falsepositives:
+    - False positives depend on scripts and administrative tools used in the monitored environment
+    - Windows contol panel elements have been identified as source (mmc)
+level: high
+```
+
+
+### 建议
 
 通过进程监控来检测和分析rundll32.exe的执行和参数。比较rundll32.exe的近期调用与历史已知合法参数及已加载动态链接库来确定是否有异常和潜在的攻击活动。在rundll32.exe调用之前和之后使用的命令参数也可用于确定正在加载的动态链接库的来源和目的。
 

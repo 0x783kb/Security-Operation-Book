@@ -92,7 +92,39 @@ EventID: 4688
 
 ## 检测规则/思路
 
-无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
+### sigma规则
+
+```yml
+title: PowerShell通过url进行下载
+status: experimental
+description: 检测在命令行字符串中包含下载命令的Powershell进程
+tags:
+    - attack.t1086
+    - attack.execution
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: '*\powershell.exe'
+        CommandLine:
+            - '*new-object system.net.webclient).downloadstring(*'
+            - '*new-object system.net.webclient).downloadfile(*'
+            - '*new-object net.webclient).downloadstring(*'
+            - '*new-object net.webclient).downloadfile(*'
+    condition: selection
+fields:
+    - CommandLine
+    - ParentCommandLine
+falsepositives:
+    - unknown
+level: medium
+
+```
+
+### 建议
+
+可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
 ## 参考推荐
 

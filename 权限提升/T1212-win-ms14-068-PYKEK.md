@@ -41,6 +41,8 @@ mimikatz # kerberos::ptc 票据文件   //将票据注入到内存中
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: MS14-068-PYKEK
 description: windows server 2008 / windows 7
@@ -66,6 +68,10 @@ detection:
     condition: all of them
 level: medium
 ```
+
+### 建议
+
+本规则未经过实际环境检验，谨慎使用
 
 ## 参考推荐
 

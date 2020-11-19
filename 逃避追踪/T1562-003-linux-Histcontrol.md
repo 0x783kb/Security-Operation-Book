@@ -31,7 +31,13 @@ icbc@icbc:/$ history
 
 ## 检测规则/思路
 
+### splunk规则
+
 index=linux sourcetype="bash_history" export HISTCONTROL | table host, user_name, bash_command
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

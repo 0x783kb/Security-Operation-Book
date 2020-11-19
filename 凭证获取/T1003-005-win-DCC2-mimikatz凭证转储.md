@@ -87,31 +87,39 @@ mimikatz.exe  "privilege::debug"   "LSADUMP::Cache"
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
-title: 基于DCC2凭证获取
-description: windows server 2008 模拟测试结果
-references: https://baijiahao.baidu.com/s?id=1611304657392579351
-tags: T1003-005
-status: experimental
-author: 12306Bro
+title: Mimikatz使用
+tags:
+    - attack.s0002
+    - attack.t1003
+    - attack.lateral_movement
 logsource:
     product: windows
-    service: security
 detection:
-    selection1:
-        EventID: 4688  # 进程创建
-        NewProcessname: '*\mimikatz.exe' #新进程名称
-        Tokenpromotiontype: 'TokenElevationTypeFull (2)' #令牌提升类型
-    selection2:
-        EventID: 4673  #已调用特权服务。
-        Processname: '*\mimikatz.exe' #进程>进程名称
-        Privilege: 'SeTcbPrivilege'  #服务请求信息>特权：SeTcbPrivilege
-    timeframe: last 5s  
-    condition: all of them
-level: medium
+    keywords:
+        Message:
+        - "* mimikatz *"
+        - "* mimilib *"
+        - "* <3 eo.oe *"
+        - "* eo.oe.kiwi *"
+        - "* privilege::debug *"
+        - "* sekurlsa::logonpasswords *"
+        - "* lsadump::sam *"
+        - "* mimidrv.sys *"
+        - "* p::d *"
+        - "* s::l *"
+    condition: keywords
+falsepositives:
+    - Naughty administrators
+    - Penetration test
+level: critical
 ```
 
-建议：由于执行命令四条命令，触发4673事件ID4次。如果条件允许，可增加其检测条件阈值。
+### 建议
+
+暂无
 
 ## 参考推荐
 

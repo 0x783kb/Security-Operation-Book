@@ -24,6 +24,8 @@ windows安全日志 OR windows powershell日志
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: win_远程powershell会话
 description: windows server 2016
@@ -47,6 +49,10 @@ detection:
     condition: selection
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 

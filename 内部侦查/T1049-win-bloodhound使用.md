@@ -26,36 +26,48 @@ windows安全日志、5145
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
-title: win-bloodhound使用
-description: windows server 2012
+title: Bloodhound and Sharphound Hack Tool
+description: Detects command line parameters used by Bloodhound and Sharphound hack tools
 references:
-tags: T1049/1069
-status: experimental
-author: 12306Bro
+    - https://github.com/BloodHoundAD/BloodHound
+    - https://github.com/BloodHoundAD/SharpHound
+tags:
+    - attack.discovery
+    - attack.t1049
 logsource:
+    category: process_creation
     product: windows
-    service: security
 detection:
-    selection:
-        EventID: 5145 #已检查网络共享对象是否可以授予客户端所需的访问权限。
-        Objecttype: 'File' #网络信息>对象类型
-        Sourceaddress: '*' #网络信息>源地址
-        sourceport: '*' #网络信息>源端口
-        ShareName: '\\*\IPC$' #共享信息>共享名称
-        Relativetargetname:  #共享信息>相对目标名称
-        - NETLOGON
-        - lsarpc
-        - samr
-        - srvsvc
-        - winreg
-        - wkssvc
-    timeframe: last 30s #可根据实际情况调整
-    condition: all of them
-level: medium
+    selection1: 
+        Image|contains: 
+            - '\Bloodhound.exe'
+            - '\SharpHound.exe'
+    selection2:
+        CommandLine|contains: 
+            - ' -CollectionMethod All '
+            - '.exe -c All -d '
+            - 'Invoke-Bloodhound'
+            - 'Get-BloodHoundData'
+    selection3:
+        CommandLine|contains|all: 
+            - ' -JsonFolder '
+            - ' -ZipFileName '
+    selection4:
+        CommandLine|contains|all: 
+            - ' DCOnly '
+            - ' --NoSaveCache '
+    condition: 1 of them
+falsepositives:
+    - Other programs that use these command line option and accepts an 'All' parameter
+level: high
 ```
 
-注意，短时间内同一IP产生多个事件，多个事件中的相对目标名称包含以上特征值，其中源IP、源端口固定。
+### 建议
+
+基于进程命令名称进行检测，准确率极低，谨慎使用检测条件1.
 
 ## 参考推荐
 

@@ -108,17 +108,35 @@ ParentCommandLine: "C:\Windows\system32\cmd.exe"
 
 ## 检测规则/思路
 
-无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
+### sigma规则
 
-可针对以下命令参数进行检测。
-
-```dos
-· msiexec.exe /q /i"C:\path\to\file.msi"
-
-· msiexec.exe /q /i http[:]//site[.]com/file.msi
-
-· msiexec.exe /y "C:\path\to\file.dll"
+```yml
+title: MsiExec Web Install
+status: experimental
+description: Detects suspicious msiexec process starts with web addreses as parameter
+references:
+    - https://blog.trendmicro.com/trendlabs-security-intelligence/attack-using-windows-installer-msiexec-exe-leads-lokibot/
+tags:
+    - attack.defense_evasion
+author: Florian Roth
+date: 2018/02/09
+modified: 2012/12/11
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        CommandLine:
+            - '* msiexec*://*'
+    condition: selection
+falsepositives:
+    - False positives depend on scripts and administrative tools used in the monitored environment
+level: medium
 ```
+
+### 建议
+
+可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
 ## 参考推荐
 

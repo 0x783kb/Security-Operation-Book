@@ -49,6 +49,8 @@ type=USER_AUTH msg=audit(1572163129.581:316): pid=2165 uid=0 auid=4294967295 ses
 
 ## 检测规则/思路
 
+### sigma规则
+
 ```yml
 title: linux下ssh暴力破解
 description: Ubuntu18.04、kali
@@ -66,6 +68,10 @@ detection:
     condition: keywords
 level: medium
 ```
+
+### 建议
+
+暂无
 
 ## 参考推荐
 
