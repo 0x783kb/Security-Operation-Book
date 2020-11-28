@@ -17,3 +17,15 @@ Threathunting-book目前已覆盖50个TID，137个场景.
 进行部分调整，规则类型调整，其他无变化；
 
 
+## 致谢
+
+首先，我要感谢所有为开源项目做出贡献的人，尤其是这些项目的维护者和创建者。没有它们，这种能力就不可能实现。
+此项目由许多不同的源生成。随着我们继续添加更多源，我们将继续在这里添加它们。再次感谢所有这些项目。以下项目未按照特定顺序排序：
+
+- [attack.mitre](https://attack.mitre.org/)
+- [sigma](https://github.com/Neo23x0/sigma) (by Neo23x0)
+- [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)  (by Red Canary)
+- [Atomic Blue Detections](https://eqllib.readthedocs.io/en/latest/atomicblue.html)
+- [Detecting ATT&CK techniques & tactics for Linux](https://github.com/Kirtar22/Litmus_Test) (by Kirtar22)
+- [RedTeam-Tactics-and-Techniques](https://github.com/mantvydasb/RedTeam-Tactics-and-Techniques) (by 
+Mantvydas)
