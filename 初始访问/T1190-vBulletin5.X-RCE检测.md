@@ -154,7 +154,7 @@ while True:
 
 暂无，但可查看攻击报文样例辅助安全人员研判是否为攻击行为，较简单的场景。
 
-[![r1F46e.jpg](https://s3.ax1x.com/2020/12/16/r1F46e.jpg)](https://imgchr.com/i/r1F46e)
+![r1F46e.jpg](https://s3.ax1x.com/2020/12/16/r1F46e.jpg)](https://imgchr.com/i/r1F46e)
 
 ### 检测规则/思路
 
