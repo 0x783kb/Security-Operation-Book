@@ -4,7 +4,7 @@
 
 Threathunting-book wiki已停止维护
 
-Threathunting-book目前已覆盖50个TID，140个场景.
+Threathunting-book目前已覆盖50个TID，142个场景.
 
 主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
 
@@ -12,11 +12,9 @@ Threathunting-book目前已覆盖50个TID，140个场景.
 
 ## 更新说明
 
-2020-11-29
+2020-12-15
 
-新增1条规则：Thinkphp 5.x远程命令执行攻击；
-
-
+新增1条规则：vBulletin5.X远程命令执行攻击；
 
 
 ## 致谢
