@@ -187,7 +187,7 @@ falsepositives:
 level: critical
 ```
 
-## 建议
+## 备注
 
 在进行部分攻击日志分析时，遇到此漏洞特征，仅做记录。
 
