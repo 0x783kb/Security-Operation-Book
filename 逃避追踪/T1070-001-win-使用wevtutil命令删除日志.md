@@ -220,12 +220,16 @@ logsource:
 ​    product: windows
 ​    service: security
 detection:
-​    selection:
+​    selection1:
 ​        EventID:
 ​                - 1 #sysmon
 ​                - 4688 #Windows 安全日志
-        Commanline: 'wevtutil  cl *'
-​    condition: selection
+        Process.name: 'wevtutil.exe' #Application Name
+		Commanline: 'cl'
+	selection2:
+		Process.name: 'powershell.exe' #Application Name
+		Commanline: 'Clear-EventLog'
+​    condition: selection1 OR selection2
 level: medium
 ```
 
@@ -238,3 +242,7 @@ level: medium
 MITRE-ATT&CK-T1070-001
 
 <https://attack.mitre.org/techniques/T1070/001/>
+
+powershell:Clear-EventLog
+
+<https://blog.csdn.net/weixin_30800807/article/details/97087311>
