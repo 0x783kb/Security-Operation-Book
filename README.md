@@ -4,7 +4,7 @@
 
 Threathunting-book wiki已停止维护
 
-Threathunting-book目前已覆盖53个TID，148个场景.
+Threathunting-book目前已覆盖53个TID，149个场景.
 
 主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
 
@@ -12,23 +12,9 @@ Threathunting-book目前已覆盖53个TID，148个场景.
 
 ## 更新说明
 
-2021-01-01
+2021-01-03
 
-T1070-004-win-使用Fsutil删除卷USN日志;
-
-T1105-win-命令提示符网络链接;
-
-T1071-004-win-内主机向公网DNS发起可疑请求行为;
-
-T1218-011-win-通过Rundll32的异常网络链接;
-
-T1210-win-异常的SMB链接行为;
-
-T1071-002-win-内网FTP链接到公网行为;
-
-T1053-005-win-schtasks本地计划任务;
-
-T1566.001-win-可疑的MS Office子进程;
+T1190-邮箱暴力破解攻击流量分析
 
 ## 致谢
 
