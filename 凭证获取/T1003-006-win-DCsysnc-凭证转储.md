@@ -1,4 +1,4 @@
-# T1003-006-windows-基于DCsysnc凭证获取
+# T1003-006-windows-基于DCsync凭证获取
 
 ## 来自ATT&CK的描述
 
