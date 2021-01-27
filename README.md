@@ -4,7 +4,7 @@
 
 Threathunting-book wiki已停止维护
 
-Threathunting-book目前已覆盖53个TID，149个场景.
+Threathunting-book目前已覆盖54个TID，151个场景.
 
 主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
 
@@ -12,9 +12,13 @@ Threathunting-book目前已覆盖53个TID，149个场景.
 
 ## 更新说明
 
-2021-01-03
+2021-01-27
 
-T1190-邮箱暴力破解攻击流量分析
+T1190-Weblogic LDAP 远程代码执行漏洞 CVE-2021-2109
+
+T1505-003-Regeorg-HTTP隧道检测
+
+
 
 ## 致谢
 
