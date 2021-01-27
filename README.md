@@ -14,7 +14,7 @@ Threathunting-book目前已覆盖54个TID，151个场景.
 
 2021-01-27
 
-T1190-Weblogic LDAP 远程代码执行漏洞 CVE-2021-2109
+T1190-CVE-2021-2109_Weblogic_LDAP_远程代码执行漏洞
 
 T1505-003-Regeorg-HTTP隧道检测
 
