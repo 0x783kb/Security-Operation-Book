@@ -64,6 +64,8 @@ SecRule REQUEST_URI "/ws/ops/tasks/log" "id:11111111,phase:1,id:52,t:none,t:urlD
 
 本文内容多数摘自互联网网络，未经过本人实际环境测试，慎重上线使用。
 
+ModSecurity是一个开源的跨平台Web应用程序防火墙（WAF）引擎，用于Apache，IIS和Nginx，由Trustwave的SpiderLabs开发。作为WAF产品，ModSecurity专门关注HTTP流量，当发出HTTP请求时，ModSecurity检查请求的所有部分，如果请求是恶意的，它会被阻止和记录。
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1190
