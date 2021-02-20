@@ -4,7 +4,7 @@
 
 Threathunting-book wiki已停止维护
 
-Threathunting-book目前已覆盖54个TID，152个场景.
+Threathunting-book目前已覆盖54个TID，153个场景.
 
 主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
 
@@ -21,6 +21,8 @@ T1105-Windows Update被发现可滥用于执行恶意程序行为检测
 T1505-003-windows下webshell检测
 
 T1505-003-web服务产生的可疑进程
+
+T1190-JumpServer v2.6.1 RCE攻击检测
 
 
 
