@@ -77,26 +77,45 @@ windows 安全日志、4688进程创建、Ntsutil.exe进程名称。
 ## 检测规则/思路
 
 ```yml
-title: 使用ntdsutil拿到NTDS.dit文件
-description: windows server 2008 + AD域控
-references: https://blog.csdn.net/Fly_hps/article/details/80641987
-tags: T1003-003
-status: experimental
-author: 12306Bro
+title: Dumping ntds.dit remotely via DCSync
+id: 51238c62-2b29-4539-ad75-e94575368a12
+description: ntds.dit retrieving using synchronisation with legitimate domain controller using Directory Replication Service Remote Protocol
+author: Teymur Kheirkhabarov, oscd.community
+date: 2019/10/24
+modified: 2019/11/13
+references:
+    - https://twitter.com/gentilkiwi/status/1003236624925413376
+    - https://gist.github.com/gentilkiwi/dcc132457408cf11ad2061340dcb53c2
+    - https://www.slideshare.net/heirhabarov/hunting-for-credentials-dumping-in-windows-environment
+tags:
+    - attack.credential_access
+    - attack.t1003
 logsource:
     product: windows
     service: security
 detection:
-    selection:
-        EventID: 4688 #已创建新的进程。
-        Newprocessname: 'C:\Windows\System32\ntdsutil.exe' #新进程名称
-    condition: selection
+    selection1:
+        EventID: 4624
+        ComputerName: '%DomainControllersNamesList%'
+    selection2:
+        IpAddress: '%DomainControllersIpsList%'
+    selection3:
+        EventID: 4662
+        ComputerName: '%DomainControllersNamesList%'
+        SubjectLogonId: '%SuspiciousTargetLogonIdList%'
+        Properties|contains: 
+            - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'
+            - '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'
+    condition: write TargetLogonId from selection1 (if not selection2) to list %SuspiciousTargetLogonIdList%; then if selection3 -> alert
+falsepositives:
+    - Legitimate administrator adding new domain controller to already existing domain
 level: medium
+status: experimental
 ```
 
 ### 建议
 
-此检测特征仅适用于windows AD域控主机。
+检测规则未经过实际验证，谨慎使用。
 
 ## 参考推荐
 
