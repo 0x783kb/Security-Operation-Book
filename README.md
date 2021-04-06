@@ -4,7 +4,7 @@
 
 Threathunting-book wiki已停止维护
 
-Threathunting-book目前已覆盖54个TID，154个场景.
+Threathunting-book目前已覆盖54个TID，158个场景.
 
 主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
 
@@ -26,7 +26,13 @@ T1190-JumpServer v2.6.1 RCE攻击检测
 
 T1210-win-检测到匿名计算机账户更改的使用
 
+T1070-001-win-检测cipher.exe删除数据
 
+T1018-win-检测nbtscan活动
+
+T1059-001-win-检测Powershell2.0版本执行情况
+
+T1059-001-win-检测Powershell下载文件行为
 
 ## 致谢
 
@@ -45,3 +51,5 @@ T1210-win-检测到匿名计算机账户更改的使用
 - [Detecting ATT&CK techniques & tactics for Linux](https://github.com/Kirtar22/Litmus_Test) (by Kirtar22)
 
 - [RedTeam-Tactics-and-Techniques](https://github.com/mantvydasb/RedTeam-Tactics-and-Techniques) (by Mantvydas)
+  
+- [Microsoft-365-Defender-Hunting-Queries](https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries)
