@@ -149,3 +149,7 @@ MITRE-ATT&CK-T1218-005
 远控免杀专题(37)-白名单Mshta.exe执行payload
 
 <http://sec.nmask.cn/article_content?a_id=d1a4d20858c9283aef9ef49d2e98352c>
+
+检测可疑的Mshta使用情况
+
+<https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries/blob/master/Execution/detect-suspicious-mshta-usage.md>
