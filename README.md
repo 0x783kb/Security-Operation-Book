@@ -4,7 +4,7 @@
 
 Threathunting-book wiki已停止维护
 
-Threathunting-book目前已覆盖54个TID，162个场景.
+Threathunting-book目前已覆盖60TID，165个场景.
 
 主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
 
@@ -43,6 +43,10 @@ T1190-CVE-2021-21972 Vmware vcenter未授权任意文件/RCE漏洞
 T1564-001-win-发现攻击者在回收站中隐藏恶意软件
 
 T1190-检测SQL server滥用
+
+T1482-win-活动目录信息获取检测
+
+T1590-win-DNS记录获取
 
 ## 致谢
 
