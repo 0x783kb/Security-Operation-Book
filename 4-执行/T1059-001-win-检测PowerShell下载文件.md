@@ -1,4 +1,4 @@
-# T1059-001-win-检测Powershell下载文件行为
+# T1059-001-win-检测Powershell下载文件
 
 ## 来自ATT&CK的描述
 
@@ -57,11 +57,11 @@ detection:
             - '*Net.WebClient*'
             - '*DownloadFile*'
             - '*Invoke-WebRequest*'
-			- '*Invoke-Shellcode*'
-			- '*http*'
-			- '*Start-BitsTransfer*'
-			- '*IEX*'
-			- '*mpcmdrun.exe*'
+            - '*Invoke-Shellcode*'
+            - '*http*'
+            - '*Start-BitsTransfer*'
+            - '*IEX*'
+            - '*mpcmdrun.exe*'
     condition: selection
 level: medium
 ```
@@ -72,7 +72,7 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1059
+MITRE-ATT&CK-T1059-001
 
 <https://attack.mitre.org/techniques/T1059/001/>
 

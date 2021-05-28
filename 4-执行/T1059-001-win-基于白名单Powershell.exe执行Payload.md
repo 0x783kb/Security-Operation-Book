@@ -128,6 +128,6 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1059
+MITRE-ATT&CK-T1059-001
 
-<https://attack.mitre.org/techniques/T1059/>
+<https://attack.mitre.org/techniques/T1059/001/>

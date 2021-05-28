@@ -42,25 +42,25 @@ C:\Users\12306br0>powershell -v 2
 已创建新进程。
 
 创建者主题:
-	安全 ID:		361A\12306br0
-	帐户名:		12306br0
-	帐户域:		361A
-	登录 ID:		0x507DC
+ 安全 ID:  361A\12306br0
+ 帐户名:  12306br0
+ 帐户域:  361A
+ 登录 ID:  0x507DC
 
 目标主题:
-	安全 ID:		NULL SID
-	帐户名:		-
-	帐户域:		-
-	登录 ID:		0x0
+ 安全 ID:  NULL SID
+ 帐户名:  -
+ 帐户域:  -
+ 登录 ID:  0x0
 
 进程信息:
-	新进程 ID:		0x1158
-	新进程名称:	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-	令牌提升类型:	%%1938
-	强制性标签:		Mandatory Label\Medium Mandatory Level
-	创建者进程 ID:	0x17cc
-	创建者进程名称:	C:\Windows\System32\cmd.exe
-	进程命令行:	powershell  -v 2
+ 新进程 ID:  0x1158
+ 新进程名称: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+ 令牌提升类型: %%1938
+ 强制性标签:  Mandatory Label\Medium Mandatory Level
+ 创建者进程 ID: 0x17cc
+ 创建者进程名称: C:\Windows\System32\cmd.exe
+ 进程命令行: powershell  -v 2
 
 “令牌提升类型”表示根据用户帐户控制策略分配给新进程的令牌类型。
 
@@ -105,7 +105,7 @@ level: medium
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1059
+MITRE-ATT&CK-T1059-001
 
 <https://attack.mitre.org/techniques/T1059/001/>
 
