@@ -8,7 +8,7 @@
 
 ## 测试案例
 
-Windows [命令提示符](https://en.wikipedia.org/wiki/cmd.exe)（`cmd.exe`）是一个为Windows操作系统提供命令行界面的实用程序。它提供了运行其他程序的能力，也有几个内置命令，例如`dir`，`copy`，`mkdir`，和`type`，以及批处理脚本（`.bat`）。通常，当用户运行命令提示符时，父进程`explorer.exe`或该提示的另一个实例。可能存在自动程序，登录脚本或管理工具，用于启动命令提示符的实例以运行脚本或其他内置命令。产生这个过程`cmd.exe`来自某些父母可能更能说明恶意。例如，如果Adobe Reader或Outlook启动命令shell，则可能表示已加载恶意文档并应进行调查。因此，通过寻找异常的父进程`cmd.exe`，可以检测对手。
+Windows [命令提示符](https://en.wikipedia.org/wiki/cmd.exe)（`cmd.exe`）是一个为Windows操作系统提供命令行界面的实用程序。它提供了运行其他程序的能力，也有几个内置命令，例如`dir`，`copy`，`mkdir`，和`type`，以及批处理脚本（`.bat`）。通常，当用户运行命令提示符时，父进程`explorer.exe`或该提示的另一个实例。可能存在自动程序，登录脚本或管理工具，用于启动命令提示符的实例以运行脚本或其他内置命令。产生这个过程`cmd.exe`来自某些父母可能更能说明恶意。例如，如果Adobe Reader或Outlook启动命令shell，则可能表示已加载恶意文档并应进行调查。因此，通过寻找异常的父进程`cmd.exe`，可以检测攻击者。
 
 ## 检测日志
 

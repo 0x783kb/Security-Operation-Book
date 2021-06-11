@@ -1,4 +1,4 @@
-# T1003-003-win-基于应用日志检测Ntdsutil获取
+# T1003-003-win-基于应用日志检测Ntdsutil获取凭证
 
 ## 来自ATT&CK的描述
 

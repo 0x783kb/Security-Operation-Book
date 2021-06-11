@@ -76,7 +76,7 @@ detection:
 ​                - 1 #sysmon
 ​                - 4688 #Windows 安全日志
         New Process Name: 'fsutil.exe' #Application Name
-		Commanline: 'usn deletejournal'
+        Commanline: 'usn deletejournal'
 ​    condition: selection
 level: low
 ```

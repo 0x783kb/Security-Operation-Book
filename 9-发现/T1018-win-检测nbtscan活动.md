@@ -28,25 +28,25 @@ C:\Users\12306br0\Desktop\test>nbtscan-1.0.35.exe 10.211.55.1/24
 4688，已创建新进程。
 
 创建者主题:
-	安全 ID:		361A\12306br0
-	帐户名:		12306br0
-	帐户域:		361A
-	登录 ID:		0x507DC
+ 安全 ID:  361A\12306br0
+ 帐户名:  12306br0
+ 帐户域:  361A
+ 登录 ID:  0x507DC
 
 目标主题:
-	安全 ID:		NULL SID
-	帐户名:		-
-	帐户域:		-
-	登录 ID:		0x0
+ 安全 ID:  NULL SID
+ 帐户名:  -
+ 帐户域:  -
+ 登录 ID:  0x0
 
 进程信息:
-	新进程 ID:		0x135c
-	新进程名称:	C:\Users\12306br0\Desktop\test\nbtscan-1.0.35.exe
-	令牌提升类型:	%%1938
-	强制性标签:		Mandatory Label\Medium Mandatory Level
-	创建者进程 ID:	0xc68
-	创建者进程名称:	C:\Windows\System32\cmd.exe
-	进程命令行:	nbtscan-1.0.35.exe  10.211.55.1/24
+ 新进程 ID:  0x135c
+ 新进程名称: C:\Users\12306br0\Desktop\test\nbtscan-1.0.35.exe
+ 令牌提升类型: %%1938
+ 强制性标签:  Mandatory Label\Medium Mandatory Level
+ 创建者进程 ID: 0xc68
+ 创建者进程名称: C:\Windows\System32\cmd.exe
+ 进程命令行: nbtscan-1.0.35.exe  10.211.55.1/24
 ```
 
 ## 检测规则/思路

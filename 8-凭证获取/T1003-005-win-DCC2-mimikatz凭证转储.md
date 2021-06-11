@@ -1,4 +1,4 @@
-# T1003-005-windows-基于DCC2凭证转储
+# T1003-005-win-DCC2-mimikatz凭证获取
 
 ## 来自ATT&CK的描述
 

@@ -2,7 +2,7 @@
 
 ## 来自ATT&CK的描述
 
-具有SYSTEM访问主机权限的对手可能会尝试访问本地安全机构（LSA）机密，其中可能包含各种不同的凭据材料，例如服务帐户的凭据。LSA机密存储在注册表中HKEY_LOCAL_MACHINE\SECURITY\Policy\Secrets。LSA机密也可以从内存中转储。
+具有SYSTEM访问主机权限的攻击者可能会尝试访问本地安全机构（LSA）机密，其中可能包含各种不同的凭据材料，例如服务帐户的凭据。LSA机密存储在注册表中HKEY_LOCAL_MACHINE\SECURITY\Policy\Secrets。LSA机密也可以从内存中转储。
 
 Reg可用于从注册表中提取。Mimikatz可用于从内存中提取秘密。
 

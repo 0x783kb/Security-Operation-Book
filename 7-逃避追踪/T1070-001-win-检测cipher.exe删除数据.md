@@ -38,25 +38,25 @@ windows 安全日志/sysmon日志
 4688，已创建新进程。
 
 创建者主题:
-	安全 ID:		361A\12306br0
-	帐户名:		12306br0
-	帐户域:		361A
-	登录 ID:		0x507DC
+ 安全 ID:  361A\12306br0
+ 帐户名:  12306br0
+ 帐户域:  361A
+ 登录 ID:  0x507DC
 
 目标主题:
-	安全 ID:		NULL SID
-	帐户名:		-
-	帐户域:		-
-	登录 ID:		0x0
+ 安全 ID:  NULL SID
+ 帐户名:  -
+ 帐户域:  -
+ 登录 ID:  0x0
 
 进程信息:
-	新进程 ID:		0x11e0
-	新进程名称:	C:\Windows\System32\cipher.exe
-	令牌提升类型:	%%1938
-	强制性标签:		Mandatory Label\Medium Mandatory Level
-	创建者进程 ID:	0x10f0
-	创建者进程名称:	C:\Windows\System32\cmd.exe
-	进程命令行:	cipher  /w:C:/Users/12306br0/Desktop/test #需要单独配置
+ 新进程 ID:  0x11e0
+ 新进程名称: C:\Windows\System32\cipher.exe
+ 令牌提升类型: %%1938
+ 强制性标签:  Mandatory Label\Medium Mandatory Level
+ 创建者进程 ID: 0x10f0
+ 创建者进程名称: C:\Windows\System32\cmd.exe
+ 进程命令行: cipher  /w:C:/Users/12306br0/Desktop/test #需要单独配置
 ```
 
 ## 检测规则/思路
@@ -77,7 +77,7 @@ detection:
 ​                - 1 #sysmon日志
 ​                - 4688 #Windows 安全日志
         Process_name: 'cipher.exe' #Application Name
-		Commanline: '/w'
+    Commanline: '/w'
 ​    condition: selection
 level: medium
 ```

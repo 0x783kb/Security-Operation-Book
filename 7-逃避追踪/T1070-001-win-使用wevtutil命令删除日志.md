@@ -194,17 +194,17 @@ ParentCommandLine: "C:\Windows\System32\cmd.exe"
 已创建新进程。
 
 使用者:
-	安全 ID:		12306Br0-PC\12306Br0
-	帐户名称:		12306Br0
-	帐户域:		12306Br0-PC
-	登录 ID:		0x660f9
+ 安全 ID:  12306Br0-PC\12306Br0
+ 帐户名称:  12306Br0
+ 帐户域:  12306Br0-PC
+ 登录 ID:  0x660f9
 
 进程信息:
-	新进程 ID:		0x774
-	新进程名称:	C:\Windows\System32\wevtutil.exe
-	令牌提升类型:	TokenElevationTypeFull (2)
-	创建者进程 ID:	0xd00
-	进程命令行:	  #未开启记录命令行参数审核，所以此处为空
+ 新进程 ID:  0x774
+ 新进程名称: C:\Windows\System32\wevtutil.exe
+ 令牌提升类型: TokenElevationTypeFull (2)
+ 创建者进程 ID: 0xd00
+ 进程命令行:   #未开启记录命令行参数审核，所以此处为空
 ```
 
 ## 检测规则/思路
@@ -225,10 +225,10 @@ detection:
 ​                - 1 #sysmon
 ​                - 4688 #Windows 安全日志
         Process.name: 'wevtutil.exe' #Application Name
-		Commanline: 'cl'
-	selection2:
-		Process.name: 'powershell.exe' #Application Name
-		Commanline: 'Clear-EventLog'
+  Commanline: 'cl'
+ selection2:
+  Process.name: 'powershell.exe' #Application Name
+  Commanline: 'Clear-EventLog'
 ​    condition: selection1 OR selection2
 level: medium
 ```
