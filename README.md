@@ -6,13 +6,21 @@ Threathunting-book目前已覆盖80个TID，236个场景.
 
 主要以AD域渗透技巧为中心+ATT&CK技术理解为主，可能涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 
-最后，提醒大家，注意劳逸结合，关注个人身体健康！
+## 数据来源
+
+### 数据源
+
+本项目中涉及到的日志主要为Windows安全日志、Windows powershell日志、Windows sysmon日志、linux audit日志、Http_log以及其他日志(中间件日志，iis等)。其中需要值得注意的是相关日志需要开启相关审核策略或进行相关配置后，方可使用。
+
+### 数据采集
+
+数据采集部分可采用各类日志转发组件，如rsyslog、winlogbeat、splunk日志转发器等。可根据自身需求及实际情况出发，选择适合自己的日志采集方法。
 
 ## 致谢
 
-首先，感谢所有为开源项目做出贡献的人，尤其是这些项目的维护者和创建者。没有它们，本项目就无法创建。
+特别感谢以下项目，没有下面的各个项目，本项目不会开展起来。由于本项目是通过其他项目进行转换为中文，可能存在差争议，当存在争议时，建议以原项目描述内容为准。
 
-本项目由许多不同的源生成。随着我们继续添加更多源，我们将继续在这里添加它们。再次感谢所有这些项目。以下项目未按照特定顺序排序：
+以下项目未按照特定顺序排序：
 
 - [attack.mitre](https://attack.mitre.org/)
 
@@ -29,3 +37,5 @@ Threathunting-book目前已覆盖80个TID，236个场景.
 - [Microsoft-365-Defender-Hunting-Queries](https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries)  (Microsoft Threat Protection team)
 
 - [Security-Datasets](https://github.com/OTRF/Security-Datasets/)
+
+- [elastic_detection-rules](https://github.com/elastic/detection-rules/tree/main/rules)
