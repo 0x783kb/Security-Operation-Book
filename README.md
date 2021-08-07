@@ -2,13 +2,9 @@
 
 ## 简介
 
-Threathunting-book wiki已停止维护
+Threathunting-book目前已覆盖80个TID，236个场景.
 
-Threathunting-book目前已覆盖80个TID，232个场景.
-
-主要涉及ATT&CK技术、场景测试、检测所需数据源、检测思路等。以AD域渗透技巧为中心+ATT&CK技术理解为主，如果你也对AD域渗透和ATT&CK技术有兴趣，可以私信加入我们。我们可以互相探讨学习！
-
-主机日志检测规则后续持续更新，涉及流量相关规则将不会对外开放。
+主要以AD域渗透技巧为中心+ATT&CK技术理解为主，可能涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 
 最后，提醒大家，注意劳逸结合，关注个人身体健康！
 
@@ -31,3 +27,5 @@ Threathunting-book目前已覆盖80个TID，232个场景.
 - [RedTeam-Tactics-and-Techniques](https://github.com/mantvydasb/RedTeam-Tactics-and-Techniques) (by Mantvydas)
   
 - [Microsoft-365-Defender-Hunting-Queries](https://github.com/microsoft/Microsoft-365-Defender-Hunting-Queries)  (Microsoft Threat Protection team)
+
+- [Security-Datasets](https://github.com/OTRF/Security-Datasets/)
