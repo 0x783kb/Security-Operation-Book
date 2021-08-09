@@ -24,40 +24,7 @@ windows安全日志、其他EDR类产品
 
 ## 测试留痕
 
-暂无，仅提供检测规则相关的日志示例
-
-windows server 2016/win10
-
-```yml
-SourceSecurity
-LevelError
-DescriptionA new process has been created.
-
-Creator Subject:
-Security ID: SYSTEM
-Account Name: -
-Account Domain: -
-Logon ID: 0x3E7
-
-Target Subject:
-Security ID: NULL SID
-Account Name: -
-Account Domain: -
-Logon ID: 0x0
-
-Process Information:
-New Process ID: 0x7b4
-New Process Name: C:\Windows\System32\lsass.exe
-Token Elevation Type: %%1936
-Mandatory Label: Mandatory Label\System Mandatory Level
-Creator Process ID: 0x71c
-Creator Process Name: C:\Windows\System32\wininit.exe
-Process Command Line: #需要单独配置，开启
-
-Token Elevation Type indicates the type of token that was assigned to the new process in accordance with User Account Control policy.
-
-Type 1 is a full token with no privileges removed or groups disabled.  A full token is only used if User Account Control is disabled or if the user is the built-in Administrator account or a service account.
-```
+暂无
 
 ## 检测规则/思路
 

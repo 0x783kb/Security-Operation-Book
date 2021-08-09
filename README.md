@@ -2,7 +2,7 @@
 
 ## 简介
 
-Threathunting-book目前已覆盖80个TID，236个场景.
+Threathunting-book目前已覆盖81个TID，238个场景.
 
 主要以AD域渗透技巧为中心+ATT&CK技术理解为主，可能涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 

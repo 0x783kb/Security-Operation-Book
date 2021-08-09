@@ -225,11 +225,11 @@ detection:
 ​                - 1 #sysmon
 ​                - 4688 #Windows 安全日志
         Process.name: 'wevtutil.exe' #Application Name
-  Commanline: 'cl'
- selection2:
-  Process.name: 'powershell.exe' #Application Name
-  Commanline: 'Clear-EventLog'
-​    condition: selection1 OR selection2
+        Commanline: 'cl'
+    selection2:
+        Process.name: 'powershell.exe' #Application Name
+        Commanline: 'Clear-EventLog'
+​condition: selection1 OR selection2
 level: medium
 ```
 
