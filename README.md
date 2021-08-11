@@ -2,9 +2,9 @@
 
 ## 简介
 
-Threathunting-book目前已覆盖81个TID，238个场景.
+Threathunting-book目前已覆盖81个TID，237个场景.
 
-主要以AD域渗透技巧为中心+ATT&CK技术理解为主，可能涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
+主要涵盖Web_attck、Windows AD、Linux ATT&CK TTPs理解为主，可能涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 
 ## 数据来源
 
@@ -14,7 +14,11 @@ Threathunting-book目前已覆盖81个TID，238个场景.
 
 ### 数据采集
 
-数据采集部分可采用各类日志转发组件，如rsyslog、winlogbeat、splunk日志转发器等。可根据自身需求及实际情况出发，选择适合自己的日志采集方法。
+数据采集部分可采用各类日志转发组件，如nxlog、rsyslog、winlogbeat、splunk日志转发器等。可根据自身需求及实际情况出发，选择适合自己的日志采集方法。
+
+### 规则说明
+
+Web_Attck检测规则以Suricata、Sigma，端点检测规则主要以Sigma为主.
 
 ## 致谢
 
