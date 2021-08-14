@@ -2,7 +2,7 @@
 
 ## 简介
 
-Threathunting-book目前已覆盖81个TID，239个场景.
+Threathunting-book目前已覆盖81个TID，239个场景。
 
 主要涵盖Web_attck、Windows AD、Linux ATT&CK TTPs，涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 
@@ -18,7 +18,7 @@ Threathunting-book目前已覆盖81个TID，239个场景.
 
 ### 规则说明
 
-Web_Attck检测规则以Suricata、Sigma，端点检测规则主要以Sigma为主.
+Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigma格式。
 
 ## 致谢
 
