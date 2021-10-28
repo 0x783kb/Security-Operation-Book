@@ -41,7 +41,7 @@ vaultcmd /listproperties:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
 
 ## 测试留痕
 
-windows安全日志下载地址：
+无
 
 ## 检测规则/思路
 
