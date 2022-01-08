@@ -2,7 +2,7 @@
 
 ## 来自ATT&CK的描述
 
-攻击者可能会复制，然后冒充另一个用户的令牌以提升特权并绕过访问控制。攻击者可以创建一个新的访问令牌，该令牌使用来复制现有令牌DuplicateToken(Ex)。然后可以将该令牌用于ImpersonateLoggedOnUser允许调用线程模拟已登录用户的安全上下文，或者SetThreadToken用于将模拟令牌分配给线程。
+攻击者可能会复制，然后冒充另一个用户的令牌用于提升特权并绕过访问控制。攻击者可以创建一个新的访问令牌，该令牌使用来复制现有令牌DuplicateToken(Ex)。然后可以将该令牌用于ImpersonateLoggedOnUser允许调用线程模拟已登录用户的安全上下文，或者SetThreadToken用于将模拟令牌分配给线程。
 
 当攻击者具有要将新令牌分配给的特定现有进程时，他们可以执行此操作。例如，当目标用户在系统上具有非网络登录会话时，这可能很有用。
 
@@ -117,7 +117,7 @@ level: high
 
 如果攻击者使用标准cmd或者powershell，则分析人员可以通过审核命令行活动来检测令牌操纵。具体地说，分析人员应寻找该runas命令的使用。Windows默认情况下不启用详细的命令行日志记录。
 
-分析师还可以监视Windows API（例如DuplicateToken(Ex)，）的使用 ImpersonateLoggedOnUser ，并将 SetThreadToken 活动与其他可疑行为相关联，以减少可能由于用户和管理员的正常良性使用而导致的误报。
+分析师还可以监视Windows API（例如DuplicateToken(Ex)）的使用 ImpersonateLoggedOnUser ，并将 SetThreadToken 活动与其他可疑行为相关联，以减少可能由于用户和管理员的正常良性使用而导致的误报。
 
 ## 参考推荐
 

@@ -73,9 +73,9 @@ logsource:
 detection:
 ​    selection:
 ​        EventID:
-​                - 4688 #Windows 安全日志
-        New Process Name: 'msiexec .exe' #Application Name
-        Commanline: 
+​               - 4688 #Windows 安全日志
+         New Process Name: 'msiexec .exe' #Application Name
+         Commanline: 
                 - '/q'
                 - '/y'
                 - '/i'

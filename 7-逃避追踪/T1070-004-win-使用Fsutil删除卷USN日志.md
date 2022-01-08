@@ -72,9 +72,9 @@ logsource:
 ​    service: security
 detection:
 ​    selection:
-​        EventID:
-​                - 1 #sysmon
-​                - 4688 #Windows 安全日志
+​       EventID:
+​            - 1 #sysmon
+​            - 4688 #Windows 安全日志
         New Process Name: 'fsutil.exe' #Application Name
         Commanline: 'usn deletejournal'
 ​    condition: selection
