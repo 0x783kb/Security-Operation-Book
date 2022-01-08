@@ -8,13 +8,10 @@
 
 下列工具和技术可用于枚举NTDS文件和整个Active Directory哈希的内容。
 
-卷影复制
-
-secretsdump.py
-
-使用内置的Windows工具ntdsutil.exe
-
-调用卷影副本
+- 卷影复制
+- secretsdump.py
+- 使用内置的Windows工具ntdsutil.exe
+- 调用卷影副本
 
 ### NTDS.dit
 

@@ -74,7 +74,7 @@ detection:
 
 ### 建议
 
-注：在低版本操作系统中，可使用windows 安全日志4688，进程VaultCmd.exe进行检测分析；也可使用Sysmon进行行为记录，分析检测。
+注：可使用windows 安全日志4688，进程VaultCmd.exe进行检测分析；也可使用Sysmon进行行为记录，分析检测。
 
 ## 参考推荐
 

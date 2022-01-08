@@ -1,4 +1,4 @@
-# T1003-win-使用comsvc​​s.dll转储Lsass.exe内存
+# T1003-win-使用comsvcs.dll转储Lsass.exe内存
 
 ## 来自ATT&CK的描述
 
@@ -90,7 +90,7 @@ C:\Windows\System32\rundll32.exe C:\windows\System32\comsvcs.dll, MiniDump (Get-
 
 ## 检测规则/思路
 
-重点关注rundll32进程的异常行为。由于dll名称可变，无法通过日志针对进程名称、dll进程名称进行有效监测。
+重点关注rundll32进程的异常行为。由于dll名称可变，无法通过日志针对进程名称进行有效监测。
 
 ## 建议
 

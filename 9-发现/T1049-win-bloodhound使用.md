@@ -3,11 +3,13 @@
 ## 来自ATT&CK的描述
 
 T1049:攻击者可能会通过查询网络上的信息来尝试获取与他们当前正在访问的受感染系统之间或从远程系统获得的网络连接的列表。
+
 T1069:攻击者可能会尝试查找本地系统或域级别的组和权限设置。
 
 ## 测试案例
 
-BloodHound是一种单页的JavaScript的Web应用程序，构建在Linkurious上，用Electron编译，NEO4J数据库是PowerShell/C# ingestor.
+BloodHound是一种单页的JavaScript的Web应用程序，构建在Linkurious上，用Electron编译，NEO4J数据库是PowerShell/C# ingesto。
+
 BloodHound使用可视化图来显示Active Directory环境中隐藏的和相关联的主机内容。攻击者可以使用BloodHound轻松识别高度复杂的攻击路径，否则很难快速识别。防御者可以使用BloodHound来识别和防御那些相同的攻击路径。蓝队和红队都可以使用BloodHound轻松深入了解Active Directory环境中的权限关系。
 
 ## 检测日志
