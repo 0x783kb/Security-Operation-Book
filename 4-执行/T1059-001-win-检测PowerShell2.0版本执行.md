@@ -2,13 +2,13 @@
 
 ## 来自ATT&CK的描述
 
-攻击者可能滥用PowerShell来执行命令和脚本。PowerShell是Windows操作系统中包含的功能强大的交互式命令行界面和脚本环境。攻击者可以使用PowerShell执行许多操作，包括发现信息和执行恶意代码。示例包括Start-Process可用于运行可执行文件的Invoke-Commandcmdlet和可在本地或在远程计算机上运行命令的cmdlet（尽管使用PowerShell连接到远程系统需要管理员权限）。
+攻击者可能滥用PowerShell来执行命令和脚本。PowerShell是Windows操作系统中包含的功能强大的交互式命令行界面和脚本环境。攻击者可以使用PowerShell执行许多操作，包括发现信息和执行恶意代码。示例包括Start-Process可用于运行可执行文件的Invoke-Commandcmdlet和可在本地或远程计算机上运行命令的cmdlet（尽管使用PowerShell连接到远程系统需要管理员权限）。
 
 PowerShell也可以用于从Internet下载并运行可执行文件，这些可执行文件可以从磁盘或内存中执行而无需接触磁盘。
 
-提供了许多基于PowerShell的攻击性测试工具，包括Empire，PowerSploit，PoshC2和PSAttack。
+许多基于PowerShell的攻击性测试工具，包括Empire，PowerSploit，PoshC2和PSAttack。
 
-还可以执行PowerShell命令活脚本，而无需通过.NET框架和Windows公共语言接口（CLI）公开的powershell.exePowerShell底层System.Management.Automation程序集DLL的接口直接调用二进制文件。
+还可以执行PowerShell命令脚本，而无需通过.NET框架和Windows公共语言接口（CLI）公开的powershell.exePowerShell底层System.Management.Automation程序集DLL的接口直接调用二进制文件。
 
 ## 测试案例
 

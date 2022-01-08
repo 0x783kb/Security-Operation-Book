@@ -4,7 +4,7 @@
 
 MSBuild.exe（Microsoft Build Engine）是Visual Studio使用的软件构建平台。它采用XML格式的项目文件，定义了各种平台的构建要求和配置。
 
-攻击者可能会使用MSBuild通过受信任的Windows实用程序来代理执行代码。.NET 4中引入的MSBuild内联任务功能允许将C＃代码插入到XML项目文件中。内联任务MSBuild将编译并执行内联任务。MSBuild.exe是一个签名的微软二进制文件，因此当它以这种方式使用时，它可以执行任意代码并绕过配置为允许MSBuild.exe执行的应用白名单防御。
+攻击者可能会使用MSBuild通过受信任的Windows实用程序来代理执行代码。.NET 4中引入的MSBuild内联任务功能允许将C＃代码插入到XML项目文件中。内联任务MSBuild将编译并执行内联任务。MSBuild.exe是一个微软签名的二进制文件，因此当它以这种方式使用时，它可以执行任意代码并绕过配置为允许MSBuild.exe执行的应用白名单防御。
 
 ## 测试案例
 
@@ -142,7 +142,7 @@ C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe file.xml
 
 ## 检测规则/思路
 
-无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
+无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略Sysmon。
 
 ## 参考推荐
 
