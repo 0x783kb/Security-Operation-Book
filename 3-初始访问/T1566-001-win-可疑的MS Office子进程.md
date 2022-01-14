@@ -74,7 +74,7 @@ wmic.exe or wscript.exe or xwizard.exe)
 
 MITRE-ATT&CK-T1566-001
 
-<https://attack.mitre.org/techniques/T10566/001/>
+<https://attack.mitre.org/techniques/T1566/001/>
 
 检测可疑的MS Office子进程
 
