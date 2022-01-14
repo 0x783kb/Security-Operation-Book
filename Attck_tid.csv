@@ -1,25 +1,25 @@
-T1589-001-收集受害者身份信息-凭证.md
-T1589-002-收集受害者身份信息-邮箱地址.md
-T1589-003-收集受害者身份信息-员工姓名.md
-T1590-001-收集受害者网络信息-域属性.md
-T1590-002-收集受害者网络信息-DNS.md
-T1590-003-收集受害者网络信息-网络信任关系.md
-T1590-004-收集受害者网络信息-网络拓扑.md
-T1590-005-收集受害者网络信息-IP地址.md
-T1590-006-收集受害者网络信息-网络安全设备.md
-T1591-001-收集受害者组织信息-确定物理位置.md
-T1591-002-收集受害者组织信息-业务关系.md
-T1591-003-收集受害者组织信息-确定业务节奏.md
-T1591-004-收集受害者组织信息-确定角色.md
-T1592-001-收集受害者主机信息-硬件信息.md
-T1592-002-收集受害者主机信息-软件信息.md
-T1592-003-收集受害者主机信息-固件信息.md
-T1592-004-收集受害者主机信息-客户端配置.md
+T1589-001-收集目标组织身份信息-凭证.md
+T1589-002-收集目标组织身份信息-邮箱地址.md
+T1589-003-收集目标组织身份信息-员工姓名.md
+T1590-001-收集目标组织网络信息-域属性.md
+T1590-002-收集目标组织网络信息-DNS.md
+T1590-003-收集目标组织网络信息-网络信任关系.md
+T1590-004-收集目标组织网络信息-网络拓扑.md
+T1590-005-收集目标组织网络信息-IP地址.md
+T1590-006-收集目标组织网络信息-网络安全设备.md
+T1591-001-收集目标组织信息-确定物理位置.md
+T1591-002-收集目标组织信息-业务关系.md
+T1591-003-收集目标组织信息-确定业务节奏.md
+T1591-004-收集目标组织信息-确定角色.md
+T1592-001-收集目标组织主机信息-硬件信息.md
+T1592-002-收集目标组织主机信息-软件信息.md
+T1592-003-收集目标组织主机信息-固件信息.md
+T1592-004-收集目标组织主机信息-客户端配置.md
 T1593-001-搜索开放的域_网站-社交媒体.md
 T1593-002-搜索开放的域_网站-搜索引擎.md
-T1594-搜索受害者所拥有的网站.md
+T1594-搜索目标组织所拥有的网站.md
 T1595-001-主动扫描-IP地址.md
-T1595-002-主动扫-漏洞扫描.md
+T1595-002-主动扫描-漏洞扫描.md
 T1596-001-搜索开放的技术数据库-DNS_被动DNS.md
 T1596-002-搜索开放的技术数据库-WHOIS.md
 T1596-003-搜索开放的技术数据库-数字证书.md
@@ -31,12 +31,23 @@ T1021-006-win-远程powershell会话.md
 T1210-win-异常的SMB链接行为.md
 T1210-win-检测到匿名计算机账户更改的使用.md
 T1550-002-win-哈希传递.md
+T1563-002-win-远程服务会话劫持-RDP劫持.md
+T1056-001-win-键盘记录.md
 T1560-001-win-通过winrar压缩收集数据.md
+T1008-备用通信通道.md
+T1071-001-应用层协议-网络协议.md
 T1071.002-win-内网FTP链接到公网行为.md
 T1071.004-win-内网主机向公网DNS发起可疑请求行为.md
 T1090-001-win-端口转发代理.md
+T1092-通过可移动媒介传播.md
+T1095-非应用层协议.md
 T1105-Windows Update可滥用于执行恶意程序行为检测.md
+T1105-win-利用cmdl32进行文件下载行为.md
 T1105-win-命令提示符网络链接.md
+T1521-标准加密协议.md
+T1568-002-动态解析-域名生成算法（DGA）.md
+T1571-非标准端口.md
+T1020-win-自动渗出.md
 T1489-win-停止服务.md
 T1490-win-禁止系统恢复.md
 T1529-win-系统关机或重启.md
@@ -97,15 +108,16 @@ T1190-CVE-2020-5902-F5_BIG-IP_远程代码执行漏洞.md
 T1190-CVE-2020-8193-CVE-2020-8195.md
 T1190-CVE-2021-2109_Weblogic_LDAP_远程代码执行漏洞.md
 T1190-CVE-2021-21402-Jellyfin任意文件读取漏洞.md
-T1190-CVE-2021-21972 Vmware vcenter未授权任意文件:RCE漏洞.md
+T1190-CVE-2021-21972 Vmware vcenter未授权任意文件读取:RCE漏洞.md
+T1190-CVE-2021-41277-Metabase 敏感信息泄露漏洞.md
 T1190-CVE-2021-41773-Apache HTTP Server 2.4.49 路径穿越漏洞.md
 T1190-CVE-2021-42013-Apache HTTP Server 2.4.50 路径穿越漏洞.md
-T1190-IIS日志检测Proxyshell漏洞.md
+T1190-CVE-2021-43798-Grafana任意文件读取漏洞.md
 T1190-Influxdb<1.7.6未授权访问漏洞.md
+T1190-IvBulletin5.X-RCE检测.md
 T1190-JumpServer v2.6.1 RCE攻击检测.md
 T1190-SQL server滥用.md
 T1190-Thinkphp 5.x远程命令执行检测.md
-T1190-vBulletin5.X-RCE检测.md
 T1190-可疑的SQL错误消息.md
 T1190-泛微OA任意文件读取.md
 T1190-深信服VPN任意密码重置.md
@@ -151,15 +163,20 @@ T1098-win-账户操作.md
 T1133-外部远程服务.md
 T1136-001-linux-创建账户.md
 T1136-001-win-创建本地账户.md
+T1137-002-win-office应用启动程序-office test.md
+T1137-004-win-office应用启动程序-outlook主页.md
+T1176-浏览器扩展.md
 T1197-win-BITS Jobs权限维持.md
+T1546-001-win-事件触发执行-更改默认文件关联.md
+T1546-002-win-事件触发执行-屏幕保护程序.md
 T1546-004-linux-.bash_profile and .bashrc.md
 T1546-007-win-通过netsh key持久化.md
+T1546-012-win-事件触发执行-图片文件执行选项注入.md
 T1547-005-win-SSP权限维持.md
 T1548-001-linux-Setuid and Setgid.md
 T1550-003-win-黄金票据.md
-T1078-003-win-多账户同时登陆.md
+T1037-001-win-Boot或logon初始化脚本-登录脚本.md
 T1078-003-win-帐户篡改-可疑的失败登录原因.md
-T1078-003-win-添加用户到本地组.md
 T1134-001-win-CVE-2020-1472.md
 T1134-001-win-访问令牌操作-Runas命令.md
 T1134-005-win-SID历史记录注入.md
@@ -169,9 +186,15 @@ T1505-003-webshell-冰蝎v2.0.md
 T1505-003-webshell-冰蝎v3.0.md
 T1548-003-linux-CVE-2019-14287.md
 T1548-003-linux-Sudo.md
+T1574-001-win-劫持执行流程-DLL搜索顺序劫持.md
+T1006-win-直接访问卷.md
+T1014-win-Rootkit.md
 T1027-003-win-Ping Hex IP.md
+T1027-004-win-传输后编译.md
 T1027-005-linux-主机上的监测组件删除.md
 T1027-005-win-SDelete删除文件.md
+T1036-003-win-重命名程序名称.md
+T1036-004-win-伪装服务或任务.md
 T1036-win-隐藏用户账户带$符号.md
 T1070-001-win-使用wevtutil命令删除日志.md
 T1070-001-win-检测cipher.exe删除数据.md
@@ -181,11 +204,17 @@ T1070-004-linux-文件删除.md
 T1070-004-win-使用Fsutil删除卷USN日志.md
 T1070-004-win-文件删除.md
 T1070-005-win-删除网络共享连接.md
+T1070-006-win-Timestamp.md
 T1140-win-去混淆解码文件或信息.md
 T1202-win-基于白名单Forfiles执行payload.md
 T1202-win-基于白名单Pcalua执行payload.md
-T1218-002-win-签名的二进制代理执行:控制面板.md
+T1216-001-win-签名脚本代理执行-PubPrn.md
+T1216-win-签名脚本代理执行.md
+T1218-001-win-签名的二进制代理执行-编译HTML文件.md
+T1218-002-win-签名的二进制代理执行-控制面板.md
 T1218-007-win-签名的二进制代理执行-Msiexec.md
+T1220-win-XSL Script Processing.md
+T1221-win-模板注入.md
 T1222-001-win-fltmc卸载筛选器驱动程序.md
 T1222-001-win-文件权限修改.md
 T1222-002-linux-文件权限修改.md
@@ -198,16 +227,18 @@ T1564-001-win-发现攻击者在回收站中隐藏恶意软件.md
 T1564-001-win-隐藏的文件和目录.md
 T1564-003-win-隐藏窗口.md
 T1003-002-win-SAM-reg凭证转储.md
-T1003-003-win-NTDS.dit-凭证转储.md
 T1003-003-win-ntds凭证获取.md
 T1003-003-win-vssown.vbs获取NTDS.dit.md
 T1003-003-win-使用ntdsutil获得NTDS.dit文件.md
+T1003-003-win-基于NTDS凭证获取1.md
 T1003-003-win-基于应用日志检测Ntdsutil获取凭证.md
 T1003-004-win-LSA-mimikatz凭证转储.md
 T1003-005-win-DCC2-mimikatz凭证转储.md
 T1003-006-win-DCsysnc-凭证转储.md
 T1003-win-Procdump凭证转储.md
 T1003-win-vaultcmd获取系统凭证基本信息.md
+T1003-win-使用Windows任务管理器转储Lsass.exe内存.md
+T1003-win-使用comsvc​​s.dll转储Lsass.exe内存.md
 T1040-linux-网络嗅探.md
 T1098-win-万能密码.md
 T1098-win-账户操作.md
@@ -233,6 +264,7 @@ T1018-win-检测nbtscan活动.md
 T1018-win-远程系统发现.md
 T1033-win-系统所有者及用户发现.md
 T1040-linux-网络嗅探.md
+T1040-win-使用netsh进行网络嗅探.md
 T1049-win-bloodhound使用.md
 T1049-win-系统网络连接发现.md
 T1057-win-进程发现.md
@@ -245,12 +277,14 @@ T1114-001-win-本地电子邮件收集.md
 T1119-win-Seatbelt自动收集信息.md
 T1119-win-自动收集.md
 T1120-win-周边设备发现.md
-T1123-win-音频收集.md
+T1123-win-使用AudioDeviceCmdlets进行音频收集.md
+T1123-win-使用soundrec进行音频收集.md
 T1124-win-系统时间发现.md
 T1135-win-网络共享发现.md
 T1201-win-密码策略发现.md
 T1482-win-活动目录信息获取检测.md
 T1518-001-win-利用wmic发现安全软件.md
 T1518-001-win-安全软件发现.md
+T1518-win-发现安全软件.md
 T1557-002-linux-ARP网络嗅探.md
 T1590-win-DNS记录获取.md
