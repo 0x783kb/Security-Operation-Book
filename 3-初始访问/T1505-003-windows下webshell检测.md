@@ -2,9 +2,9 @@
 
 ## 来自ATT&CK的描述
 
-攻击者可能会将带有Web Shell的后门Web服务器用于建立对系统的持久访问。Web Shell是放置在可公开访问的Web服务器上的Web脚本，以允许攻击者将Web服务器用作进入网络的网关。Web shell程序可以在托管Web服务器的系统上提供一组要执行的功能或一个命令行界面。
+攻击者可能会通过Web Shell为web服务器创建后门，以便实现对系统的持久访问。Web Shell是攻击者放置在可公开访问的web服务器上的web脚本，以便通过web服务器进入网络。Web Shell可以提供一套待执行的函数，或是为web服务器所在系统提供命令行界面。
 
-除了服务器端脚本之外，Web Shell可能还具有用于与Web服务器对话的客户端接口程序(如菜刀、冰蝎、哥斯拉等)
+除服务器端脚本之外，Web Shell可能还有客户端接口程序，用于与web服务器通信，例如：[China Chopper](https://attack.mitre.org/software/S0020)（引自：Lee 2013）
 
 ## webshell简介
 
