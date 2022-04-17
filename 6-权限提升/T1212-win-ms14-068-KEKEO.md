@@ -61,6 +61,9 @@ level: medium
 
 本规则未经过实际环境测试，谨慎使用
 
+## 相关TIP
+[[T1212-win-ms14-068-PYKEK]]
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1212

@@ -398,6 +398,18 @@ level: high
 
 无具体检测规则，可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略Sysmon。
 
+## 相关TIP
+[[T1218-003-win-基于白名单Cmstp.exe执行Payload]]
+[[T1218-004-win-基于白名单Installutil.exe执行payload]]
+[[T1218-005-win-基于白名单Mshta.exe执行payload]]
+[[T1218-007-win-基于白名单Msiexec.exe执行Payload]]
+[[T1218-008-win-基于白名单Odbcconf.exe执行Payload]]
+[[T1218-009-win-基于白名单Regasm.exe执行payload]]
+[[T1218-010-win-基于白名单Regsvr32执行payload]]
+[[T1218-011-win-基于白名单Rundll32.exe执行payload]]
+[[T1218-011-win-基于白名单url.dll执行payload]]
+[[T1218-011-win-通过Rundll32的异常网络链接]]
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1218-001

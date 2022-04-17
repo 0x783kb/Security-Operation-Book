@@ -108,6 +108,20 @@ level: high
 
 暂无
 
+## 相关TIP
+[[T1003-003-win-基于应用日志检测Ntdsutil获取凭证]]
+[[T1003-003-win-基于NTDS凭证获取1]]
+[[T1003-003-win-使用ntdsutil获得NTDS.dit文件]]
+[[T1003-003-win-ntds凭证获取]]
+[[T1003-003-win-vssown.vbs获取NTDS.dit]]
+[[T1003-004-win-LSA-mimikatz凭证转储]]
+[[T1003-005-win-DCC2-mimikatz凭证转储]]
+[[T1003-006-win-DCsysnc-凭证转储]]
+[[T1003-win-使用comsvc​​s.dll转储Lsass.exe内存]]
+[[T1003-win-使用Windows任务管理器转储Lsass.exe内存]]
+[[T1003-win-Procdump凭证转储]]
+[[T1003-win-vaultcmd获取系统凭证基本信息]]
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1003-002

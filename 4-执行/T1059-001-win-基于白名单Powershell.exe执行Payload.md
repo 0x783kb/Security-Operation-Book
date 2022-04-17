@@ -126,6 +126,14 @@ level: medium
 
 可根据进程创建事件4688/1（进程名称、命令行）进行监控。本监控方法需要自行安装配置审核策略/sysmon。
 
+## 相关TIP
+[[T1059-001-win-检测PowerShell2.0版本执行]]
+[[T1059-001-win-检测PowerShell下载文件]]
+[[T1059-004-linux-脚本]]
+[[T1059-win-基于白名单Certutil.exe执行Payload]]
+[[T1059-win-基于白名单Ftp.exe执行Payload]]
+[[T1059-win-进程生成CMD]]
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1059-001
