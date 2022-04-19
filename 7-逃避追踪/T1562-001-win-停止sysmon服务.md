@@ -192,7 +192,7 @@ level: medium
 [[T1562-001-win-停止windows防御服务]]
 [[T1562-003-linux-Histcontrol]]
 [[T1562-006-win-停止日志采集]]
-
+[[T1562-001-win-卸载安全工具使用的驱动程序-fltMC.exe(白名单)]]
 ## 参考推荐
 
 MITRE-ATT&CK-T1562-001
