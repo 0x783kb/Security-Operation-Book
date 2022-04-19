@@ -1,4 +1,4 @@
-# T1105-Win-利用cmdl32进行文件下载行为
+# T1105-Win-利用cmdl32进行文件下载行为(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -192,6 +192,7 @@ level: high
 ## 相关TIP
 [[T1105-win-命令提示符网络链接]]
 [[T1105-Windows Update可滥用于执行恶意程序行为检测]]
+[[T1105-win-入口工具转移-AppInstaller.exe(白名单、失效)]]
 
 ## 参考推荐
 

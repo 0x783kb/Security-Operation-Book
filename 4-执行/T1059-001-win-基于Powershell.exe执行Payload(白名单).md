@@ -130,8 +130,8 @@ level: medium
 [[T1059-001-win-检测PowerShell2.0版本执行]]
 [[T1059-001-win-检测PowerShell下载文件]]
 [[T1059-004-linux-脚本]]
-[[T1059-win-基于白名单Certutil.exe执行Payload]]
-[[T1059-win-基于白名单Ftp.exe执行Payload]]
+[[T1059-win-基于Certutil.exe执行Payload(白名单)]]
+[[T1059-win-基于Ftp.exe执行Payload(白名单)]]
 [[T1059-win-进程生成CMD]]
 
 ## 参考推荐
