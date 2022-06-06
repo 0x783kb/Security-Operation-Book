@@ -48,3 +48,7 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 - [RedTeam-Tactics-and-Techniques](https://github.com/mantvydasb/RedTeam-Tactics-and-Techniques) (by Mantvydas)
 - [AD-Pentest-Notes](https://github.com/chriskaliX/AD-Pentest-Notes)
 - ......
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/12306Bro/Threathunting-book.svg)](https://github.com/12306Bro/Threathunting-book)
