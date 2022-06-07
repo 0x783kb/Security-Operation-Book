@@ -33,7 +33,7 @@ alert http any any -> any any (msg: "Behinder3  PHP HTTP Response"; flow: establ
 
 ### 自定义检测规则
 
-```
+```yml
 自定义规则进行防护：(uri_path * rco \.(jsp|jspx|php)$)&&(method * belong POST)&&(request_body * req ^[\w+/]{1000,}=?=?$)
 ```
 
