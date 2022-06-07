@@ -14,7 +14,7 @@
 
 首先在Kali攻击机生成公钥和私钥，其中id_rsa.pub为公钥，id_rsa为私钥。
 
-```
+```bash
 ssh-keygen -t rsa
 ```
 
@@ -51,6 +51,7 @@ ssh-keygen -t rsa
 监控修改`/etc/ssh/sshd_config`的更改和可疑进程。
 
 ## 相关TIP
+
 [[Threathunting-book/5-权限维持/T1098-win-万能密码]]
 [[Threathunting-book/5-权限维持/T1098-win-账户操作]]
 [[T1098-win-AdminSDHolder]]
