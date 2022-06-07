@@ -34,7 +34,7 @@ windows security
 
 ### 下载SDelete文件
 
-下载地址: https://docs.microsoft.com/zh-cn/sysinternals/downloads/sdelete
+下载地址: <https://docs.microsoft.com/zh-cn/sysinternals/downloads/sdelete>
 
 ### 执行删除操作
 

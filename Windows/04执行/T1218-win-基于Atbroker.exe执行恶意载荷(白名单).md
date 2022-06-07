@@ -5,19 +5,21 @@
 许多软件开发相关的实用程序可用于执行各种形式的代码用以协助开发、调试和逆向工程。这些实用程序通常可以使用合法证书进行签名。签名后，它们就可以在系统上执行，并通过可信的进程代理执行恶意代码，从而有效地绕过应用白名单防御解决方案。
 
 ## 测试案例
+
  atbroker.exe（C:\Windows\System32目录下），源于微软的“轻松访问中心”。”轻松访问中心”的一项功能是帮助用户启动辅助功能应用程序，常用的包括讲述人，屏幕键盘和放大镜。同时，这意味着第三方程序也可以通过注册“轻松访问中心”的方式来启动。
- 
+
  路径：
- ```
+
+```yml
 - C:\Windows\System32\Atbroker.exe
 - C:\Windows\SysWOW64\Atbroker.exe
  ```
 
 开始使用辅助技术 (AT)
-```
+
+```yml
 ATBroker.exe /start malware
 ```
-
 
 用例：执行在注册表中为新 AT 定义的代码。 必须对系统注册表进行修改以注册或修改现有的 Assistibe Technology (AT) 服务条目。
 所需权限：用户
@@ -28,7 +30,8 @@ ATBroker.exe /start malware
 windows 安全日志（需要自行配置）
 
 ## 测试复现
-```
+
+```yml
 Microsoft Windows [版本 10.0.18363.418]
 (c) 2019 Microsoft Corporation。保留所有权利。
 
@@ -201,7 +204,6 @@ falsepositives:
 
 level: high
 ```
-
 
 ## 参考推荐
 

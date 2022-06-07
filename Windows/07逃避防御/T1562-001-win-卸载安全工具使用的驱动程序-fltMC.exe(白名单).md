@@ -11,25 +11,30 @@
 Fltmc.exe程序是系统提供的用于常见微筛选器驱动程序管理操作的命令行实用程序。 开发人员可以使用 Fltmc.exe来加载和卸载微筛选器驱动程序、附加或分离微筛选器驱动程序和枚举微筛选器驱动程序、实例和卷。 在具有管理员权限的命令提示符下，键入 `fltmc help` 以查看完整的命令列表。
 
 路径：
-```
+
+```yml
 -   C:\Windows\System32\fltMC.exe
 ```
 
 卸载安全代理使用的驱动程序:
-```bash
+
+```yml
 fltMC.exe unload SysmonDrv
 ```
 
 用例：防御规避
 所需权限：管理员
 操作系统：Windows Vista、Windows 7、Windows 8、Windows 8.1、Windows 10
+
 ## 检测日志
 
 Windows安全日志、Sysmon日志
 
 ## 测试复现
+
 Windows 10，测试机未安装Sysmon，故测试过程中，卸载失败。
-```bash
+
+```yml
 C:\Windows\system32>fltMC.exe unload SysmonDrv
 
 卸载失败，出现错误: 0x801f0013
@@ -37,6 +42,7 @@ C:\Windows\system32>fltMC.exe unload SysmonDrv
 ```
 
 ## 测试留痕
+
 ```log
 已创建新进程。
 
@@ -82,9 +88,12 @@ C:\Windows\system32>fltMC.exe unload SysmonDrv
 
 进程命令行: fltMC.exe  unload SysmonDrv
 ```
+
 ## 检测规则/思路
+
 参考Sigma官方规则
-```
+
+```yml
 title: Sysmon Driver Unload
 
 id: 4d7cda18-1b12-4e52-b45c-d28653210df8
@@ -147,8 +156,11 @@ fields:
 ```
 
 ### 建议
+
 Sigma官方规则还是比较简单的，针对进程和命令行参数进行监测。
+
 ## 相关TIP
+
 [[T1562-001-win-停止windows防御服务]]
 [[T1562-003-linux-Histcontrol]]
 [[T1562-006-win-停止日志采集]]

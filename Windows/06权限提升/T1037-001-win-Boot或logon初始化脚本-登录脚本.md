@@ -13,13 +13,15 @@
 添加一个注册表值来运行在%temp%目录下创建的批处理脚本。执行后，在HKCU\Environment键中会有一个新的环境变量，可以在注册表编辑器中查看。
 
 攻击命令，用命令提示符运行：
-```
+
+```yml
 echo "#{script_command}" > #{script_path}
 REG.exe ADD HKCU\Environment /v UserInitMprLogonScript /t REG_SZ /d "#{script_path}" /f
 ```
 
 清理命令：
-```
+
+```yml
 REG.exe DELETE HKCU\Environment /v UserInitMprLogonScript /f >nul 2>&1
 del #{script_path} >nul 2>&1
 del "%USERPROFILE%\desktop\T1037.001-log.txt" >nul 2>&1
@@ -30,19 +32,23 @@ del "%USERPROFILE%\desktop\T1037.001-log.txt" >nul 2>&1
 Windows Sysmon日志
 
 ## 测试复现
-### 测试1 Logon Scripts
-```
+
+### 测试1 LogonScripts
+
+```yml
 C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1037.001>echo Art "Logon Script" atomic test was successful. >> %USERPROFILE%\desktop\T1037.001-log.txt
 
 C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1037.001>REG.exe ADD HKCU\Environment /v UserInitMprLogonScript /t REG_SZ /d "C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\T1037.001-log.txt" /f
 操作成功完成。
 ```
 
-
 ## 测试留痕
-### 测试1 Logon Scripts
+
+### 测试1 LogonScripts
+
 Windows sysmon日志
-```事件ID:1
+
+```yml
 Process Create:
 
 RuleName: technique_id=T1112,technique_name=Modify Registry
@@ -133,11 +139,10 @@ detection:
     selection:
         EventID: 13
         Image: '*\reg.exe'
-		TargetObject: 'HKU\*\Environment\UserInitMprLogonScript'
+        TargetObject: 'HKU\*\Environment\UserInitMprLogonScript'
     condition: selection
 level: high
 ```
-
 
 ### 建议
 

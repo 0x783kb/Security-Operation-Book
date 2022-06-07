@@ -15,16 +15,20 @@
 触发有效载荷需要手动打开Outlook并查看目标文件夹（例如收件箱）。
 
 使用Windows 命令行执行攻击命令：
-```
+
+```yml
 reg.exe add HKCU\Software\Microsoft\Office\#{outlook_version}\Outlook\WebView\#{outlook_folder} /v URL /t REG_SZ /d #{url} /f
 ```
+
 Url：file:atomic-red-team-master\atomics\T1137.004\src\T1137.004.html
 outlook_version：16.0
 outlook_folder：  Inbox #要修改主页设置的Outlook文件夹的名称
 清理命令：
-```
+
+```yml
 reg.exe delete HKCU\Software\Microsoft\Office\#{outlook_version}\Outlook\WebView\#{outlook_folder} /v URL /f >nul 2>&1
 ```
+
 ## 检测日志
 
 Windows Sysmon日志
@@ -32,7 +36,8 @@ Windows Sysmon日志
 ## 测试复现
 
 ### 测试1 Install Outlook Home Page Persistence
-```
+
+```yml
 C:\Users\Administrator.ZHULI>reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html /f
 操作成功完成。
 
@@ -41,8 +46,10 @@ C:\Users\Administrator.ZHULI>reg.exe delete HKCU\Software\Microsoft\Office\#{out
 ```
 
 ## 测试留痕
+
 ### 测试1 Install Outlook Home Page Persistence
-```
+
+```yml
 Sysmon 事件ID 1 进程创建      
 Process Create:
 
@@ -93,7 +100,6 @@ ParentCommandLine: "C:\Windows\system32\cmd.exe"
 ParentUser: ZHULI\Administrator
 ```
 
-
 ## 检测规则/思路
 
 ### Sigma规则
@@ -117,6 +123,7 @@ level: high
 ```
 
 ### 建议
+
 微软发布了一个 PowerShell 脚本，用于在您的邮件环境中安全地收集邮件转发规则和自定义表单，以及解释输出的步骤。该工具可用于检测和修复 Outlook 自定义表单注入攻的规则。
 
 收集进程执行信息，包括进程 ID (PID) 和父进程 ID (PPID)，并查找 Office 进程导致的异常活动链。非标准流程执行树也可能表明存在可疑或恶意行为
@@ -134,4 +141,3 @@ Atomic-red-team-T1137.004
 检测和修复 Outlook 自定义表单注入攻击的规则
 
 <https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack?view=o365-worldwide>
-

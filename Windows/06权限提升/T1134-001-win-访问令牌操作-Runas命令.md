@@ -120,6 +120,7 @@ level: high
 分析师还可以监视Windows API（例如DuplicateToken(Ex)）的使用 ImpersonateLoggedOnUser ，并将 SetThreadToken 活动与其他可疑行为相关联，以减少可能由于用户和管理员的正常良性使用而导致的误报。
 
 ## 相关TIP
+
 [[T1134-001-win-CVE-2020-1472]]
 [[T1134-005-win-SID历史记录注入]]
 

@@ -46,7 +46,6 @@ Seatbelt.exe -group=all -full
 
 数据集来源：<https://github.com/OTRF/Security-Datasets/blob/master/datasets/atomic/windows/discovery/host/cmd_seatbelt_group_user.zip>
 
-
 ```yml
 { [-]
    @timestamp: 2020-11-02T04:39:11.671Z

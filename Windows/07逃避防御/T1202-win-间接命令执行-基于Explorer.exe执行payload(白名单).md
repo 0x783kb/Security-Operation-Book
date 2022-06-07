@@ -11,13 +11,15 @@
 Explorer.exe用于在Windows中管理文件和系统组件的二进制文件。
 
 路径
-```
+
+```yml
 C:\Windows\explorer.exe
 C:\Windows\SysWOW64\explorer.exe
 ```
 
 使用从explorer.exe的新实例生成的父进程执行calc.exe
-```bash
+
+```yml
 explorer.exe /root,"C:\Windows\System32\calc.exe"
 ```
 
@@ -26,7 +28,8 @@ explorer.exe /root,"C:\Windows\System32\calc.exe"
 操作系统：Windows XP、Windows 7、Windows 8、Windows 8.1、Windows 10
 
 使用从explorer.exe的新实例生成的父进程执行notepad.exe
-```bash
+
+```yml
 explorer.exe C:\Windows\System32\notepad.exe
 ```
 
@@ -40,19 +43,19 @@ windows 安全日志（需要自行配置）
 
 ## 测试复现
 
-```bash
+```yml
 C:\Users\liyang\Desktop\asptest>explorer.exe /root,"C:\Windows\System32\calc.exe"
 C:\Users\liyang\Desktop\asptest>explorer.exe C:\Windows\System32\notepad.exe
 ```
 
 ## 测试留痕
 
-```log
-
-```
+无
 
 ## 检测规则/思路
+
 这里参看Sigma官方规则：
+
 ```yml
 title: Explorer Root Flag Process Tree Break
 id: 949f1ffb-6e85-4f00-ae1e-c3c5b190d605
@@ -82,8 +85,10 @@ level: medium
 ```
 
 ## 相关TIP
+
 [[T1202-win-间接命令执行-基于Forfiles执行payload(白名单)]]
 [[T1202-win-间接命令执行-基于Pcalua执行payload(白名单)]]
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1202

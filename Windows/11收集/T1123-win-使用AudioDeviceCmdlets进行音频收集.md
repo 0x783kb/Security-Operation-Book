@@ -9,9 +9,10 @@
 ## 测试案例
 
 ### 测试1 using device audio capture commandlet
+
 [AudioDeviceCmdlets](https://github.com/frgnca/AudioDeviceCmdlets)
 
-```
+```yml
 powershell.exe -Command WindowsAudioDevice-Powershell-Cmdlet
 ```
 
@@ -21,12 +22,13 @@ powershell.exe -Command WindowsAudioDevice-Powershell-Cmdlet
 
 ## 测试复现
 
-```
+```yml
 PS C:\> Install-Module -Name AudioDeviceCmdlets
 PS C:\> Get-AudioDevice  -list
 ```
 
 虚拟机环境，未获取到音频相关信息
+
 ## 测试留痕
 
 暂无
@@ -48,7 +50,6 @@ MITRE-ATT&CK-T1123
 Atomic-red-team-T1123
 
 <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1123/T1123.md>
-
 
 AudioDeviceCmdlets
 

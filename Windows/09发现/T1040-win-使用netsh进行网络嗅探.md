@@ -20,7 +20,7 @@ netsh trace start capture=yes tracefile=%temp%\trace.etl maxsize=10
 
 清除命令：
 
-```
+```yml
 netsh trace stop >nul 2>&1
 TIMEOUT /T 5 >nul 2>&1
 del %temp%\trace.etl >nul 2>&1
@@ -34,7 +34,8 @@ Windows Sysmon日志
 ## 测试复现
 
 ### 测试1 Windows Internal Packet Capture
-```
+
+```yml
 C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui>netsh trace start capture=yes tracefile=C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\trace.etl maxsize=10
 
 跟踪配置:
@@ -53,10 +54,10 @@ C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui>TIMEOUT /T 5 >nul 2>&1
 
 ```
 
-
 ## 测试留痕
 
 ### 测试1 Windows Internal Packet Capture
+
 ```Sysmon日志事件ID1
 Process Create:
 
@@ -154,6 +155,7 @@ level: high
 检测嗅探网络流量的事件可能是最好的检测方法。从主机层面来看，攻击者很可能需要对有线网络上的其他设备进行中间入侵攻击，以捕获不属于当前被攻击系统的流量。这种信息流的变化在网络层面是可以检测到的。监测ARP欺骗和无偿ARP广播。检测被破坏的网络设备是一个比较大的挑战。需要对管理员登录、配置变化和设备图像进行审计，以检测恶意的变化。
 
 ## 相关TIP
+
 [[Threathunting-book/9-发现/T1040-linux-网络嗅探]]
 
 ## 参考推荐

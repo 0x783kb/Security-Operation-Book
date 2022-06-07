@@ -9,29 +9,43 @@
 如果知道具有管理员权限的帐户的凭据，则可以通过一些横向移动技术进行另一种绕过，因为UAC是一种单一系统安全机制，并且在远程系统上运行的进程的权限或完整性在一个系统上将是未知的，并且默认为高完整性。
 
 ## 测试案例
+
 Eventvwr.exe在GUI窗口中显示Windows事件日志。
 路径:
-```
+
+```yml
 -   C:\Windows\System32\eventvwr.exe
 -   C:\Windows\SysWOW64\eventvwr.exe
 ```
 
 在启动过程中，eventvwr.exe 会检查注册表值HKCU\Software\Classes\mscfile\shell\open\command中mmc.exe的位置，该位置用于打开eventvwr.msc保存的控制台文件。如果将另一个二进制文件或脚本的位置添加到此注册表值，它将作为高完整性进程执行，而不会向用户显示 UAC 提示。
-```
+
+```yml
 eventvwr.exe
 ```
+
 用例：在没有UAC提示的情况下将二进制文件或脚本作为高完整性进程执行。  
 所需权限： 用户  
 操作系统：Windows vista、Windows 7、Windows 8、Windows 8.1、Windows 10
+
 ## 检测日志
+
 Windows安全日志
+
 ## 测试复现
+
 无
+
 ## 测试留痕
+
 无
+
 ## 检测规则/规则
+
 这里直接参看Sigma官方规则：
+
 ### sigma规则
+
 ```yml
 title: UAC Bypass via Event Viewer
 
@@ -87,7 +101,9 @@ falsepositives:
 
 level: critical
 ```
+
 ## 参考推荐
+
 MITRE-ATT&CK-T1548-002
 
 <https://attack.mitre.org/techniques/T1548/002/>
@@ -95,4 +111,3 @@ MITRE-ATT&CK-T1548-002
 使用 EVENTVWR.EXE 和注册表劫持的“无文件”UAC绕过
 
 <https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/>
- 

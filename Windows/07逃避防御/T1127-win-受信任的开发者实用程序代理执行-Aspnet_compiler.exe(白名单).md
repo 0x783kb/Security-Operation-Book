@@ -1,19 +1,23 @@
 # T1127-win-受信任的开发者实用程序代理执行(白名单)
 
 ## 来自ATT&CK的描述
+
 攻击者可能会利用受信任的开发人员使用的程序来代理执行恶意载荷。有许多用于软件开发相关任务的实用程序可用于执行各种形式的代码，以协助开发、调试和逆向工程。这些实用程序通常可能使用合法证书进行签名，允许它们在系统上执行并通过有效绕过应用程序控制解决方案的受信任进程代理执行恶意代码。
 
 ## 测试案例
+
 ASP.NET 编译工具 Aspnet_compiler.exe
 
 路径：
-```
+
+```yml
 - c:\Windows\Microsoft.NET\Framework\v4.0.30319\aspnet_compiler.exe
 - c:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe
 ```
 
 使用Build Provider和适当的文件夹结构执行C#代码。
-```
+
+```yml
 C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe -v none -p C:\users\cpl.internal\desktop\asptest\ -f C:\users\cpl.internal\desktop\asptest\none -u
 ```
 
@@ -26,7 +30,8 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe -v none -p C
 windows security
 
 ## 测试复现
-```
+
+```yml
 C:\Users\liyang>C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe -v none -p C:\users\liyang\desktop\asptest\ -f C:\users\liyang\desktop\asptest\none -u
 Microsoft (R) ASP.NET 编译工具版本 4.8.3752.0
 要用来预编译 ASP.NET 应用程序的实用工具
@@ -34,10 +39,9 @@ Microsoft (R) ASP.NET 编译工具版本 4.8.3752.0
 ```
 
 ## 测试留痕
-```
-创建新进程。
 
-  
+```yml
+创建新进程。
 
 创建者主题:
 
@@ -81,8 +85,10 @@ Microsoft (R) ASP.NET 编译工具版本 4.8.3752.0
 ```
 
 ## 检测规则/思路
+
 参考Sigma官方检测规则，基于进程名称进行检测。
-```
+
+```yml
 title: Suspicious aspnet_compiler.exe Execution
 
 id: a01b8329-5953-4f73-ae2d-aa01e1f35f00
@@ -131,6 +137,7 @@ level: medium
 ```
 
 ### 建议
+
 如果在服务器上看到启动此进程，可能是可疑的。
 
 ## 参考推荐

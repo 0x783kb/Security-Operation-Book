@@ -40,10 +40,9 @@ index=windows source=””WinEventLog:Microsoft-Windows-Sysmon/Operational”�
 
 如果你对windows以及powershell比较了解的话，你可以使用Windows日志来完成监视检测，当然最好的方法是使用Sysmon日志。
 
-
 ## 相关TIP
-[[T1123-win-使用AudioDeviceCmdlets进行音频收集]]
 
+[[T1123-win-使用AudioDeviceCmdlets进行音频收集]]
 
 ## 参考推荐
 

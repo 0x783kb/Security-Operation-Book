@@ -6,15 +6,16 @@
 
 Rootkits或启用Rootkit的功能可能存在于操作系统的用户或内核层面，或更低的层面，包括管理程序、主引导记录或系统固件。在Windows、Linux和Mac OS X系统中，已经出现了rootkits。
 
-##  测试案例
+## 测试案例
 
 Windows签名的驱动程序 Rootkit测试
 
-该测试利用已签名的驱动程序在Kernel中执行代码。这个例子来自一个博客，它利用puppetstrings.exe和易受攻击的（已签名的驱动程序）capcom.sys。capcom.sys驱动可以在github上找到。一个很好的参考是在这里： http://www.fuzzysecurity.com/tutorials/28.html SHA1 C1D5CF8C43E7679B782630E93F5E6420CA1749A7 我们利用这里的工作： https://zerosum0x0.blogspot.com/2017/07/puppet-strings-dirty-secret-for-free.html 我们的PoC漏洞的哈希值是SHA1 DD8DA630C00953B6D5182AA66AF999B1E117F441 这将模拟隐藏一个进程。
+该测试利用已签名的驱动程序在Kernel中执行代码。这个例子来自一个博客，它利用puppetstrings.exe和易受攻击的（已签名的驱动程序）capcom.sys。capcom.sys驱动可以在github上找到。一个很好的参考是在这里： <http://www.fuzzysecurity.com/tutorials/28.html> SHA1 C1D5CF8C43E7679B782630E93F5E6420CA1749A7 我们利用这里的工作： <https://zerosum0x0.blogspot.com/2017/07/puppet-strings-dirty-secret-for-free.html>我们的PoC漏洞的哈希值是SHA1 DD8DA630C00953B6D5182AA66AF999B1E117F441这将模拟隐藏一个进程。
 
 攻击命令：
 使用command_prompt运行! 需要提升权限（如root或admin）。
-```
+
+```yml
 #{puppetstrings_path} #{driver_path}
 ```
 
@@ -24,12 +25,14 @@ puppetstrings_path：PathToAtomicsFolder\T1014\bin\puppetstrings.exe
 依赖性: 使用 powershell 运行!
 说明：puppetstrings.exe必须存在于磁盘的指定位置（#{puppetstrings_path}）。
 检查先决条件命令。
-```
+
+```powershell
 if (Test-Path #{puppetstrings_path}) {exit 0} else {exit 1}
 ```
 
 获得先决条件的命令：
-```
+
+```powershell
 Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/atomics/T1014/bin/puppetstrings.exe" -OutFile "#{puppetstrings_path}"
 ```
 
@@ -41,7 +44,7 @@ Invoke-WebRequest "https://github.com/redcanaryco/atomic-red-team/raw/master/ato
 
 ### 测试1 Windows Signed Driver Rootkit Test
 
-```
+```powershell
 PS C:\Windows\system32> C:\Users\zhuli\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1014\bin\puppetstrings.exe C:\Drivers\driver.sys
 Look for process in tasklist.exe
 请按任意键继续. . .
@@ -55,7 +58,7 @@ Windows Server 2019未能成功复现。
 
 Windows Sysmon日志可记录此测试行为。
 
-```
+```yml
 日志名称:          Microsoft-Windows-Sysmon/Operational
 来源:            Microsoft-Windows-Sysmon
 日期:            2022/1/10 14:58:52
@@ -143,6 +146,7 @@ ParentUser: QAX\Administrator
 一些rootkit保护措施可能内置于反病毒或操作系统软件中。有一些专门的rootkit检测工具可以寻找特定类型的rootkit行为。监测是否存在未被识别的DLLs、设备、服务以及对MBR的改变。
 
 ## 参考推荐
+
 MITRE-ATT&CK-T1014
 
 <https://attack.mitre.org/techniques/T1014>

