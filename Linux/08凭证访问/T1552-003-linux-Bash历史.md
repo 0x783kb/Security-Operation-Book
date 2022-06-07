@@ -56,8 +56,6 @@ index=linux sourcetype="linux_audit" syscall=257 key=bash_history_110 | table ho
 sudo auditctl -w ~/.bash_history -k bash_history_110
 ```
 
-### splunk规则
-
 bash 历史记录
 
 ```yml
