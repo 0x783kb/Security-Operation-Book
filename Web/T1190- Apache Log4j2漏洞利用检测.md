@@ -8,7 +8,7 @@
 
 对于网站和数据库，OWASP排名前10位和CWE排名前25位突出了最常见的基于Web的漏洞。
 
-##  Apache Log4j2漏洞
+## Apache Log4j2漏洞
 
 2021年12月，Apache开源组件Log4j（Apache Log4j2是一款优秀的Java日志框架。）被发现两个相关漏洞，分别为任意代码执行漏洞和拒绝服务攻击漏洞，攻击者可以通过构造特殊的请求进行任意代码执行，以达到控制服务器的目的，或者通过构造特殊的请求进行DoS攻击，以达到影响服务器正常运行的目的，影响面十分广泛。
 
@@ -44,7 +44,6 @@ HTTP流量检测规则基于payload关键词进行检测
 (cs-User-Agent:(*$\{jndi\:ldap\:\/* OR *$\{jndi\:rmi\:\/* OR *$\{jndi\:ldaps\:\/* OR *$\{jndi\:dns\:\/* OR *\/$%7bjndi\:* OR *%24%7bjndi\:* OR *$%7Bjndi\:* OR *%2524%257Bjndi* OR *%2F%252524%25257Bjndi%3A* OR *$\{jndi\:$\{lower\:* OR *$\{\:\:\-j\}$\{* OR *$\{jndi\:nis* OR *$\{jndi\:nds* OR *$\{jndi\:corba* OR *$\{jndi\:iiop* OR *$\{$\{env\:BARFOO\:\-j\}* OR *$\{\:\:\-l\}$\{\:\:\-d\}$\{\:\:\-a\}$\{\:\:\-p\}* OR *$\{base64\:JHtqbmRp*) AND user_agent.original:(*$\{jndi\:ldap\:\/* OR *$\{jndi\:rmi\:\/* OR *$\{jndi\:ldaps\:\/* OR *$\{jndi\:dns\:\/* OR *\/$%7bjndi\:* OR *%24%7bjndi\:* OR *$%7Bjndi\:* OR *%2524%257Bjndi* OR *%2F%252524%25257Bjndi%3A* OR *$\{jndi\:$\{lower\:* OR *$\{\:\:\-j\}$\{* OR *$\{jndi\:nis* OR *$\{jndi\:nds* OR *$\{jndi\:corba* OR *$\{jndi\:iiop* OR *$\{$\{env\:BARFOO\:\-j\}* OR *$\{\:\:\-l\}$\{\:\:\-d\}$\{\:\:\-a\}$\{\:\:\-p\}* OR *$\{base64\:JHtqbmRp*) AND cs-uri:(*$\{jndi\:ldap\:\/* OR *$\{jndi\:rmi\:\/* OR *$\{jndi\:ldaps\:\/* OR *$\{jndi\:dns\:\/* OR *\/$%7bjndi\:* OR *%24%7bjndi\:* OR *$%7Bjndi\:* OR *%2524%257Bjndi* OR *%2F%252524%25257Bjndi%3A* OR *$\{jndi\:$\{lower\:* OR *$\{\:\:\-j\}$\{* OR *$\{jndi\:nis* OR *$\{jndi\:nds* OR *$\{jndi\:corba* OR *$\{jndi\:iiop* OR *$\{$\{env\:BARFOO\:\-j\}* OR *$\{\:\:\-l\}$\{\:\:\-d\}$\{\:\:\-a\}$\{\:\:\-p\}* OR *$\{base64\:JHtqbmRp*) AND http.request.referrer:(*$\{jndi\:ldap\:\/* OR *$\{jndi\:rmi\:\/* OR *$\{jndi\:ldaps\:\/* OR *$\{jndi\:dns\:\/* OR *\/$%7bjndi\:* OR *%24%7bjndi\:* OR *$%7Bjndi\:* OR *%2524%257Bjndi* OR *%2F%252524%25257Bjndi%3A* OR *$\{jndi\:$\{lower\:* OR *$\{\:\:\-j\}$\{* OR *$\{jndi\:nis* OR *$\{jndi\:nds* OR *$\{jndi\:corba* OR *$\{jndi\:iiop* OR *$\{$\{env\:BARFOO\:\-j\}* OR *$\{\:\:\-l\}$\{\:\:\-d\}$\{\:\:\-a\}$\{\:\:\-p\}* OR *$\{base64\:JHtqbmRp*))
 ```
 
-
 ### Zeek检测规则
 
 ```yml
@@ -68,5 +67,3 @@ Apache Log4j2漏洞利用检测
 Log4j漏洞分析
 
 <https://blog.csdn.net/a1290320893/article/details/121914678>
-
-
