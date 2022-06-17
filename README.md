@@ -47,6 +47,18 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 
 - [RedTeam-Tactics-and-Techniques](https://github.com/mantvydasb/RedTeam-Tactics-and-Techniques) (by Mantvydas)
 - [AD-Pentest-Notes](https://github.com/chriskaliX/AD-Pentest-Notes)
+- [RedTeamNotes](https://github.com/biggerduck/RedTeamNotes)
+- [RedTeamAttack](https://github.com/r0eXpeR/RedTeamAttack)
+- [hassan0x/RedTeam](https://github.com/hassan0x/RedTeam)
+- [Awesome-CobaltStrike](https://github.com/zer0yu/Awesome-CobaltStrike)
+- [RedTeamCSharpScripts](https://github.com/Mr-Un1k0d3r/RedTeamCSharpScripts)
+- [redteam-notebookPublic](https://github.com/foobarto/redteam-notebook)
+- ......
+
+### 一些比较有意思的蓝队项目
+
+- [JetBrains系列产品.idea钓鱼反制红队](https://github.com/CC11001100/idea-project-fish-exploit)
+- [RedTeam_BlueTeam_HW](https://github.com/Mr-xn/RedTeam_BlueTeam_HW)
 - ......
 
 ## Stargazers over time
