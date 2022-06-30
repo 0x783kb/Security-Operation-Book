@@ -17,6 +17,7 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 ### Mitre.Att&ck
 
 - [attack.mitre](https://attack.mitre.org/)
+- [深入了解Sigma规则以及如何编写自己的威胁检测规则](https://www.freebuf.com/articles/endpoint/337439.html)
 
 ### 数据&组件
 
