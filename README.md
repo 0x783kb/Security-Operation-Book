@@ -63,6 +63,8 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 - [JetBrains系列产品.idea钓鱼反制红队](https://github.com/CC11001100/idea-project-fish-exploit)
 - [RedTeam_BlueTeam_HW](https://github.com/Mr-xn/RedTeam_BlueTeam_HW)
 - [开源网络钓鱼工具包gophish](https://github.com/gophish/gophish)
+- [MysqlHoneypot，获取攻击者微信ID](https://github.com/heikanet/MysqlHoneypot)
+
 - ......
 
 ## Stargazers over time
