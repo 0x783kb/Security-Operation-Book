@@ -69,6 +69,18 @@ detection:
 level: medium
 ```
 
+### elk公布检测规则
+
+```yml
+query = '''
+sequence by host.id, source.ip, user.name with maxspan=3s
+  [authentication where event.action  in ("ssh_login", "user_login") and
+   event.outcome == "failure" and source.ip != null and source.ip != "0.0.0.0" and source.ip != "::" ] with runs=2
+  [authentication where event.action  in ("ssh_login", "user_login") and
+   event.outcome == "success" and source.ip != null and source.ip != "0.0.0.0" and source.ip != "::" ]
+'''
+```
+
 ### 建议
 
 暂无
