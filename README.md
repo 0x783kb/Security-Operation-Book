@@ -2,9 +2,9 @@
 
 ## 简介
 
-Threathunting-book目前已覆盖106个TID，318个场景。主要涵盖Web、Windows AD、Linux，涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
+Threathunting-book目前已覆盖106个TID，320个场景。主要涵盖Web、Windows AD、Linux，涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 
-![覆盖图](index.png)
+![覆盖图](img/index.png)
 
 ## 规则说明
 
