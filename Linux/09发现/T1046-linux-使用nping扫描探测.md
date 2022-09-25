@@ -68,10 +68,7 @@ Nping done: 2 IP addresses pinged in 2.10 seconds
 
 ## 测试留痕
 
-```yml
-336  sudo nping -c 1 -p 22 192.168.50.128-129 --tcp
-337  history
-```
+暂无
 
 ## 检测规则/思路
 
