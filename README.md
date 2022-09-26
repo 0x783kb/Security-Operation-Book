@@ -17,7 +17,6 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 ### Mitre.Att&ck
 
 - [attack.mitre](https://attack.mitre.org/)
-- [深入了解Sigma规则以及如何编写自己的威胁检测规则](https://www.freebuf.com/articles/endpoint/337439.html)
 
 ### 数据&组件
 
@@ -28,6 +27,9 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 - [threathunters-io/laurel](https://github.com/threathunters-io/laurel)
 - [Zeek](https://github.com/zeek/zeek)
 - [Suricata](https://github.com/OISF/suricata)
+- [Microsoft事件日志思维导图](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
+- [Windows事件收集器部署工具](https://github.com/mdecrevoisier/Windows-WEC-server_auto-deploy#windows-event-collector-deployment-toolkit)
+
 
 ### 开源规则
 
