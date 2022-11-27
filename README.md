@@ -69,6 +69,6 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 
 - ......
 
-## Stargazers over time
+## Star History
 
-[![Stargazers over time](https://starchart.cc/12306Bro/Threathunting-book.svg)](https://github.com/12306Bro/Threathunting-book)
+[![Star History Chart](https://api.star-history.com/svg?repos=12306Bro/Threathunting-book&type=Timeline)](https://star-history.com/#12306Bro/Threathunting-book&Timeline)
