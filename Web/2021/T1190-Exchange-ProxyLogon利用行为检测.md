@@ -1,4 +1,4 @@
-# T1190-CVE-2020-0688漏洞利用检测
+# T1190-Exchange-ProxyLogon利用行为检测
 
 ## 来自ATT&CK的描述
 
