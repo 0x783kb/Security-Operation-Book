@@ -28,13 +28,16 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 - [Suricata](https://github.com/OISF/suricata)
 - [Microsoft事件日志思维导图](https://github.com/mdecrevoisier/Microsoft-eventlog-mindmap)
 - [Windows事件收集器部署工具](https://github.com/mdecrevoisier/Windows-WEC-server_auto-deploy#windows-event-collector-deployment-toolkit)
+- [SELKS](https://github.com/StamusNetworks/SELKS)
 
 
 ### 开源规则
 
 - [Sigma](https://github.com/Neo23x0/sigma) (by Neo23x0)
 - [Elastic_detection-rules](https://github.com/elastic/detection-rules/tree/main/rules)
+- [elastic-prebuilt-rules](https://www.elastic.co/guide/en/security/current/prebuilt-rules.html)
 - [Splunk security_content](https://github.com/splunk/security_content/tree/develop/detections)
+- [Splunk-detections](https://research.splunk.com/detections/)
 - [Atomic Blue Detections](https://eqllib.readthedocs.io/en/latest/atomicblue.html)
 - [Detecting ATT&CK techniques & tactics for Linux](https://github.com/Kirtar22/Litmus_Test) (by Kirtar22)
 - [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook)
