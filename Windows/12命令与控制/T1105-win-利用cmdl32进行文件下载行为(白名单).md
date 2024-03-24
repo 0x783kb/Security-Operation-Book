@@ -189,11 +189,6 @@ level: high
 
 低版本操作系统无法记录命令行参数及子父进程，建议通过Sysmon进行监控。
 
-## 相关TIP
-[[T1105-win-命令提示符网络链接]]
-[[T1105-Windows Update可滥用于执行恶意程序行为检测]]
-[[T1105-win-入口工具转移-AppInstaller.exe(白名单、失效)]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1105

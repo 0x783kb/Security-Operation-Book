@@ -145,10 +145,6 @@ EventID：4688
 
 无具体检测规则。
 
-## 相关TIP
-
-[[T1047-win-通过WMIC创建远程进程]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1047:<https://attack.mitre.org/techniques/T1047/>

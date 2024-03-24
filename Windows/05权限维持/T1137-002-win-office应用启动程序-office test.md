@@ -152,10 +152,6 @@ level: high
 
 考虑监控Office进程中的异常DLL加载。
 
-## 相关TIP
-
-[[T1137-004-win-office应用启动程序-outlook主页]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1137-002

@@ -131,11 +131,6 @@ level: low
 
 暂无
 
-## 相关TIP
-
-[[T1218-002-win-签名的二进制代理执行-Control.exe(白名单)]]
-[[T1218-007-win-签名的二进制代理执行-Msiexec]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1218-001

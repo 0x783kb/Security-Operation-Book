@@ -150,6 +150,6 @@ Aspnet_Compiler.exe
 
 <https://lolbas-project.github.io/lolbas/Binaries/Aspnet_Compiler/>
 
-ASP.NET 编译工具 (Aspnet_compiler.exe
+ASP.NET 编译工具 (Aspnet_compiler.exe)
 
 <https://www.cnblogs.com/nmcfshang/articles/451265.html>

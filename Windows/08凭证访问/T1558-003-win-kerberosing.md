@@ -55,10 +55,6 @@ level: medium
 
 暂无
 
-## 相关TIP
-
-[[T1558-003-win-SPN-凭证转储]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1558-003

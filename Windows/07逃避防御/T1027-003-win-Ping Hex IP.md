@@ -55,12 +55,6 @@ level: high
 
 暂无
 
-## 相关TIP
-
-[[T1027-004-win-传输后编译csc.exe(白名单)]]
-[[T1027-005-linux-主机上的监测组件删除]]
-[[T1027-005-win-SDelete删除文件]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1027-003

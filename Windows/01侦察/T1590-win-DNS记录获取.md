@@ -46,14 +46,14 @@ Windows安全日志
 
 ### 常用命令
 
-未能实现三好学生大佬说的效果，同样我的Windows server 2008R2并不支持dnscmd这个命令。很无奈。在Windows server 2016中并没有"."，值得注意。
+未能实现三好学生大佬说的效果，同样我的Windows server 2008R2并不支持dnscmd这个命令。在Windows server 2016中并没有"."，值得注意。
 
 ```yml
 C:\Users\12306br0>dnscmd ./ZoneInfo 361a.com
 指定了未知的命令“361a.com” -- 键入 DnsCmd -?。
 
 
-在将来的 Windows 版本中，Microsoft 可能会删除 dnscmd.exe。
+在将来的Windows版本中，Microsoft 可能会删除dnscmd.exe。
 
 如果你当前使用 dnscmd.exe 配置和管理 DNS 服务器，
 Microsoft 建议你过渡到 Windows PowerShell。

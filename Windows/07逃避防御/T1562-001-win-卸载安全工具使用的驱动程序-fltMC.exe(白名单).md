@@ -159,12 +159,6 @@ fields:
 
 Sigma官方规则还是比较简单的，针对进程和命令行参数进行监测。
 
-## 相关TIP
-
-[[T1562-001-win-停止windows防御服务]]
-[[T1562-003-linux-Histcontrol]]
-[[T1562-006-win-停止日志采集]]
-
 ## 参考推荐
 
 MITRE-ATT&CK-T1562-001
