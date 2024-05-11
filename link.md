@@ -41,6 +41,8 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 - [Atomic Blue Detections](https://eqllib.readthedocs.io/en/latest/atomicblue.html)
 - [Detecting ATT&CK techniques & tactics for Linux](https://github.com/Kirtar22/Litmus_Test) (by Kirtar22)
 - [ThreatHunter-Playbook](https://github.com/OTRF/ThreatHunter-Playbook)
+- [Threat Hunter Playbook ](https://threathunterplaybook.com/intro.html)
+- [有关网络安全的所有最佳链接和资源](https://s0cm0nkey.gitbook.io/s0cm0nkeys-security-reference-guide)
 
 ### 对手仿真
 
