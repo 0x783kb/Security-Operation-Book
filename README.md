@@ -12,4 +12,4 @@ Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigm
 
 ## stars
 
-[https://api.moedog.org/count/@0x783kb.readme）](https://starchart.cc/0x783kb/Security-operation-book.svg)
+(https://starchart.cc/0x783kb/Security-operation-book.svg)
