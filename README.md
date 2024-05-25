@@ -10,6 +10,6 @@ Security-operation-book目前已覆盖116个TID，328个技术点。主要涵盖
 
 Web_Attck检测规则为Suricata、Sigma两种格式，端点检测规则为Sigma格式为主。
 
-## 
+## stars
 
-https://api.moedog.org/count/@0x783kb.readme
+[https://api.moedog.org/count/@0x783kb.readme）](https://starchart.cc/0x783kb/Security-operation-book.svg)
