@@ -1,4 +1,4 @@
-# T1003-002--windows-基于SAM-reg凭证获取
+# T1003-002-Win-基于SAM-reg凭证获取
 
 ## 来自ATT&CK的描述
 

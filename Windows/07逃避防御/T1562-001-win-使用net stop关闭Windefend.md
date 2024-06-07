@@ -1,4 +1,4 @@
-# T1562-001-win-使用net stop关闭部分服务
+# T1562-001-Win-使用net stop关闭部分服务
 
 ## 来自ATT&CK的描述
 
@@ -21,7 +21,7 @@ net stop FontCache
 
 ## 检测日志
 
-windows安全日志
+Windows 安全日志
 
 ## 测试复现
 

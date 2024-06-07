@@ -1,4 +1,4 @@
-# T1119-win-Seatbelt自动收集信息
+# T1119-Win-Seatbelt自动收集信息
 
 ## 来自ATT&CK的描述
 
@@ -16,7 +16,7 @@ Seatbelt是一个C＃项目，可以用来对主机进行安全检查，在进�
 
 ## 检测日志
 
-Windows安全日志、sysmon日志
+Windows 安全日志/sysmon日志
 
 ## 测试复现
 

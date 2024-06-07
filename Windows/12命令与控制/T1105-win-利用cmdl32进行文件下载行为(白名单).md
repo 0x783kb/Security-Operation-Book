@@ -35,7 +35,7 @@ move VPNBDFF.tmp mimikatz.exe
 
 ## 检测日志
 
-windows安全日志、其他EDR类产品
+Windows安全日志、其他EDR类产品
 
 ## 测试复现
 

@@ -1,4 +1,4 @@
-# T1555-005-win-命令行获取Finalshell软件保存的公钥
+# T1555-005-Win-命令行获取Finalshell软件保存的公钥
 
 ## 来自ATT&CK的描述
 

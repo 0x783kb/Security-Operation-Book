@@ -1,4 +1,4 @@
-# T1222-001-win-fltmc卸载筛选器驱动程序
+# T1222-001-Win-使用fltmc卸载筛选器驱动程序
 
 ## 来自ATT&CK的描述
 
@@ -28,9 +28,7 @@ C:\Users\Administrator>FLTMC HELP
 
 ## 检测日志
 
-windows security
-
-windows sysmon
+windows 安全日志/sysmon日志
 
 ## 测试复现
 

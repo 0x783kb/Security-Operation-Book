@@ -1,4 +1,4 @@
-# T1212-windows-MS14-068-KEKEO
+# T1212-Win-MS14-068-KEKEO
 
 ## 来自ATT&CK的描述
 
@@ -16,7 +16,7 @@ PtT技术还可以使用密钥分发服务账号KRBTGT帐户NTLM哈希来获得�
 
 ## 检测日志
 
-windows 安全日志（AD域控日志）
+Windows 安全日志（AD域控日志）
 
 ## 测试复现
 

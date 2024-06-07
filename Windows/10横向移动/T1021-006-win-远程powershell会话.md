@@ -1,4 +1,4 @@
-# T1021-006-win-远程powershell会话
+# T1021-006-Win-远程powershell会话
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@ WinRM是Windows服务和协议的名称，该协议允许用户与远程系统�
 
 ## 检测日志
 
-windows安全日志 OR windows powershell日志
+Windows安全日志/Windows powershell日志
 
 ## 测试复现
 

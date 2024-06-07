@@ -1,4 +1,4 @@
-# T1003-006-windows-基于DCsync凭证获取
+# T1003-006-Win-基于DCsync凭证获取
 
 ## 来自ATT&CK的描述
 
@@ -85,7 +85,7 @@ Invoke-DCSync -DumpForest -Users @("administrator") | ft -wrap -autosize
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

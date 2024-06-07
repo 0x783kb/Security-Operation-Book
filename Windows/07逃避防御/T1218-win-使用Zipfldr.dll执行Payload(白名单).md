@@ -1,4 +1,4 @@
-# T1218-011-win-使用Zipfldr.dll执行Payload（白名单）
+# T1218-011-Win-使用Zipfldr.dll执行Payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -14,7 +14,7 @@ zipfldr.dll自Windows xp开始自带的zip文件压缩/解压工具组件，同�
 
 补充说明：在高版本操作系统中，可以通过配置策略，对进程命令行参数进行记录。日志策略开启方法：`本地计算机策略>计算机配置>管理模板>系统>审核进程创建>在过程创建事件中加入命令行>启用`，同样也可以在不同版本操作系统中部署sysmon，通过sysmon日志进行监控。
 
- Windows 2003 默认位置：
+Windows 2003 默认位置：
 
 C:\Windows\System32\zipfldr.dll
 
@@ -28,7 +28,7 @@ C:\Windows\SysWOW64\zipfldr.dll
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

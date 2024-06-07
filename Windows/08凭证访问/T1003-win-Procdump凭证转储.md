@@ -1,4 +1,4 @@
-# T1003-windows-Procdump明文凭证
+# T1003-Win-Procdump明文凭证
 
 ## 来自ATT&CK的描述
 

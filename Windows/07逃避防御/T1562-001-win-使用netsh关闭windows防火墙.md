@@ -1,4 +1,4 @@
-# T1562-001-win-使用Netsh关闭Windows防火墙
+# T1562-001-Win-使用Netsh关闭Windows防火墙
 
 ## 来自ATT&CK的描述
 
@@ -14,7 +14,7 @@ DOS命令关闭windows防火墙：netsh advfilewall set publicprofile state off
 
 ## 检测日志
 
-windows system
+Windows 系统日志
 
 ## 测试复现
 

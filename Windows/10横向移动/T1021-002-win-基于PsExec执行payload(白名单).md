@@ -1,4 +1,4 @@
-# T1021-002-win-基于白名单PsExec执行payload
+# T1021-002-Win-基于白名单PsExec执行payload
 
 ## 来自ATT&CK的描述
 
@@ -22,7 +22,7 @@ Windows系统具有隐藏的网络共享，只有管理员才能访问它们，�
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

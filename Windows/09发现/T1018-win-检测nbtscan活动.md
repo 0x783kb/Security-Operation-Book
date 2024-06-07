@@ -1,4 +1,4 @@
-# T1018-win-检测nbtscan活动
+# T1018-Win-检测Nbtscan活动
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@ Nbtscan.exe是一款用于扫描Windows网络上NetBIOS名字信息的程序。�
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

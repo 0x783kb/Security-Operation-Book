@@ -1,4 +1,4 @@
-# T1105-win-入口工具转移-AppInstaller.exe(白名单、失效)
+# T1105-Win-入口工具转移-AppInstaller.exe(白名单、失效)
 
 ## 来自ATT&CK的描述
 
@@ -26,7 +26,7 @@ C:\Users\%username%\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3
 
 ## 检测日志
 
-windows安全日志
+Windows 安全日志
 
 ## 测试复现
 

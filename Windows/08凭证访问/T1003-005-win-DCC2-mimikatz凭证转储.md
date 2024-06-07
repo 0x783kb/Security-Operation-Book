@@ -1,4 +1,4 @@
-# T1003-005-win-DCC2-mimikatz凭证获取
+# T1003-005-Win-DCC2-mimikatz凭证获取
 
 ## 来自ATT&CK的描述
 
@@ -65,7 +65,7 @@ DCC2（域缓存凭据版本2），Windows Vista和更新版本的操作系统�
 
 ## 检测日志
 
-windows sysmon日志
+Windows sysmon日志
 
 ## 测试复现
 

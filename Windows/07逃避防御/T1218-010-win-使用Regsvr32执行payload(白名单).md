@@ -1,4 +1,4 @@
-# T1218-010-win-使用Regsvr32执行payload（白名单）
+# T1218-010-Win-使用Regsvr32执行payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -27,7 +27,7 @@ C:\WINDOWS\system32\regsvr32.exe
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

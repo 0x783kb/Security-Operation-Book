@@ -1,4 +1,4 @@
-# T1548-002-win-使用Dism删除Defender
+# T1548-002-Win-使用Dism删除Defender
 
 ## 来自ATT&CK的描述
 
@@ -92,7 +92,7 @@ DISM 选项:
 
 ## 检测日志
 
-windows安全日志
+Windows安全日志
 
 ## 测试复现
 

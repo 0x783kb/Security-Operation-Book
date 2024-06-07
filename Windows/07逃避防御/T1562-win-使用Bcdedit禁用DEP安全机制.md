@@ -1,4 +1,4 @@
-# T1562-win-使用Bcdedit禁用DEP安全机制
+# T1562-Win-使用Bcdedit禁用DEP安全机制
 
 ## 来自ATT&CK的描述
 

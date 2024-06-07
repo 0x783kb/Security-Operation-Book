@@ -1,4 +1,4 @@
-# T1154-linux-trap
+# T1154-Linux-trap
 
 ## 来自ATT&CK的描述
 

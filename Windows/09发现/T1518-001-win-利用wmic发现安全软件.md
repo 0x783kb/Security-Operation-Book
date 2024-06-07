@@ -1,4 +1,4 @@
-# T1518-001-win-利用wmic发现安全软件
+# T1518-001-Win-利用wmic发现安全软件
 
 ## 来自ATT&CK的描述
 
@@ -16,7 +16,7 @@ wmic /namespace:\\root\securitycenter2 path antivirusproduct GET displayName,pro
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

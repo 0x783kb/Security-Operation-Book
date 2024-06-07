@@ -1,4 +1,4 @@
-# T1049/1069-bloodhound使用
+# T1049/1069-Win-Bloodhound使用
 
 ## 来自ATT&CK的描述
 
@@ -14,7 +14,7 @@ BloodHound使用可视化图来显示Active Directory环境中隐藏的和相关
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

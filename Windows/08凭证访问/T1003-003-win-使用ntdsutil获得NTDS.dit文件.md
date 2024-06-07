@@ -1,4 +1,4 @@
-# T1003-003-win-使用ntdsutil获得NTDS.dit文件
+# T1003-003-Win-使用ntdsutil获得NTDS.dit文件
 
 ## 来自ATT&CK的描述
 
@@ -56,7 +56,7 @@ ntsutil.exe +PWPR(Passcape Windows Password Recovery)
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

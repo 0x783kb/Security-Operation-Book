@@ -1,4 +1,4 @@
-# T1218-011-win-通过Rundll32的异常网络链接
+# T1218-011-Win-通过Rundll32的异常网络链接
 
 ## 来自ATT&CK的描述
 
@@ -32,7 +32,7 @@ C:\Windows\SysWOW64\rundll32.exe
 
 ## 检测日志
 
-windows 安全日志（需自行配置）
+Windows 安全日志（需自行配置）
 
 ## 测试复现
 

@@ -1,4 +1,4 @@
-# T1218-007-win-使用Msiexec执行Payload（白名单）
+# T1218-007-Win-使用Msiexec执行Payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -22,7 +22,7 @@ Msiexec是Windows Installer的一部分。用于安装Windows Installer安装包
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

@@ -1,4 +1,4 @@
-# T1123-win-使用soundrec音频收集
+# T1123-Win-使用soundrec音频收集
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@ soundrec可以通过开发板采集声音，并通过电脑端显示波形，适
 
 ## 检测日志
 
-Windows安全日志、sysmon日志
+Windows 安全日志/sysmon日志
 
 ## 测试复现
 

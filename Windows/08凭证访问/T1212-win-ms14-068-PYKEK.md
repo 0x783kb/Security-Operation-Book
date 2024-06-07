@@ -1,4 +1,4 @@
-# T1212-windows-MS14-068-PYKEK
+# T1212-Win-MS14-068-PYKEK
 
 ## 来自ATT&CK的描述
 
@@ -10,7 +10,7 @@
 
 ## 检测日志
 
-windows 安全日志（AD域控日志）
+Windows 安全日志（AD域控日志）
 
 ## 测试复现
 

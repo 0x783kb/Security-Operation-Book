@@ -1,4 +1,4 @@
-# T1105-win-入口工具转移-IMEWDBLD.exe(白名单)
+# T1105-Win-入口工具转移-IMEWDBLD.exe(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -43,7 +43,7 @@ forfiles /P "%localappdata%\Microsoft\Windows\INetCache" /S /M * /C "cmd /c echo
 
 ## 检测日志
 
-windows安全日志
+Windows 安全日志
 
 ## 测试复现
 

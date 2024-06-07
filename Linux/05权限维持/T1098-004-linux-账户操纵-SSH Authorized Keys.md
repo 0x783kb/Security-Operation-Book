@@ -1,4 +1,4 @@
-# T1098-004-linux-账户操纵-SSH Authorized Keys
+# T1098-004-Linux-账户操纵-SSH Authorized Keys
 
 ## 来自ATT&CK的描述
 

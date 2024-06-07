@@ -1,4 +1,4 @@
-# T1003-003-win-基于应用日志检测Ntdsutil获取凭证
+# T1003-003-Win-基于应用日志检测Ntdsutil获取凭证
 
 ## 来自ATT&CK的描述
 
@@ -26,7 +26,7 @@ Ntds.dit文件是存储Active Directory数据的数据库，包括有关用户�
 
 ## 检测日志
 
-windows 应用日志
+Windows 应用日志
 
 ## 测试复现
 

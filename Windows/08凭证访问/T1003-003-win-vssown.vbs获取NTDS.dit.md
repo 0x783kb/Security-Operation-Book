@@ -1,4 +1,4 @@
-# T1003-003-win-使用vssown.vbs获得NTDS.dit文件
+# T1003-003-Win-使用vssown.vbs获得NTDS.dit文件
 
 ## 来自ATT&CK的描述
 
@@ -34,7 +34,7 @@ cscript vssown.vbs /delete
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

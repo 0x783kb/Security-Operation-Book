@@ -1,4 +1,4 @@
-# T1003-win-使用comsvcs.dll转储Lsass.exe内存
+# T1003-Win-使用comsvcs.dll转储Lsass.exe内存
 
 ## 来自ATT&CK的描述
 

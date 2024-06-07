@@ -1,4 +1,4 @@
-# T1059-006-linux-通过Python生成的交互shell
+# T1059-006-Linux-通过Python生成的交互shell
 
 ## 来自ATT&CK的描述
 

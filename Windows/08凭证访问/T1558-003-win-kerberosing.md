@@ -1,4 +1,4 @@
-# T1558-003-win-kerberosing
+# T1558-003-Win-kerberosing
 
 ## 来自ATT&CK的描述
 
@@ -15,9 +15,7 @@ Empire
 
 ## 检测日志
 
-windows 安全日志
-
-netflow流量
+Windows 安全日志/Netflow流量
 
 ## 测试复现
 

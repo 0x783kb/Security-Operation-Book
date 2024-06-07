@@ -1,4 +1,4 @@
-# T1218-win-使用Atbroker.exe执行恶意载荷(白名单)
+# T1218-Win-使用Atbroker.exe执行恶意载荷(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -27,7 +27,7 @@ ATBroker.exe /start malware
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

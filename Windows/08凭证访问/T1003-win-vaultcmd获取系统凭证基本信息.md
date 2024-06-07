@@ -1,4 +1,4 @@
-# T1003-win-vaultcmd获取系统凭据基本信息
+# T1003-Win-vaultcmd获取系统凭据基本信息
 
 ## 来自ATT&CK的描述
 
@@ -32,8 +32,7 @@ vaultcmd /listproperties:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
 
 ## 检测日志
 
-- windows 安全日志
-- windows Sysmon日志
+Windows 安全日志/Sysmon日志
 
 ## 测试复现
 

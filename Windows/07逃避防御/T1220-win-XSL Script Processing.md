@@ -1,4 +1,4 @@
-# T1220-win-XSL Script Processing
+# T1220-Win-XSL Script Processing
 
 ## 来自ATT&CK的描述
 
