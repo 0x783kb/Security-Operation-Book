@@ -1,4 +1,4 @@
-# T1127-win-受信任的开发者实用程序代理执行-Jsc.exe(白名单)
+# T1127-Win-受信任的开发者实用程序代理执行-Jsc.exe(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -39,7 +39,7 @@ jsc.exe /t:library Library.js
 
 ## 检测日志
 
-windows security
+Windows 安全日志
 
 ## 测试复现
 

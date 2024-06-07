@@ -1,4 +1,4 @@
-# T1070-004-win-使用Fsutil删除卷USN日志
+# T1070-004-Win-使用Fsutil删除卷USN日志
 
 ## 来自ATT&CK的描述
 
@@ -14,9 +14,7 @@
 
 ## 检测日志
 
-windows security
-
-windows sysmon
+Windows 安全日志/sysmon日志
 
 ## 测试复现
 

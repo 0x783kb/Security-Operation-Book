@@ -1,4 +1,4 @@
-# T1218-003-win-使用Cmstp.exe执行Payload（白名单）
+# T1218-003-Win-使用Cmstp.exe执行Payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -35,7 +35,7 @@ C:\Windows\SysWOW64\cmstp.exe
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

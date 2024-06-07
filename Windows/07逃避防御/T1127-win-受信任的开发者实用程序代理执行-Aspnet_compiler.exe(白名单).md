@@ -1,4 +1,4 @@
-# T1127-win-受信任的开发者实用程序代理执行(白名单)
+# T1127-Win-受信任的开发者实用程序代理执行(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -27,7 +27,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_compiler.exe -v none -p C
 
 ## 检测日志
 
-windows security
+Windows 安全日志
 
 ## 测试复现
 

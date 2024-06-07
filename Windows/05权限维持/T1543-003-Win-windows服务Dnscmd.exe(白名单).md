@@ -1,4 +1,4 @@
-# T1543-003-windows服务-Dnscmd.exe(白名单)
+# T1543-003-Win-windows服务-Dnscmd.exe(白名单)
 
 ## 来自ATT&CK描述
 

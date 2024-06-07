@@ -1,4 +1,4 @@
-# T1098-Windows-AdminSDHolder
+# T1098-Win-AdminSDHolder
 
 ## 来自ATT&CK的描述
 
@@ -14,7 +14,7 @@ Active Directory将采用AdminSDHolder对象的ACL并定期将其应用于所有
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

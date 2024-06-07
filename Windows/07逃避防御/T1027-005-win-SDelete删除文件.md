@@ -1,4 +1,4 @@
-# T1027-005-windows-SDelete删除文件
+# T1027-005-Win-SDelete删除文件
 
 ## 来自ATT&CK的描述
 
@@ -28,7 +28,7 @@ SDelete是一个带有许多选项的命令行实用工具。按照任何给定�
 
 ## 检测日志
 
-windows security
+Windows 安全日志
 
 ## 测试复现
 

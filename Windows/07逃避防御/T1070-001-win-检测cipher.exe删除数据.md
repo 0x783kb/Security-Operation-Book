@@ -1,4 +1,4 @@
-# T1070-001-win-检测cipher.exe删除数据
+# T1070-001-Win-检测cipher.exe删除数据
 
 ## 来自ATT&CK的描述
 
@@ -20,7 +20,7 @@
 
 ## 检测日志
 
-windows 安全日志/sysmon日志
+Windows 安全日志/sysmon日志
 
 ## 测试复现
 

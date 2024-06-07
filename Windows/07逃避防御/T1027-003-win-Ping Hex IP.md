@@ -1,4 +1,4 @@
-# T1027-003-win-Ping Hex IP
+# T1027-003-Win-Ping Hex IP
 
 ## 来自ATT&CK的描述
 
@@ -16,7 +16,7 @@
 
 ## 检测日志
 
-windows 安全日志/sysmon日志
+Windows 安全日志/sysmon日志
 
 ## 测试复现
 

@@ -1,4 +1,4 @@
-# T1059-win-使用Certutil.exe执行Payload（白名单）
+# T1059-Win-使用Certutil.exe执行Payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -16,7 +16,7 @@ Certutil.exe是作为证书服务的一部分安装的命令行程序。 我们�
 
 ## 检测日志
 
-windows 安全日志/SYSMON日志（需要自行安装）
+Windows 安全日志/sysmon日志（需要自行安装）
 
 ## 测试复现
 

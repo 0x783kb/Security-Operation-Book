@@ -1,4 +1,4 @@
-# T1546-007-win-通过netsh key持久化
+# T1546-007-Win-通过netsh key持久化
 
 ## 来自ATT&CK的描述
 
@@ -14,7 +14,7 @@
 
 ## 检测日志
 
-windows sysmon日志
+Windows sysmon日志
 
 ## 测试复现
 

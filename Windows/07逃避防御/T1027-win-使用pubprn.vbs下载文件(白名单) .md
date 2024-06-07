@@ -1,4 +1,4 @@
-# T1027-win-使用pubprn.vbs下载执行payload(白名单)
+# T1027-Win-使用pubprn.vbs下载执行payload(白名单)
 
 ## 来自ATT&CK的描述
 
@@ -14,7 +14,7 @@
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 

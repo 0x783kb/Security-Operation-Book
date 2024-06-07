@@ -1,4 +1,4 @@
-# T1059-001-win-检测Powershell2.0版本执行情况
+# T1059-001-Win-检测Powershell2.0版本执行情况
 
 ## 来自ATT&CK的描述
 

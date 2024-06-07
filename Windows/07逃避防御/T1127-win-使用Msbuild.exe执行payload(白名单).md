@@ -1,4 +1,4 @@
-# T1127-win-使用Msbuild.exe执行payload（白名单）
+# T1127-Win-使用Msbuild.exe执行payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -22,7 +22,7 @@ win7默认位置：
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）据称可以绕过360，待确认
+Windows 安全日志（需要自行配置）据称可以绕过360，待确认
 
 ## 测试复现
 

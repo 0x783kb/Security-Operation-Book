@@ -1,4 +1,4 @@
-# T1047-win-通过WMIC创建远程进程
+# T1047-Win-通过WMIC创建远程进程
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@ Windows管理规范（WMI）是Windows管理功能，它为本地和远程访问
 
 ## 检测日志
 
-windows安全日志
+Windows安全日志
 
 ## 测试复现
 

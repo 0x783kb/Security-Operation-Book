@@ -1,4 +1,4 @@
-# T1218-001-win-编译HTML文件
+# T1218-001-Win-编译HTML文件
 
 ## 来自ATT&CK的描述
 
@@ -12,9 +12,7 @@
 
 ## 检测日志
 
-windows security
-
-windows sysmon
+Windows 安全日志/sysmon日志
 
 ## 测试复现
 

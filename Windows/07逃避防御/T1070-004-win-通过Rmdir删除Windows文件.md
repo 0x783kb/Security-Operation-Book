@@ -1,4 +1,4 @@
-T1070-004-win-通过Rmdir删除Windows文件
+T1070-004-Win-通过Rmdir删除Windows文件
 
 ## 来自ATT&CK的描述
 
@@ -23,7 +23,7 @@ RD [/S] [/Q] [drive:]path
 
 ## 检测日志
 
-windows sysmon
+Windows sysmon
 
 ## 测试复现
 

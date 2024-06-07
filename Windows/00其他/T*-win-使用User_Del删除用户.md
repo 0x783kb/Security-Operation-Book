@@ -1,4 +1,4 @@
-# T8000-win-使用User_Del删除用户
+# T*-Win-使用User_Del删除用户
 
 ## 测试案例
 
@@ -12,7 +12,7 @@
 
 ## 检测日志
 
- windows sysmon / Windows security
+Windows安全日志/sysmon日志
 
 ## 测试复现
 

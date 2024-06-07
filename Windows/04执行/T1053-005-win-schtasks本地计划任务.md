@@ -1,4 +1,4 @@
-# T1053-005-win-schtasks本地计划任务
+# T1053-005-Win-schtasks本地计划任务
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@
 
 ## 检测日志
 
-windows安全日志/sysmon日志
+Windows安全日志/sysmon日志
 
 ## 测试复现
 

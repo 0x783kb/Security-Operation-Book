@@ -1,4 +1,4 @@
-# T1505-003-win-中间件关联命令行参数来识别webshell
+# T1505-003-Win-中间件关联命令行参数来识别webshell
 
 ## 来自ATT&CK的描述
 
@@ -18,7 +18,7 @@ webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代
 
 ## 检测日志
 
-windows、sysmon日志、以及其他可记录进程、命令行参数的EDR产品
+Windows、sysmon日志、以及其他可记录进程、命令行参数的EDR产品
 
 ## 测试复现
 

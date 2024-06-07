@@ -1,4 +1,4 @@
-# T1037-001-win-Boot或logon初始化脚本-登录脚本
+# T1037-001-Win-Boot或logon初始化脚本-登录脚本
 
 ## 来自ATT&CK描述
 

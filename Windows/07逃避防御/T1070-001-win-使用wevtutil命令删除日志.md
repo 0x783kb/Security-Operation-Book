@@ -1,4 +1,4 @@
-# T1070-001-win-使用wevtutil命令删除日志
+# T1070-001-Win-使用wevtutil命令删除日志
 
 ## 来自ATT&CK的描述
 
@@ -150,7 +150,7 @@ wevtutil.exe cl "Windows PowerShell"
 
 ## 检测日志
 
-windows sysmon
+Windows sysmon日志
 
 ## 测试复现
 

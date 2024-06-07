@@ -1,4 +1,4 @@
-# T1546-015-win-组件对象模型劫持-Dllhost.exe(白名单)
+# T1546-015-Win-组件对象模型劫持-Dllhost.exe(白名单)
 
 ## 来自ATT&CK描述
 

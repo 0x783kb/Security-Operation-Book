@@ -1,4 +1,4 @@
-# T1059-windows-powerhsell
+# T1059-Win-powerhsell
 
 ## 来自ATT&CK的描述
 
@@ -18,7 +18,7 @@ PowerShell也可以用于从Internet下载并运行可执行文件，这些可�
 
 ## 检测日志
 
-windows 安全日志 进程创建事件
+Windows 安全日志 进程创建事件
 
 ## 测试复现
 

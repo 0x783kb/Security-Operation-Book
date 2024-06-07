@@ -1,4 +1,4 @@
-# T1218-004-win-使用Installutil.exe执行payload（白名单）
+# T1218-004-Win-使用Installutil.exe执行payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -20,7 +20,7 @@ InstallUtil.exe由Microsoft进行数字签名。攻击者可能会使用InstallU
 
 ## 检测日志
 
-windows 安全日志/SYSMON日志（需要自行安装）
+Windows 安全日志/sysmon日志（需要自行安装）
 
 ## 测试复现
 

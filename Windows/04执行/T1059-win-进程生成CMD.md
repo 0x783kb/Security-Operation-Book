@@ -1,4 +1,4 @@
-# T1059-windows-进程生成CMD
+# T1059-Win-进程生成CMD
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@ Windows [命令提示符](https://en.wikipedia.org/wiki/cmd.exe)（`cmd.exe`）�
 
 ## 检测日志
 
-windows 安全日志
+Windows 安全日志
 
 ## 测试复现
 

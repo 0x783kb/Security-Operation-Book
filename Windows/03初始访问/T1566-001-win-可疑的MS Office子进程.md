@@ -1,4 +1,4 @@
-# T1566-001-win-可疑的MS Office子进程
+# T1566-001-Win-可疑的MS Office子进程
 
 ## 来自ATT&CK的描述
 
@@ -12,7 +12,7 @@
 
 ## 检测日志
 
-windows安全日志/sysmon日志
+Windows安全日志/sysmon日志
 
 ## 测试复现
 

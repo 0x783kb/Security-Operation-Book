@@ -1,4 +1,4 @@
-# T1218-001-win-使用Compiler.exe执行payload（白名单）
+# T1218-001-Win-使用Compiler.exe执行payload（白名单）
 
 ## 来自ATT&CK的描述
 
@@ -6,7 +6,7 @@
 
 ## 测试案例
 
- Microsoft.Workflow.Comiler.exe是.NET Framework默认自带的一个实用工具，用户能够以XOML工作流文件的形式提供一个序列化工作流来执行任意未签名的代码。
+Microsoft.Workflow.Comiler.exe是.NET Framework默认自带的一个实用工具，用户能够以XOML工作流文件的形式提供一个序列化工作流来执行任意未签名的代码。
 
 Microsoft.Workflow.Comiler.exe需要两个命令行参数，第一个参数必须是一个XML文件（由一个序列化CompilerInput对象构成）的路径，第二个参数则是写入序列化编译结果的文件路径。
 
@@ -22,7 +22,7 @@ win7默认位置：
 
 ## 检测日志
 
-windows 安全日志（需要自行配置）
+Windows 安全日志（需要自行配置）
 
 ## 测试复现
 
