@@ -1,4 +1,4 @@
-# T1548-001-linux-Setuid and Setgid
+# T1548-001-Linux-Setuid and Setgid
 
 ## 来自ATT&CK的描述
 

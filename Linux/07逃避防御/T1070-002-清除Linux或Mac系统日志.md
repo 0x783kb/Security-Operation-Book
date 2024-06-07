@@ -1,4 +1,4 @@
-# T1070-002-linux-清除Linux或Mac系统日志
+# T1070-002-Linux-清除Linux或Mac系统日志
 
 ## 来自ATT&CK的描述
 

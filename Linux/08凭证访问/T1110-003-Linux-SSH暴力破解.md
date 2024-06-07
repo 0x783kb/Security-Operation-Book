@@ -1,4 +1,4 @@
-# T1110-003-linux-ssh爆破
+# T1110-003-Linux-SSH暴力破解
 
 ## 来自ATT&CK的描述
 

@@ -1,4 +1,4 @@
-# T1552-003-linux-Bash历史记录
+# T1552-003-Linux-Bash历史记录
 
 ## 来自ATT&CK的描述
 

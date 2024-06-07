@@ -1,4 +1,4 @@
-# T1169-linux-Sudo
+# T1169-Linux-Sudo
 
 ## 来自ATT&CK的描述
 

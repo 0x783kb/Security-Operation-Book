@@ -1,4 +1,4 @@
-# T1562-003-linux-Histcontrol
+# T1562-003-Linux-Histcontrol
 
 ## 来自ATT&CK的描述
 

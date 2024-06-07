@@ -1,4 +1,4 @@
-# T1046-linux-使用nping扫描探测
+# T1046-Linux-使用nping扫描探测
 
 ## 来自ATT&CK的描述
 
