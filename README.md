@@ -2,7 +2,7 @@
 
 ## 简介
 
-Security-operation-book目前已覆盖116个TID，353个技术点。主要涵盖Web、Windows AD、Linux，涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
+Security-operation-book目前已覆盖116个TID，354个技术点。主要涵盖Web、Windows AD、Linux，涉及ATT&CK技术、模拟测试、检测思路、检测所需数据源等。
 
 ![覆盖图](img/index.png)
 
