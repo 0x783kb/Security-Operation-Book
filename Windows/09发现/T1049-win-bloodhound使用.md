@@ -242,14 +242,15 @@ falsepositives:
 
 ## 参考推荐
 
-- MITRE ATT&CK - T1049: <https://attack.mitre.org/techniques/T1049/>
-- MITRE ATT&CK - T1069: <https://attack.mitre.org/techniques/T1069/>
-- BloodHound 官方 GitHub: <https://github.com/BloodHoundAD/BloodHound>
-- SharpHound 官方 GitHub: <https://github.com/BloodHoundAD/SharpHound>
-- Atomic Red Team - T1049 测试用例: <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1049/T1049.md>
-- Atomic Red Team - T1069 测试用例: <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1069/T1069.md>
-- Sysmon 配置指南: <https://github.com/SwiftOnSecurity/sysmon-config>
-- PowerShell 日志配置指南: <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging>
-- Elastic SIEM 检测规则: <https://www.elastic.co/guide/en/security/current/detection-rules.html>
-- Active Directory 安全指南: <https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices>
-- BloodHound 域分析详解: <https://www.cnblogs.com/KevinGeorge/p/10513211.html>
+- MITRE ATT&CK - T1049
+  <https://attack.mitre.org/techniques/T1049/>
+- MITRE ATT&CK - T1069
+  <https://attack.mitre.org/techniques/T1069/>
+- BloodHound 官方 GitHub
+  <https://github.com/BloodHoundAD/BloodHound>
+- SharpHound 官方 GitHub
+  <https://github.com/BloodHoundAD/SharpHound>
+- Atomic Red Team - T1049 测试用例
+  <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1049/T1049.md>
+- Atomic Red Team - T1069 测试用例
+  <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1069/T1069.md>

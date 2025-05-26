@@ -183,10 +183,9 @@ falsepositives:
 
 ## 参考推荐
 
-- MITRE ATT&CK - T1040: <https://attack.mitre.org/techniques/T1040/>
-- Atomic Red Team - T1040 测试用例: <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1040/T1040.md>
-- Sysmon 配置指南: <https://github.com/SwiftOnSecurity/sysmon-config>
-- Elastic SIEM 检测规则: <https://www.elastic.co/guide/en/security/current/detection-rules.html>
-- Zeek 网络监控: <https://docs.zeek.org/en/master/>
-- Windows 网络安全指南: <https://docs.microsoft.com/en-us/windows/security/threat-protection/network-protection>
-- 网络嗅探与防御: <https://www.sans.org/reading-room/whitepapers/detection/network-sniffing-detection-mitigation-343>
+- MITRE ATT&CK - T1040
+  <https://attack.mitre.org/techniques/T1040/>
+- Atomic Red Team - T1040 测试用例
+  <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1040/T1040.md>
+- Zeek 网络监控
+  <https://docs.zeek.org/en/master/>
