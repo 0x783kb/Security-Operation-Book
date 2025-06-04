@@ -1,6 +1,6 @@
 # T1590-收集目标组织网络信息-DNS记录获取
 
-## 来自 ATT&CK 的描述
+## 描述
 
 在入侵目标组织之前，攻击者可能通过多种方式收集目标组织的 DNS 记录信息（T1590）。这些信息可用于目标定位、了解网络架构或指导后续攻击活动（如钓鱼 T1566、有效账号 T1078 或服务探测 T1046）。DNS 记录（如 A、MX、CNAME、TXT 等）通常通过公开渠道或内部权限获取，暴露目标组织的服务器、邮件系统或其他关键基础设施。由于这些活动可能在目标组织的视野之外（如攻击者的设备或公开 DNS 查询）或内部环境中（如利用已获得的权限）进行，检测具有一定挑战性。
 
@@ -272,13 +272,13 @@ DNS 记录获取可能发生在外部（公开查询）或内部（利用权限�
 
 ## 参考推荐
 
-- **MITRE ATT&CK - T1590**  
+- MITRE ATT&CK:T1590  
   <https://attack.mitre.org/techniques/T1590/>
-- **域渗透——DNS记录的获取**  
+- 域渗透——DNS记录的获取  
   <https://3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-DNS%E8%AE%B0%E5%BD%95%E7%9A%84%E8%8E%B7%E5%8F%96>
-- **Microsoft dnscmd 文档**  
+- Microsoft dnscmd 文档  
   <https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc772069(v=ws.11)>
-- **Microsoft RSAT 下载**  
+- Microsoft RSAT 下载  
   <https://www.microsoft.com/en-us/download/details.aspx?id=7887>
-- **PowerShell DnsServer 模块文档**  
+- PowerShell DnsServer 模块文档  
   <https://docs.microsoft.com/en-us/powershell/module/dnsserver/>
