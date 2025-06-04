@@ -1,6 +1,6 @@
 # T1040-Win-使用netsh进行网络嗅探
 
-## 来自ATT&CK的描述
+## 描述
 
 攻击者通过网络嗅探（T1040）使用系统上的网络接口监视或捕获通过有线或无线连接发送的数据，以获取用户凭据（尤其是通过不安全协议如 FTP、HTTP、Telnet 发送的明文凭据）、网络配置细节（如运行服务、版本号、IP 地址、主机名、VLAN ID）或其他支持横向移动、防御逃避的网络特征。在 Windows 系统中，攻击者可能利用内置工具 `netsh trace` 将网络接口置于混杂模式，捕获传输中的数据并保存为 ETL 文件（通常位于 `%temp%\trace.etl`），或使用第三方工具如 Wireshark、tcpdump（通过 WSL）。攻击者还可能通过跨接端口或 ARP 欺骗捕获更广泛的流量。捕获的数据可用于识别高价值目标、规划攻击路径或窃取敏感信息。攻击者可能通过重命名 `netsh`、更改输出路径或结合其他工具规避检测。本文档聚焦于 Windows 平台使用 `netsh trace` 的检测和防御。
 
@@ -183,9 +183,9 @@ falsepositives:
 
 ## 参考推荐
 
-- MITRE ATT&CK - T1040
+- MITRE ATT&CK: T1040  
   <https://attack.mitre.org/techniques/T1040/>
-- Atomic Red Team - T1040 测试用例
+- Atomic Red Team - T1040 测试用例  
   <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1040/T1040.md>
-- Zeek 网络监控
+- Zeek 网络监控  
   <https://docs.zeek.org/en/master/>

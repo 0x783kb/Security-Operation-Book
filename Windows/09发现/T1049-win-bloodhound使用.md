@@ -1,6 +1,6 @@
 # T1049/1069-Win-Windows BloodHound和SharpHound使用
 
-## 来自ATT&CK的描述
+## 描述
 
 **T1049 - 系统网络连接发现**：攻击者通过系统网络连接发现（T1049）获取受感染系统与网络上其他系统之间的连接信息，以绘制网络拓扑、识别活跃服务或为横向移动、权限提升或数据窃取做准备。工具如 BloodHound（通过 SharpHound 收集器）可枚举 Active Directory（AD）环境中的网络会话（如 SMB 会话、Kerberos 票据），揭示主机之间的连接关系。
 
@@ -242,15 +242,15 @@ falsepositives:
 
 ## 参考推荐
 
-- MITRE ATT&CK - T1049
+- MITRE ATT&CK: T1049  
   <https://attack.mitre.org/techniques/T1049/>
-- MITRE ATT&CK - T1069
+- MITRE ATT&CK: T1069  
   <https://attack.mitre.org/techniques/T1069/>
-- BloodHound 官方 GitHub
+- BloodHound 官方 GitHub  
   <https://github.com/BloodHoundAD/BloodHound>
-- SharpHound 官方 GitHub
+- SharpHound 官方 GitHub  
   <https://github.com/BloodHoundAD/SharpHound>
-- Atomic Red Team - T1049 测试用例
+- Atomic Red Team - T1049 测试用例  
   <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1049/T1049.md>
-- Atomic Red Team - T1069 测试用例
+- Atomic Red Team - T1069 测试用例  
   <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1069/T1069.md>
