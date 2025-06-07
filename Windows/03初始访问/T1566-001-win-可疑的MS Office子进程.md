@@ -1,81 +1,250 @@
 # T1566-001-Win-可疑的MS Office子进程
 
-## 来自ATT&CK的描述
+# 描述
 
-攻击者可能发送带有恶意附件的鱼叉式电子邮件，以试图访问受害者系统。鱼叉式附件与其他形式的鱼叉式附件的不同之处在于，它使用了附加到电子邮件的恶意软件。所有形式的鱼叉式广告都是以电子方式交付的针对特定个人，公司或行业的社会工程学。在这种情况下，攻击者会将文件附加到欺骗性电子邮件中，并且通常依靠用户执行来获得执行。
+攻击者可能通过发送带有恶意附件的鱼叉式电子邮件（Spearphishing Attachment）实现对受害者系统的初始访问（T1566.001）。这些附件通常包含恶意软件，利用社会工程学诱导用户打开附件并触发执行。恶意附件可能伪装为Microsoft Office文档（如Word、Excel、PowerPoint）、PDF、可执行文件或压缩文件。打开附件后，恶意代码可能利用漏洞或直接在用户系统上执行，绕过安全防护措施。
 
-附件有很多选项，例如Microsoft Office文档，可执行文件，PDF或存档文件。打开附件（并可能单击过去的保护）后，攻击者的有效负载会利用漏洞或直接在用户的系统上执行。鱼叉式电子邮件的文本通常试图给出一个合理的原因来解释为什么应该打开该文件，并且可能会解释如何绕开系统保护措施。该电子邮件还可能包含有关如何解密附件（例如zip文件密码）的说明，以逃避电子邮件边界防御。攻击者经常操纵文件扩展名和图标，以使附加的可执行文件看起来像文档文件，或者利用一个应用程序的文件看起来像是另一文件的文件。
+攻击者通常通过精心设计的电子邮件内容，提供看似合理的理由诱导用户打开附件，并可能包含绕过系统保护的说明（如启用宏、解密zip文件密码）。文件扩展名和图标可能被操纵，使恶意文件伪装成合法文档。MS Office应用程序（如`winword.exe`、`excel.exe`）启动异常子进程（如`cmd.exe`、`powershell.exe`）是鱼叉式网络钓鱼攻击的常见迹象，可能表明宏或脚本执行了恶意操作。
 
 ## 测试案例
 
-暂无
+1. **恶意Word文档执行宏**  
+   攻击者发送带有恶意宏的Word文档，用户启用宏后，`winword.exe`启动`powershell.exe`执行恶意脚本。
+
+2. **Excel文档触发命令行**  
+   攻击者通过Excel文档中的VBA宏启动`cmd.exe`，下载并运行恶意可执行文件。
 
 ## 检测日志
 
-Windows安全日志/sysmon日志
+**Windows安全日志和Sysmon日志**  
+检测MS Office启动的可疑子进程依赖以下日志来源：
+- **Windows安全日志**：
+  - 事件ID 4688：记录进程创建，包含父进程和子进程信息。
+- **Sysmon日志**：
+  - 事件ID 1：记录进程创建，包含详细的命令行参数和父进程信息。
+- **应用程序日志**：Office应用程序可能记录宏执行或异常行为。
 
 ## 测试复现
 
-暂无测试案例
+1. **环境准备**：
+   - 部署Windows测试主机，安装Microsoft Office（如Word、Excel）。
+   - 配置Sysmon和Windows安全日志，记录进程创建（事件ID 4688、Sysmon ID 1）。
+   - 示例Sysmon配置：
+     ```xml
+     <Sysmon schemaversion="4.81">
+       <EventFiltering>
+         <ProcessCreate onmatch="include">
+           <ParentImage condition="end with">winword.exe</ParentImage>
+           <ParentImage condition="end with">excel.exe</ParentImage>
+         </ProcessCreate>
+       </EventFiltering>
+     </Sysmon>
+     ```
+
+2. **模拟攻击**：
+   - 创建包含恶意宏的Word文档，启动`cmd.exe`或`powershell.exe`。
+   - 示例VBA宏：
+     ```vba
+     Sub AutoOpen()
+       Shell "cmd.exe /c whoami", vbHide
+     End Sub
+     ```
+   - 发送测试邮件，附件为恶意文档，模拟用户打开并启用宏。
+
+3. **验证日志**：
+   - 检查Sysmon日志（事件ID 1）或Windows安全日志（事件ID 4688），确认`winword.exe`是否启动了可疑子进程（如`cmd.exe`）。
+   - 示例日志：
+     ```plaintext
+     Process Create:
+     Image: C:\Windows\System32\cmd.exe
+     ParentImage: C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE
+     CommandLine: cmd.exe /c whoami
+     ```
+
+**注意**：此复现仅用于学习和测试目的，需在合法授权的测试环境中进行，切勿用于非法活动。
 
 ## 测试留痕
 
-暂无，可参看windows 4688进程创建日志样例，辅助理解。
-
-```yml
-Pre-Windows 2016/10
-A new process has been created.
-
-Subject:
-
-   Security ID:  WIN-R9H529RIO4Y\Administrator
-   Account Name:  Administrator
-   Account Domain:  WIN-R9H529RIO4Y
-   Logon ID:  0x1fd23
-
-Process Information:
-
-   New Process ID:  0xed0
-   New Process Name: C:\Windows\System32\notepad.exe
-   Token Elevation Type: TokenElevationTypeDefault (1)
-   Mandatory Label: Mandatory Label\Medium Mandatory Level
-   Creator Process ID: 0x8c0
-   Creator Process Name: c:\windows\system32\explorer.exe
-   Process Command Line: C:\Windows\System32\notepad.exe c:\sys\junk.txt
-```
+可疑的MS Office子进程可能在以下日志中留下痕迹：
+- **Windows安全日志（事件ID 4688）**：
+  ```plaintext
+  A new process has been created.
+  Subject:
+    Security ID:  WIN-R9H529RIO4Y\Administrator
+    Account Name:  Administrator
+    Account Domain:  WIN-R9H529RIO4Y
+    Logon ID:  0x1fd23
+  Process Information:
+    New Process ID:  0xed0
+    New Process Name: C:\Windows\System32\cmd.exe
+    Creator Process ID: 0x8c0
+    Creator Process Name: C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE
+    Process Command Line: cmd.exe /c whoami
+  ```
+- **Sysmon日志（事件ID 1）**：
+  - 记录父进程（如`winword.exe`）启动可疑子进程（如`powershell.exe`、`certutil.exe`）。
+- **网络日志**：记录子进程引发的网络活动（如下载恶意文件）。
 
 ## 检测规则/思路
 
-### Elastic rule query
+**检测规则**  
+通过分析Sysmon和Windows安全日志，检测MS Office应用程序启动的可疑子进程。以下是具体思路：
 
-```yml
-event.action:"Process Create (rule: ProcessCreate)" and
-process.parent.name:(eqnedt32.exe or excel.exe or fltldr.exe or
-msaccess.exe or mspub.exe or powerpnt.exe or winword.exe) and
-process.name:(Microsoft.Workflow.Compiler.exe or arp.exe or
-atbroker.exe or bginfo.exe or bitsadmin.exe or cdb.exe or certutil.exe
-or cmd.exe or cmstp.exe or cscript.exe or csi.exe or dnx.exe or
-dsget.exe or dsquery.exe or forfiles.exe or fsi.exe or ftp.exe or
-gpresult.exe or hostname.exe or ieexec.exe or iexpress.exe or
-installutil.exe or ipconfig.exe or mshta.exe or msxsl.exe or
-nbtstat.exe or net.exe or net1.exe or netsh.exe or netstat.exe or
-nltest.exe or odbcconf.exe or ping.exe or powershell.exe or pwsh.exe
-or qprocess.exe or quser.exe or qwinsta.exe or rcsi.exe or reg.exe or
-regasm.exe or regsvcs.exe or regsvr32.exe or sc.exe or schtasks.exe or
-systeminfo.exe or tasklist.exe or tracert.exe or whoami.exe or
-wmic.exe or wscript.exe or xwizard.exe)
-```
+1. **日志分析**：
+   - 收集Sysmon事件ID 1或Windows安全事件ID 4688，提取父进程为MS Office应用程序（如`winword.exe`、`excel.exe`）的记录。
+   - 检测子进程是否为异常工具（如`cmd.exe`、`powershell.exe`、`certutil.exe`）。
 
-### 建议
+2. **Elastic规则**：
+   ```plaintext
+   event.action:"Process Create (rule: ProcessCreate)" and
+   process.parent.name:(eqnedt32.exe or excel.exe or fltldr.exe or
+   msaccess.exe or mspub.exe or powerpnt.exe or winword.exe) and
+   process.name:(Microsoft.Workflow.Compiler.exe or arp.exe or
+   atbroker.exe or bginfo.exe or bitsadmin.exe or cdb.exe or certutil.exe
+   or cmd.exe or cmstp.exe or cscript.exe or csi.exe or dnx.exe or
+   dsget.exe or dsquery.exe or forfiles.exe or fsi.exe or ftp.exe or
+   gpresult.exe or hostname.exe or ieexec.exe or iexpress.exe or
+   installutil.exe or ipconfig.exe or mshta.exe or msxsl.exe or
+   nbtstat.exe or net.exe or net1.exe or netsh.exe or netstat.exe or
+   nltest.exe or odbcconf.exe or ping.exe or powershell.exe or pwsh.exe
+   or qprocess.exe or quser.exe or qwinsta.exe or rcsi.exe or reg.exe or
+   regasm.exe or regsvcs.exe or regsvr32.exe or sc.exe or schtasks.exe or
+   systeminfo.exe or tasklist.exe or tracert.exe or whoami.exe or
+   wmic.exe or wscript.exe or xwizard.exe)
+   ```
 
-可自行转换为sigma格式，来实现对多个平台的支持。
+3. **Sigma规则**：
+   ```yaml
+   title: 可疑的MS Office子进程
+   id: 5c7d8e9f-3a2b-4c1d-a8e4-1f2e3c4d5e6f
+   status: stable
+   description: 检测MS Office应用程序启动可疑子进程，可能表明鱼叉式网络钓鱼攻击
+   date: 2025/06/06
+   references:
+     - https://attack.mitre.org/techniques/T1566/001/
+     - https://www.elastic.co/guide/en/siem/guide/current/suspicious-ms-office-child-process.html
+   logsource:
+     category: process_creation
+     product: windows
+   detection:
+     selection:
+       ParentImage|endswith:
+         - '\eqnedt32.exe'
+         - '\excel.exe'
+         - '\fltldr.exe'
+         - '\msaccess.exe'
+         - '\mspub.exe'
+         - '\powerpnt.exe'
+         - '\winword.exe'
+       Image|endswith:
+         - '\Microsoft.Workflow.Compiler.exe'
+         - '\arp.exe'
+         - '\atbroker.exe'
+         - '\bginfo.exe'
+         - '\bitsadmin.exe'
+         - '\cdb.exe'
+         - '\certutil.exe'
+         - '\cmd.exe'
+         - '\cmstp.exe'
+         - '\cscript.exe'
+         - '\csi.exe'
+         - '\dnx.exe'
+         - '\dsget.exe'
+         - '\dsquery.exe'
+         - '\forfiles.exe'
+         - '\fsi.exe'
+         - '\ftp.exe'
+         - '\gpresult.exe'
+         - '\hostname.exe'
+         - '\ieexec.exe'
+         - '\iexpress.exe'
+         - '\installutil.exe'
+         - '\ipconfig.exe'
+         - '\mshta.exe'
+         - '\msxsl.exe'
+         - '\nbtstat.exe'
+         - '\net.exe'
+         - '\net1.exe'
+         - '\netsh.exe'
+         - '\netstat.exe'
+         - '\nltest.exe'
+         - '\odbcconf.exe'
+         - '\ping.exe'
+         - '\powershell.exe'
+         - '\pwsh.exe'
+         - '\qprocess.exe'
+         - '\quser.exe'
+         - '\qwinsta.exe'
+         - '\rcsi.exe'
+         - '\reg.exe'
+         - '\regasm.exe'
+         - '\regsvcs.exe'
+         - '\regsvr32.exe'
+         - '\sc.exe'
+         - '\schtasks.exe'
+         - '\systeminfo.exe'
+         - '\tasklist.exe'
+         - '\tracert.exe'
+         - '\whoami.exe'
+         - '\wmic.exe'
+         - '\wscript.exe'
+         - '\xwizard.exe'
+     condition: selection
+   falsepositives:
+     - 合法的Office自动化脚本
+     - 管理员运行的测试或维护任务
+   level: high
+   ```
+
+4. **SIEM规则**：
+   - 检测MS Office进程启动可疑子进程。
+   - 示例Splunk查询：
+     ```spl
+     source="WinEventLog:Microsoft-Windows-Sysmon/Operational" EventCode=1 ParentImage IN ("*\\winword.exe", "*\\excel.exe", "*\\powerpnt.exe", "*\\msaccess.exe", "*\\mspub.exe", "*\\eqnedt32.exe", "*\\fltldr.exe") Image IN ("*\\cmd.exe", "*\\powershell.exe", "*\\certutil.exe", "*\\whoami.exe") | stats count by ParentImage, Image, CommandLine, ComputerName
+     ```
+
+5. **威胁情报整合**：
+   - 检查子进程的命令行参数（如URL、IP）是否与已知恶意活动相关，结合威胁情报平台（如VirusTotal、AlienVault）。
+
+## 建议
+
+### 缓解措施
+
+防御鱼叉式网络钓鱼附件和可疑MS Office子进程需从邮件安全和系统加固入手：
+
+1. **邮件安全控制**  
+   - 部署邮件网关，过滤包含恶意附件的鱼叉式网络钓鱼邮件。  
+   - 阻止或沙箱可疑附件（如Office文档、压缩文件）。  
+   - 示例工具：Microsoft Defender for Office 365、Proofpoint。
+
+2. **Office宏限制**  
+   - 禁用Office宏，或仅允许签名宏运行。  
+   - 示例Windows组策略设置：
+     - 路径：`用户配置->管理模板->Microsoft Word->信任中心->宏设置->禁用所有宏`
+
+3. **应用程序白名单**  
+   - 配置应用程序白名单，限制未经授权的子进程运行。  
+   - 示例工具：Windows AppLocker、CrowdStrike。
+
+4. **用户教育**  
+   - 培训用户识别鱼叉式网络钓鱼邮件，避免打开未知附件或启用宏。  
+   - 教授用户验证邮件发件人和附件安全性。
+
+5. **系统加固**  
+   - 保持Office和Windows系统更新，修补已知漏洞。  
+   - 启用ASLR和DEP，降低漏洞利用的成功率。
+
+### 检测
+
+检测工作应集中在MS Office子进程的异常行为上，包括但不限于：  
+- **进程监控**：分析Sysmon或Windows安全日志，检测MS Office进程启动的可疑子进程（如`cmd.exe`、`powershell.exe`）。  
+- **网络行为**：监控子进程引发的异常网络活动（如下载恶意文件）。  
+- **行为分析**：通过EDR检测宏执行或异常Office行为。  
+- **威胁情报整合**：结合威胁情报，检查子进程的命令行参数是否与已知恶意活动相关。
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1566-001
-
-<https://attack.mitre.org/techniques/T1566/001/>
-
-检测可疑的MS Office子进程
-
-<https://www.elastic.co/guide/en/siem/guide/current/suspicious-ms-office-child-process.html>
+- MITRE ATT&CK: T1566.001  
+  <https://attack.mitre.org/techniques/T1566/001/>  
+- 检测可疑的MS Office子进程  
+  <https://www.elastic.co/guide/en/siem/guide/current/suspicious-ms-office-child-process.html>
