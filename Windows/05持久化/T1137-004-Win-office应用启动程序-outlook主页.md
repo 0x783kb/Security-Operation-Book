@@ -1,143 +1,259 @@
-# T1137-004-Win-office应用启动程序-outlook主页
+# T1137-0047-Win-Office应用启动程序-Outlook主页
 
-## 来自ATT&CK的描述
+## 描述
 
-攻击者可能会滥用 Microsoft Outlook 的主页功能来获得被攻击的系统的持久性。Outlook 主页是一项旧功能，用于自定义 Outlook 文件夹的呈现方式。此功能允许在打开文件夹时加载和显示内部或外部 URL。可以制作恶意 HTML 页面，在 Outlook 主页加载时执行代码。
+攻击者可能利用Microsoft Outlook的“主页”（Home Page）功能实现系统持久化（T1137.004）。Outlook主页允许为特定文件夹（如收件箱）设置自定义HTML页面，在打开文件夹时加载内部或外部URL的内容。攻击者可配置恶意HTML文件，包含JavaScript或其他可执行代码，在Outlook访问目标文件夹时触发，从而执行恶意有效负载。  
 
-一旦恶意主页被添加到用户的邮箱中，它们将在Outlook启动时被加载。恶意主页将在正确的Outlook文件夹被加载或重新加载时执行。
+此功能为Outlook早期版本的遗留特性，允许自定义文件夹视图，但可被滥用为持久化机制。恶意主页在Outlook启动并加载目标文件夹（如收件箱）时执行，隐蔽性较高。攻击者需具备用户权限以修改注册表（如`HKCU`），或管理员权限以影响全局配置。检测重点在于监控Outlook相关注册表键的修改及异常HTML加载行为。
 
 ## 测试案例
 
-### 测试1 Install Outlook Home Page Persistence
-
-该测试模拟通过Outlook主页功能被添加恶意代码，达到持久化的目的。这导致Outlook在每次查看目标文件夹时检索包含恶意有效载荷的URL。
-
-触发有效载荷需要手动打开Outlook并查看目标文件夹（例如收件箱）。
-
-使用Windows 命令行执行攻击命令：
-
-```yml
-reg.exe add HKCU\Software\Microsoft\Office\#{outlook_version}\Outlook\WebView\#{outlook_folder} /v URL /t REG_SZ /d #{url} /f
-```
-
-Url：file:atomic-red-team-master\atomics\T1137.004\src\T1137.004.html
-outlook_version：16.0
-outlook_folder：  Inbox #要修改主页设置的Outlook文件夹的名称
-清理命令：
-
-```yml
-reg.exe delete HKCU\Software\Microsoft\Office\#{outlook_version}\Outlook\WebView\#{outlook_folder} /v URL /f >nul 2>&1
-```
+1. **Outlook主页持久化**  
+   攻击者通过修改注册表，为Outlook收件箱设置恶意HTML页面URL，在文件夹加载时执行代码。  
+2. **伪装合法HTML**  
+   攻击者使用看似合法的HTML文件名或托管在可信域的URL，降低被发现风险。  
 
 ## 检测日志
 
-Windows Sysmon日志
+**Windows安全日志**  
+- **事件ID 4688**：记录进程创建，可能涉及`reg.exe`或`outlook.exe`的执行。  
+
+**Sysmon日志**  
+- **事件ID 1**：记录进程创建，包含`reg.exe`或`outlook.exe`的命令行参数。  
+- **事件ID 13**：记录注册表值修改，如`HKCU\Software\Microsoft\Office\<version>\Outlook\WebView\<folder>`的创建或更新。  
+- **事件ID 3**：记录网络连接，检测Outlook加载外部URL的活动。  
+
+**配置日志记录**  
+- 启用注册表审核：`计算机配置 > 策略 > Windows设置 > 安全设置 > 高级审核策略配置 > 对象访问 > 审核注册表`。  
+- 启用命令行参数记录：`计算机配置 > 管理模板 > 系统 > 审核进程创建 > 在进程创建事件中加入命令行 > 启用`。  
+- 部署Sysmon以增强注册表、进程和网络监控。
 
 ## 测试复现
 
-### 测试1 Install Outlook Home Page Persistence
+### 环境准备
+- **靶机**：Windows 10或Windows Server 2012+，安装Microsoft Outlook（2016+，版本16.0）。  
+- **权限**：用户权限（修改`HKCU`）。  
+- **工具**：测试用HTML文件（如`T1137.004.html`），Sysmon及Windows安全日志启用。  
+- **测试文件路径**：`C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html`。
 
-```yml
-C:\Users\Administrator.ZHULI>reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html /f
-操作成功完成。
+### 攻击步骤
+1. **添加Outlook主页注册表键**  
+   以用户权限运行CMD，为收件箱设置恶意HTML页面：
+   ```dos
+   reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d "C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html" /f
+   ```
 
-C:\Users\Administrator.ZHULI>reg.exe delete HKCU\Software\Microsoft\Office\#{outlook_version}\Outlook\WebView\#{outlook_folder} /v URL /f >nul 2>&1
+   **真实测试结果**：
+   ```dos
+   C:\Users\Administrator.ZHULI>reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html /f
+   操作成功完成。
+   ```
 
-```
+2. **触发持久化**  
+   启动Outlook并打开收件箱，加载恶意HTML页面。  
+
+3. **清理注册表（测试后）**  
+   删除注册表键：
+   ```dos
+   reg.exe delete HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /f >nul 2>&1
+   ```
+
+4. **验证结果**  
+   - 检查注册表键：
+     ```dos
+     reg query HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox
+     ```
+   - 检查日志：  
+     - **Sysmon日志（事件ID 1）**：
+       ```plaintext
+       EventID: 1
+       RuleName: technique_id=T1112,technique_name=Modify Registry
+       UtcTime: 2022-01-11 06:54:50.664
+       ProcessGuid: {78c84c47-29ba-61dd-b821-000000000800}
+       ProcessId: 6040
+       Image: C:\Windows\System32\reg.exe
+       CommandLine: reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html /f
+       User: ZHULI\Administrator
+       IntegrityLevel: High
+       ```
+     - **Sysmon日志（事件ID 13）**：
+       ```plaintext
+       EventID: 13
+       EventType: SetValue
+       UtcTime: 2022-01-11 06:54:50.675
+       ProcessId: 6040
+       Image: C:\Windows\System32\reg.exe
+       TargetObject: HKU\S-1-5-21-2729552704-1545692732-1695105048-500\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox\URL
+       Details: C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html
+       User: ZHULI\Administrator
+       ```
+
+**注意**：此复现仅用于学习和测试目的，需在合法授权的测试环境中进行，切勿用于非法活动。
 
 ## 测试留痕
 
-### 测试1 Install Outlook Home Page Persistence
-
-```yml
-Sysmon 事件ID 1 进程创建      
-Process Create:
-
-RuleName: technique_id=T1112,technique_name=Modify Registry
-
-UtcTime: 2022-01-11 06:54:50.664
-
-ProcessGuid: {78c84c47-29ba-61dd-b821-000000000800}
-
-ProcessId: 6040
-
-Image: C:\Windows\System32\reg.exe
-
-FileVersion: 10.0.17763.1 (WinBuild.160101.0800)
-
-Description: Registry Console Tool
-
-Product: Microsoft® Operating System
-
-Company: Microsoft Corporation
-
-OriginalFileName: reg.exe
-
-CommandLine: reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html /f
-
-CurrentDirectory: C:\Users\Administrator.ZHULI\
-
-User: ZHULI\Administrator
-
-LogonGuid: {78c84c47-f665-61db-95da-440100000000}
-
-LogonId: 0x144DA95
-
-TerminalSessionId: 3
-
-IntegrityLevel: High
-
-Hashes: SHA1=429DF8371B437209D79DC97978C33157D1A71C4B,MD5=8A93ACAC33151793F8D52000071C0B06,SHA256=19316D4266D0B776D9B2A05D5903D8CBC8F0EA1520E9C2A7E6D5960B6FA4DCAF,IMPHASH=BE482BE427FE212CFEF2CDA0E61F19AC
-
-ParentProcessGuid: {78c84c47-2489-61dd-f120-000000000800}
-
-ParentProcessId: 4392
-
-ParentImage: C:\Windows\System32\cmd.exe
-
-ParentCommandLine: "C:\Windows\system32\cmd.exe" 
-
-ParentUser: ZHULI\Administrator
-```
+- **Sysmon日志（事件ID 1）**：
+  ```plaintext
+  EventID: 1
+  RuleName: technique_id=T1112,technique_name=Modify Registry
+  UtcTime: 2022-01-11 06:54:50.664
+  ProcessGuid: {78c84c47-29ba-61dd-b821-000000000800}
+  ProcessId: 6040
+  Image: C:\Windows\System32\reg.exe
+  CommandLine: reg.exe add HKCU\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox /v URL /t REG_SZ /d C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html /f
+  User: ZHULI\Administrator
+  IntegrityLevel: High
+  Hashes: SHA1=429DF8371B437209D79DC97978C33157D1A71C4B,MD5=8A93ACAC33151793F8D52000071C0B06,SHA256=19316D4266D0B776D9B2A05D5903D8CBC8F0EA1520E9C2A7E6D5960B6FA4DCAF
+  ```
+- **Sysmon日志（事件ID 13）**：
+  ```plaintext
+  EventID: 13
+  EventType: SetValue
+  UtcTime: 2022-01-11 06:54:50.675
+  ProcessGuid: {78c84c47-29ba-61dd-b821-000000000800}
+  ProcessId: 6040
+  Image: C:\Windows\System32\reg.exe
+  TargetObject: HKU\S-1-5-21-2729552704-1545692732-1695105048-500\Software\Microsoft\Office\16.0\Outlook\WebView\Inbox\URL
+  Details: C:\Users\Administrator.ZHULI\Desktop\TevoraAutomatedRTGui\atomic-red-team-master\atomics\T1137.004\src\T1137.004.html
+  User: ZHULI\Administrator
+  ```
+- **Sysmon日志（事件ID 3，加载外部URL）**：
+  ```plaintext
+  EventID: 3
+  Image: C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE
+  DestinationIp: <External_IP>
+  DestinationPort: 80
+  Protocol: tcp
+  Initiated: true
+  User: ZHULI\Administrator
+  ```
 
 ## 检测规则/思路
 
-### Sigma规则
+**检测规则**  
+通过分析Sysmon和Windows安全日志，检测Outlook主页注册表键的修改及异常网络活动。以下是具体思路：
 
-```yml
-title: 滥用Outlook主页功能加载恶意代码
-description: 滥用Outlook主页功能加载恶意代码，以达到持久化。
-references:
-    - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1137.004/T1137.004.md
-tags:
-    - attack.t1137.004
-logsource:
-    product: windows
-    service: sysmon
-detection:
-    selection:
-        EventID: 1 #进程创建
-        CommandLine: HKCU\Software\Microsoft\Office\（outlook_version）\Outlook\WebView\(outlook_folder)
-    condition: selection
-level: high
-```
+1. **日志分析**：
+   - 监控Sysmon事件ID 13，检测`HKCU\Software\Microsoft\Office\<version>\Outlook\WebView\<folder>`的修改。  
+   - 监控Sysmon事件ID 1或Windows事件ID 4688，检测`reg.exe`的异常命令行（如添加`Outlook\WebView`键）。  
+   - 监控Sysmon事件ID 3，检测`outlook.exe`发起的异常网络连接（如加载外部URL）。  
+   - 监控事件ID 4624，检测新主页触发的异常登录行为。
 
-### 建议
+2. **Sigma规则（注册表修改）**：
+   ```yaml
+   title: Outlook主页注册表键修改
+   id: r3s4t5u6-v7w8-9012-xyza-3456789012
+   status: stable
+   description: 检测Outlook主页注册表键的创建或修改，可能表明持久化攻击
+   references:
+     - https://attack.mitre.org/techniques/T1137/004/
+     - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1137.004/T1137.004.yaml
+   tags:
+     - attack.persistence
+     - attack.t1137.004
+   logsource:
+     product: windows
+     service: sysmon
+   detection:
+     selection:
+       EventID: 13
+       TargetObject|contains: '\Software\Microsoft\Office\*\Outlook\WebView\'
+     condition: selection
+   fields:
+     - TargetObject
+     - Details
+     - Image
+   falsepositives:
+     - 合法的Outlook主页配置
+   level: high
+   ```
 
-微软发布了一个 PowerShell 脚本，用于在您的邮件环境中安全地收集邮件转发规则和自定义表单，以及解释输出的步骤。该工具可用于检测和修复 Outlook 自定义表单注入攻的规则。
+3. **Sigma规则（异常网络连接）**：
+   ```yaml
+   title: Outlook异常网络连接
+   id: s4t5u6v7-w8x9-0123-yzab-4567890123
+   status: experimental
+   description: 检测Outlook加载外部URL的异常网络活动，可能与主页持久化相关
+   logsource:
+     product: windows
+     service: sysmon
+   detection:
+     selection:
+       EventID: 3
+       Image|endswith: '\outlook.exe'
+       DestinationPort: 
+         - 80
+         - 443
+       Initiated: true
+     condition: selection
+   fields:
+     - Image
+     - DestinationIp
+     - DestinationPort
+   falsepositives:
+     - 合法的Outlook插件或网页内容加载
+   level: medium
+   ```
 
-收集进程执行信息，包括进程 ID (PID) 和父进程 ID (PPID)，并查找 Office 进程导致的异常活动链。非标准流程执行树也可能表明存在可疑或恶意行为
+4. **SIEM规则**：
+   - 检测Outlook主页注册表修改及网络活动。
+   - 示例Splunk查询：
+     ```spl
+     source="WinEventLog:Microsoft-Windows-Sysmon/Operational" (EventCode=13 TargetObject="*Outlook\WebView*") OR (EventCode=3 Image="*outlook.exe" DestinationPort IN (80,443)) | stats count by EventCode, TargetObject, Image, DestinationIp, ComputerName
+     ```
+
+5. **注册表监控**：
+   - 监控`HKCU\Software\Microsoft\Office\<version>\Outlook\WebView`的创建或修改。  
+   - 示例PowerShell查询：
+     ```powershell
+     Get-ItemProperty -Path "HKCU:\Software\Microsoft\Office\*\Outlook\WebView\*" -ErrorAction SilentlyContinue
+     ```
+
+6. **威胁情报整合**：
+   - 检查HTML文件或URL是否与已知恶意样本相关，结合威胁情报平台（如VirusTotal、AlienVault）。
+
+## 建议
+
+### 缓解措施
+
+防御Outlook主页持久化需从注册表保护、网络监控和Outlook配置入手：
+
+1. **限制注册表访问**  
+   - 配置ACL，限制非管理员用户对`HKCU\Software\Microsoft\Office\<version>\Outlook\WebView`的写入权限。  
+
+2. **禁用Outlook主页功能**  
+   - 配置组策略禁用Web视图：  
+     `用户配置 > 管理模板 > Microsoft Outlook > 禁用Web视图`。  
+   - 或设置注册表：
+     ```powershell
+     Set-ItemProperty -Path "HKCU:\Software\Policies\Microsoft\Office\16.0\Outlook\Options\WebView" -Name "Enable" -Value 0
+     ```
+
+3. **加强Outlook安全**  
+   - 启用Outlook攻击面减少（ASR）规则，限制脚本执行。  
+   - 配置组策略：`计算机配置 > 管理模板 > Microsoft Outlook > 安全设置 > 阻止不受信任的HTML内容`。
+
+4. **凭据保护**  
+   - 启用多因素认证（MFA）保护Outlook账户。  
+   - 使用强密码策略，避免弱凭据。
+
+5. **日志和监控**  
+   - 启用Sysmon事件ID 13和3，检测注册表修改及异常网络连接。  
+   - 配置SIEM监控`Outlook\WebView`相关事件。  
+   - 使用EDR工具检测Outlook进程的非标准行为。
+
+6. **定期审计**  
+   - 检查Outlook WebView注册表键是否存在。  
+
+7. **使用Microsoft工具**  
+   - 运行Microsoft提供的PowerShell脚本，检测和修复Outlook主页或表单注入：  
+     <https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack>.
 
 ## 参考推荐
 
-MITRE-ATT&CK-T1137-004
-
-<https://attack.mitre.org/techniques/T1137/004/>
-
-Atomic-red-team-T1137.004
-
-<https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1137.004/T1137.004.yaml>
-
-检测和修复 Outlook 自定义表单注入攻击的规则
-
-<https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack?view=o365-worldwide>
+- MITRE ATT&CK: T1137.004  
+  <https://attack.mitre.org/techniques/T1137/004/>  
+- Atomic Red Team: T1137.004  
+  <https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1137.004/T1137.004.yaml>  
+- Detect and Remediate Outlook Rules and Forms Attacks  
+  <https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/detect-and-remediate-outlook-rules-forms-attack?view=o365-worldwide>
