@@ -1,8 +1,10 @@
 # T1098-Win-AdminSDHolder
 
-## 来自ATT&CK的描述
+## 描述
 
-帐户操作可以帮助攻击者维持在环境中对凭据和某些权限级别的访问。账户操作可能包括修改权限，修改凭据，添加或更改权限组，修改帐户设置或修改执行身份验证等方式。为了创建或操纵帐户，攻击者必须已经对系统或域具有足够的权限。
+攻击者通过账户操作技术维持对目标环境的凭据或特定权限级别的持久化访问（T1098）。AdminSDHolder是Active Directory（AD）中的一个特殊容器（`CN=AdminSDHolder,CN=System,DC=<domain>`），其访问控制列表（ACL）作为受保护账户和组（如Domain Admins、Enterprise Admins）的权限模板。AD的SDProp（Security Descriptor Propagator）进程每60分钟（默认）将AdminSDHolder的ACL同步到受保护对象，确保其权限一致性，防止意外修改。
+
+攻击者可通过修改AdminSDHolder的ACL，间接赋予特定用户对所有受保护账户和组的权限（如完全控制），实现域环境的持久化控制。此技术需域管理员权限，且修改会在下次SDProp运行时生效（默认60分钟）。由于AdminSDHolder的ACL更改较为罕见，检测其异常修改是关键。
 
 ## 测试案例
 
@@ -71,7 +73,7 @@ Import-Module .\PowerView.ps1
 Get-ObjectAcl -ADSprefix "CN=AdminSDHolder,CN=System"|select IdentityReference
 ```
 
-真实测试情况
+**真实测试情况**
 
 ```powershell
 PS C:\Users\Administrator\Desktop\mimikatz_trunk> Import-Module .\PowerView.ps1
@@ -107,7 +109,7 @@ XIAOMI\Cert Publishers
 
 2.向AdminSDHolder对象添加ACL
 
-添加用户xiaomi的完全访问权限，命令如下：
+添加用户，xiaomi的完全访问权限，命令如下：
 
 ```powershell
 Import-Module .\PowerView.ps1
@@ -116,7 +118,7 @@ Add-ObjectAcl -TargetADSprefix 'CN=AdminSDHolder,CN=System' -PrincipalSamAccount
 
 注意:本文提到的百度社区参考链接此处存在问题。是Rights不是文中提到的Right
 
-真实测试情况
+**真实测试情况**
 
 ```powershell
 PS C:\Users\Administrator\Desktop\mimikatz_trunk> Add-ObjectAcl -TargetADSprefix 'CN=AdminSDHolder,CN=System' -Principal
@@ -144,7 +146,7 @@ Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs | select IdentityRef
 
 搜索条件为"LDAP://CN=AdminSDHolder,CN=System,DC=test,DC=com"
 
-删除用户xiaomi的完全访问权限，命令如下（执行失败）：
+删除用户xiaomi的完全访问权限，命令如下（**测试执行失败**，具体原因未查）：
 
 ```powershell
 Remove-DomainObjectAcl -TargetSearchBase "LDAP://CN=AdminSDHolder,CN=System,DC=xiaomi,DC=org" -PrincipalIdentity xiaomi -Rights All -Verbose
@@ -165,7 +167,6 @@ references:
     - https://github.com/infosecn1nja/AD-Attack-Defense/blob/master/README.md
     - https://github.com/0Kee-Team/WatchAD/blob/master/modules/detect/event_log/persistence/AdminSDHolder.py
 tags: 1098
-status: 测试阶段 
 author: 12306Bro
 logsource:
     product: windows
@@ -180,24 +181,51 @@ detection:
 level: medium
 ```
 
-### 建议
 
-时间范围问题，默认是60分钟后生效，故规则中两个事件之间时间区间范围为60分钟，可根绝实际情况进行修改。
+## 建议
+
+### 缓解措施
+
+防御AdminSDHolder滥用需从权限控制、配置加固和监控入手：
+
+1. **限制AdminSDHolder访问**  
+   - 确保仅Domain Admins和Enterprise Admins能修改AdminSDHolder ACL。  
+   - 使用AD权限审计工具（如ADAudit）检查ACL配置。
+
+2. **最小化管理员权限**  
+   - 遵循最小权限原则，限制域管理员账户的使用。  
+   - 配置组策略限制非必要用户的DC访问：
+     ```powershell
+     Set-GPPolicy -Name "Deny DC Access" -Path "Computer Configuration\Policies\Windows Settings\Deny log on locally"
+     ```
+
+3. **凭据保护**  
+   - 启用多因素认证（MFA）保护域管理员账户。  
+   - 使用受限管理员模式减少凭据暴露。
+
+4. **日志和监控**  
+   - 启用事件ID 5136和4780的监控，检测AdminSDHolder ACL修改。  
+   - 配置Sysmon监控`powershell.exe`及注册表更改。  
+   - 使用EDR工具检测PowerView或其他AD攻击工具。
+
+5. **定期审计**  
+   - 检查AdminSDHolder ACL及受保护对象的权限。  
+   - 示例PowerShell命令：
+     ```powershell
+     Get-Acl -Path "AD:\CN=AdminSDHolder,CN=System,DC=xiaomi,DC=org" | Format-List
+     ```
 
 ## 参考推荐
 
-域渗透——AdminSDHolder
-
-<https://anquan.baidu.com/article/877>
-
-PowerView
-
-<https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1>
-
-SDPROP说明
-
-<https://xz.aliyun.com/t/7276>
-
-MITRE-ATT&CK-T1098
-
-<https://attack.mitre.org/techniques/T1098/>
+- MITRE ATT&CK: T1098  
+  <https://attack.mitre.org/techniques/T1098/>  
+- 域渗透——AdminSDHolder  
+  <https://anquan.baidu.com/article/877>  
+- PowerView  
+  <https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1>  
+- SDPROP说明  
+  <https://xz.aliyun.com/t/7276>  
+- AD Attack Defense  
+  <https://github.com/infosecn1nja/AD-Attack-Defense>  
+- WatchAD AdminSDHolder Detection  
+  <https://github.com/0Kee-Team/WatchAD/blob/master/modules/detect/event_log/persistence/AdminSDHolder.py>
