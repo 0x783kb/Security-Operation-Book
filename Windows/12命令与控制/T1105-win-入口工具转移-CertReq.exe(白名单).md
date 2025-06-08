@@ -110,89 +110,80 @@ Vary: Accept-Encoding,User-Agent
 
 ## 检测方法/思路
 
-参考Sigma官方规则:
+### Sigma规则
+
+基于Sigma规则（`win_susp_certreq_download`），检测`CertReq.exe`的异常下载行为：
 
 ```yml
 title: Suspicious Certreq Command to Download
-
 id: 4480827a-9799-4232-b2c4-ccc6c4e9e12b
-
 status: experimental
-
-description: Detects a suspicious certreq execution taken from the LOLBAS examples, which can be abused to download (small) files
-
+description: Detects suspicious Certreq execution that may be abused to download files via HTTP POST.
 author: Christian Burkard
-
 date: 2021/11/24
-
 references:
-
-- https://lolbas-project.github.io/lolbas/Binaries/Certreq/
-
+  - https://lolbas-project.github.io/lolbas/Binaries/Certreq/
+  - https://attack.mitre.org/techniques/T1105/
 logsource:
-
-category: process_creation
-
-product: windows
-
+  category: process_creation
+  product: windows
 detection:
-
-selection:
-
-Image|endswith: '\certreq.exe'
-
-CommandLine|contains|all:
-
-- ' -Post '
-
-- ' -config '
-
-- ' http'
-
-- ' C:\windows\win.ini '
-
-condition: selection
-
+  selection:
+    Image|endswith: '\certreq.exe'
+    CommandLine|contains|all:
+      - ' -Post '
+      - ' -config '
+      - ' http'
+      - ' C:\windows\win.ini '
+  condition: selection
 fields:
-
-- CommandLine
-
-- ParentCommandLine
-
+  - CommandLine
+  - ParentCommandLine
 tags:
-
-- attack.command_and_control
-
-- attack.t1105
-
+  - attack.command_and_control
+  - attack.t1105
 falsepositives:
-
-- Unlikely
-
+  - Legitimate certificate management by administrators
 level: high
-
--   [](https://github.com/ "GitHub")
-
 ```
 
-### 建议
+### 检测思路
+1. **进程监控**：
+   - 检查`CertReq.exe`的命令行参数是否包含`-Post`、`-config`和HTTP/HTTPS URL。
+   - 监控异常父进程（如`cmd.exe`、`powershell.exe`）。
+2. **网络监控**：
+   - 检测`CertReq.exe`发起的HTTP/HTTPS POST请求，重点关注非预期目标URL。
+3. **文件监控**：
+   - 检查`CertReq.exe`创建的非预期文件（如`output.txt`）。
+4. **异常行为**：
+   - 检测`CertReq.exe`在非证书管理场景下的运行（如普通用户运行、异常时间点）。
+5. **关联分析**：
+   - 结合Sysmon事件ID 1（进程创建）、3（网络连接）和11（文件创建）进行关联，识别完整攻击链。
 
-从Sigma给出的规则来看，更多的是对进程和命令行参数进行监测，只要出现其中一个命令参数即告警。
+### 检测建议
+- **告警规则**：基于Sigma规则，配置SIEM系统（如Splunk、Elastic）检测`CertReq.exe`的异常命令行参数。
+- **基线对比**：建立`CertReq.exe`的正常使用基线（如证书管理场景），排除合法行为。
+- **网络白名单**：限制`CertReq.exe`的出站流量，仅允许访问已知CA服务器。
+- **文件完整性监控**：监控`CertReq.exe`生成的文件，检测异常文件扩展名或内容。
+
+## 缓解措施
+1. **限制网络访问**：
+   - 配置防火墙，限制`CertReq.exe`的出站HTTP/HTTPS流量，仅允许访问合法CA服务器。
+2. **加强日志监控**：
+   - 确保启用命令行参数记录和Sysmon日志，覆盖进程、网络和文件操作。
+3. **白名单管理**：
+   - 使用应用白名单工具（如AppLocker）限制`CertReq.exe`的执行场景。
+4. **用户权限管理**：
+   - 限制普通用户运行`CertReq.exe`，仅允许证书管理相关账户使用。
+5. **定期审查**：
+   - 检查系统内`CertReq.exe`的异常使用记录，结合威胁情报分析潜在风险。
 
 ## 参考推荐
-
-MITRE-ATT&CK-T1105
-
-<https://attack.mitre.org/techniques/T1105>
-
-CertReq.exe
-
-<https://lolbas-project.github.io/lolbas/Binaries/Certreq/>
-
-certreq使用方法
-
-<https://docs.microsoft.com/zh-cn/windows-server/administration/windows-commands/certreq_1>
-
-Sigma:win_susp_certreq_download
-
-<https://github.com/SigmaHQ/sigma/blob/eb8c9c046b86e7d412bdcc3235693fa1c00f70d6/rules/windows/process_creation/win_susp_certreq_download.yml>
+- MITRE ATT&CK: T1105    
+  <https://attack.mitre.org/techniques/T1105/>
+- LOLBAS - CertReq.exe  
+  <https://lolbas-project.github.io/lolbas/Binaries/Certreq/>
+- Microsoft CertReq文档  
+  <https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1>
+- Sigma规则 - win_susp_certreq_download  
+  <https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/win_susp_certreq_download.yml>
