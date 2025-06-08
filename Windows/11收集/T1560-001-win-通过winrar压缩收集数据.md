@@ -1,93 +1,181 @@
-# T1560-001-Win-通过winrar压缩数据
+# T1560-001-Win-通过WinRAR压缩数据
 
-## 来自ATT&CK的描述
+## 描述
 
-攻击者可以使用第三方工具压缩或加密之前收集的数据。存在许多可以压缩数据的实用程序，包括7-Zip，WinRAR和WinZip。大多数实用程序都包含加密或压缩数据的功能。
-
-可能已预先安装了一些第三方工具，例如tar在Linux和macOS或zipWindows系统上。
+攻击者可能使用第三方工具（如WinRAR、7-Zip、WinZip）压缩或加密收集的数据，以便在数据泄露或后续传输中隐藏内容、减小文件体积或规避检测。WinRAR是一款常见的压缩工具，支持命令行操作，可通过脚本或手动方式执行压缩和加密任务。许多系统可能预装压缩工具（如Windows的zip或Linux/macOS的tar），但WinRAR因其强大的加密功能和普及性常被攻击者利用。
 
 ## 测试案例
 
-windows下安装winrar程序，通过winrar命令行的方式进行数据压缩。
+### 用例
+- **数据压缩**：攻击者使用WinRAR压缩收集的敏感文件（如日志、数据库备份）以便传输。
+- **加密压缩**：通过WinRAR的密码保护功能加密压缩文件，增加防御者解密难度。
+- **自动化脚本**：结合恶意脚本，自动化执行WinRAR压缩任务。
 
-winrar相关命令解释，可参考官方解释说明。
+### 示例场景
+- 攻击者通过WinRAR命令行将窃取的文件（如`qax.pst`）压缩为`qax.rar`，并通过C2通道传输。
+- 使用密码加密压缩文件，防止未经授权访问。
+
+### 路径
+WinRAR通常安装在：
+```yml
+- C:\Program Files\WinRAR\WinRAR.exe
+- C:\Program Files (x86)\WinRAR\WinRAR.exe
+```
+
+### 所需权限
+- 用户权限（执行WinRAR和访问目标文件）。
+
+### 操作系统
+- Windows 7、Windows 8、Windows 8.1、Windows 10、Windows 11、Windows Server 2008、2012、2016、2019、2022。
 
 ## 检测日志
 
-Windows 安全日志
+### Windows安全日志
+- **事件ID 4688**：记录`WinRAR.exe`进程创建及命令行参数（需启用命令行审核）。
+
+### Sysmon日志
+- **事件ID 1**：捕获`WinRAR.exe`进程创建及命令行参数。
+- **事件ID 11**：记录压缩文件（如`qax.rar`）的创建事件。
+
+### 文件系统日志
+- 监控新创建的压缩文件（如`.rar`文件）及其路径。
 
 ## 测试复现
 
-```yml
-C:\Users\Administrator>winrar a  C:\Users\Administrator\qax.rar C:\Users\Administrator\qax.pst
-# 注意，如果在使用winrar命令提示“winrar不是内部或外部命令，也不是可运行的程序或批处理文件“。请记得添加环境变量
-```
+### 环境准备
+- **靶机**：Windows 10/11或Windows Server 2016。
+- **权限**：用户权限。
+- **工具**：
+  - WinRAR（需安装，路径如`C:\Program Files\WinRAR\WinRAR.exe`）。
+  - Sysmon（用于进程和文件监控）。
+  - 测试文件（如`qax.pst`）。
+- **环境配置**：
+  - 确保WinRAR命令行可执行，添加WinRAR安装路径（如`C:\Program Files\WinRAR`）到系统环境变量`PATH`。
+  - 若提示“winrar不是内部或外部命令”，检查环境变量或使用完整路径。
+- **日志**：启用Windows安全日志和Sysmon日志。
+
+### 攻击步骤
+1. **创建测试文件**：
+   - 准备一个测试文件（如`C:\Users\Administrator\qax.pst`）。
+2. **执行压缩命令**：
+   ```bash
+   C:\Users\Administrator>winrar a C:\Users\Administrator\qax.rar C:\Users\Administrator\qax.pst
+   ```
+   - 命令解释：`a`表示添加文件到压缩包，生成`qax.rar`。
+   - 可选：添加密码保护：
+     ```bash
+     winrar a -p[password] C:\Users\Administrator\qax.rar C:\Users\Administrator\qax.pst
+     ```
+3. **验证结果**：
+   - 检查`C:\Users\Administrator\qax.rar`是否生成。
+   - 验证Sysmon日志是否记录`WinRAR.exe`进程和文件创建事件。
+4. **清理**：
+   - 删除测试压缩文件（如`del C:\Users\Administrator\qax.rar`）。
 
 ## 测试留痕
-
-windows 安全日志、进程创建、命令行参数等
-
+以下为Windows安全日志示例（事件ID 4688）：
 ```yml
 已创建新进程。
 
 创建者主题:
- 安全 ID:  QAX\Administrator
- 帐户名:  Administrator
- 帐户域:  QAX
- 登录 ID:  0x7169C
+ 安全 ID: QAX\Administrator
+ 帐户名: Administrator
+ 帐户域: QAX
+ 登录 ID: 0x7169C
 
 目标主题:
- 安全 ID:  NULL SID
- 帐户名:  -
- 帐户域:  -
- 登录 ID:  0x0
+ 安全 ID: NULL SID
+ 帐户名: -
+ 帐户域: -
+ 登录 ID: 0x0
 
 进程信息:
- 新进程 ID:  0xe20
+ 新进程 ID: 0xe20
  新进程名称: C:\Program Files\WinRAR\WinRAR.exe
  令牌提升类型: %%1936
- 强制性标签:  Mandatory Label\High Mandatory Level
+ 强制性标签: Mandatory Label\High Mandatory Level
  创建者进程 ID: 0x378
  创建者进程名称: C:\Windows\System32\cmd.exe
- 进程命令行: winrar  a  C:\Users\Administrator\qax.rar C:\Users\Administrator\qax.pst
+ 进程命令行: winrar a C:\Users\Administrator\qax.rar C:\Users\Administrator\qax.pst
 ```
 
-## 检测规则/思路
+以下为Sysmon日志示例（事件ID 11）：
+```yml
+EventID: 11
+UtcTime: 2025-06-08 12:58:45.123
+ProcessGuid: {12345678-9abc-def0-1234-56789abcdef0}
+ProcessId: 3648
+Image: C:\Program Files\WinRAR\WinRAR.exe
+TargetFilename: C:\Users\Administrator\qax.rar
+CreationUtcTime: 2025-06-08 12:58:45.123
+```
 
-### sigma规则
+## 检测方法/思路
+
+### Sigma规则
+基于Sigma规则，检测WinRAR的异常压缩行为：
 
 ```yml
-title: windows-winrar压缩数据
-description: windows server 2016模拟测试，攻击者通过winrar压缩收集到的数据
-tags: T1560-001
-status: experimental
+title: Suspicious WinRAR Compression Activity
+id: e4b9c8d7-3f2a-4e5b-9d6c-2a3b4c5d6e7f
+description: Detects potential malicious use of WinRAR to compress collected data on Windows systems
 author: 12306Bro
+status: experimental
+references:
+- https://attack.mitre.org/techniques/T1560/001
+- https://blog.csdn.net/findmyself_for_world/article/details/39292181
+- https://www.cnblogs.com/xzlive/p/10508940.html
 logsource:
-    product: windows
-    service: security
+  product: windows
+  category: process_creation
 detection:
-    selection:
-        EventID: 4688 #已创建新的进程。
-        Newprocessname: '*RAR.exe' #进程信息>新进程名称
-        Processcommandline: 'a' #进程信息>进程命令行
-    condition: selection
+  selection:
+    EventID: 4688
+    Image|endswith: '\WinRAR.exe'
+    CommandLine|contains: ' a '
+  condition: selection
+falsepositives:
+- Legitimate use of WinRAR for file compression by users or administrators
+- Automated backup scripts using WinRAR
 level: medium
 ```
 
-## 建议
+### 检测思路
+1. **进程监控**：
+   - 检测`WinRAR.exe`进程的创建，尤其是命令行参数包含`a`（添加文件到压缩包）。
+   - 监控异常父进程（如`cmd.exe`、`powershell.exe`）调用WinRAR。
+2. **文件监控**：
+   - 检测新创建的`.rar`文件，尤其是位于敏感目录（如用户目录、临时文件夹）。
+   - 检查压缩文件是否包含敏感文件类型（如`.pst`、`.docx`、`.xlsx`）。
+3. **命令行分析**：
+   - 解析`WinRAR.exe`的命令行参数，检测是否使用密码保护（`-p`参数）。
+4. **行为基线**：
+   - 建立组织内WinRAR的正常使用基线，识别异常压缩行为（如夜间执行、非典型用户）。
+5. **关联分析**：
+   - 结合Sysmon事件ID 1（进程创建）和11（文件创建），关联WinRAR的压缩行为与后续网络活动（如数据泄露）。
 
-可以通过进程监视和监视已知压缩程序的命令行参数来检测可能存在于系统中的攻击者利用压缩程序压缩数据文件的行为。这可能会产生大量的良性事件，具体取决于环境中系统的使用方式。
+### 检测建议
+- **告警规则**：基于Sigma规则，配置SIEM系统（如Splunk、Elastic）检测`WinRAR.exe`的异常命令行参数和文件创建。
+- **文件监控**：使用EDR工具（如Microsoft Defender for Endpoint）监控`.rar`文件的创建和访问。
+- **环境变量检查**：检测WinRAR路径是否被添加到环境变量，防止命令行调用被忽略。
+- **误报过滤**：排除合法备份或用户压缩行为，结合上下文（如用户身份、时间）降低误报率。
+
+## 缓解措施
+1. **限制工具使用**：
+   - 使用应用白名单工具（如AppLocker）限制WinRAR的执行，仅允许受信任用户或进程。
+2. **文件监控**：
+   - 部署文件完整性监控（FIM）工具，检测敏感目录中的`.rar`文件创建。
+3. **权限管理**：
+   - 限制普通用户对WinRAR的执行权限，防止未经授权的压缩操作。
+4. **网络限制**：
+   - 监控压缩文件通过网络传输的行为，阻止未经授权的数据泄露。
+5. **用户培训**：
+   - 教育用户识别异常压缩行为，避免运行可疑脚本或命令。
 
 ## 参考推荐
-
-MITRE-ATT&CK-T1560-001
-
-<https://attack.mitre.org/techniques/T1560/001/>
-
-windows 命令行中使用winrar
-
-<https://blog.csdn.net/findmyself_for_world/article/details/39292181>
-
-利用WinRAR命令行压缩文件或文件夹
-
-<https://www.cnblogs.com/xzlive/p/10508940.html>
+- MITRE ATT&CK T1560.001  
+  https://attack.mitre.org/techniques/T1560/001  
+- Windows命令行中使用WinRAR  
+  https://blog.csdn.net/findmyself_for_world/article/details/39292181  
+- 利用WinRAR命令行压缩文件或文件夹  
+  https://www.cnblogs.com/xzlive/p/10508940.html
