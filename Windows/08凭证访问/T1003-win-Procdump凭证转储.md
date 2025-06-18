@@ -2,12 +2,12 @@
 
 ## 描述
 
-凭据导出（CredentialDumping,MITREATT&CKT1003）是指攻击者从操作系统或软件中提取登录凭据（明文密码或哈希）以进行横向移动或访问受限资源。Windows系统中，用户登录后，凭据存储在本地安全机构子系统服务（LSASS）进程内存中。攻击者可通过工具如Procdump转储LSASS进程内存，并在本地使用Mimikatz等工具提取明文密码或哈希。此技术利用SecuritySupportProviderInterface（SSPI）相关的安全支持提供商（SSP），如MSV、WDigest、Kerberos和CredSSP，获取存储的凭据。成功提取凭据后，攻击者可用于权限提升、持久化或进一步攻击。
+凭据导出是指攻击者从操作系统或软件中提取登录凭据（明文密码或哈希）以进行横向移动或访问受限资源。Windows系统中，用户登录后，凭据存储在本地安全机构子系统服务（LSASS）进程内存中。攻击者可通过工具如Procdump转储LSASS进程内存，并在本地使用Mimikatz等工具提取明文密码或哈希。此技术利用SSPI相关的安全支持提供商（SSP），如MSV、WDigest、Kerberos和CredSSP，获取存储的凭据。成功提取凭据后，攻击者可用于权限提升、持久化或进一步攻击。
 
 ## 测试案例
 
 **测试环境**：
-- 系统：WindowsServer2008R2/2016或Windows7/10
+- 系统：Windows Server 2008R2/2016或Windows7/10
 - 工具：Procdump（Sysinternals）、Mimikatz
 - 要求：本地管理员权限、启用Sysmon日志、域环境（可选，lab.local）
 - 用户：Administrator（测试账户）
@@ -21,7 +21,7 @@
 **测试步骤**：
 1. **使用Procdump转储LSASS进程内存**（目标主机，管理员权限）：
    ```cmd
-   procdump64.exe-malsass.exelsass_dump.dmp
+   procdump64.exe -ma lsass.exe lsass_dump.dmp
    ```
    预期输出：
    ```
@@ -33,7 +33,7 @@
 2. **将转储文件传输到本地分析系统**（通过SMB、FTP等）。
 3. **使用Mimikatz提取凭据**（本地系统）：
    ```cmd
-   mimikatz.exe"sekurlsa::minidumplsass_dump.dmp""sekurlsa::logonpasswords"exit
+   mimikatz.exe "sekurlsa::minidump lsass_dump.dmp" "sekurlsa::logonpasswords" exit
    ```
    预期输出：
    ```
@@ -102,16 +102,16 @@
 **复现步骤**：
 1. 执行Procdump转储LSASS：
    ```cmd
-   C:\Users\Administrator\Desktop\Procdump>procdump64.exe-malsass.exe1.dmp
-   ProcDumpv8.0-Writesprocessdumpfiles
-   [13:42:47]Dump1initiated:C:\Users\Administrator\Desktop\Procdump\1.dmp
-   [13:42:50]Dump1writing:Estimateddumpfilesizeis50MB.
-   [13:42:51]Dump1complete:50MBwrittenin3.3seconds
+   C:\Users\Administrator\Desktop\Procdump>procdump64.exe -ma lsass.exe 1.dmp
+   ProcDump v8.0 - Writes process dump files
+   [13:42:47] Dump 1 initiated: C:\Users\Administrator\Desktop\Procdump\1.dmp
+   [13:42:50] Dump 1 writing: Estimated dump file size is 50 MB.
+   [13:42:51] Dump 1 complete: 50 MB written in 3.3 seconds
    ```
 2. 传输1.dmp到本地系统（通过共享文件夹）。
 3. 使用Mimikatz提取凭据：
    ```cmd
-   C:\Tools\mimikatz>mimikatz.exe"sekurlsa::minidump1.dmp""sekurlsa::logonpasswords"exit
+   C:\Tools\mimikatz>mimikatz.exe "sekurlsa::minidump 1.dmp" "sekurlsa::logonpasswords" exit
    msv:
      *Username:Administrator
      *Domain:LAB
@@ -131,7 +131,7 @@
   <Event>
     <EventData>
       <DataName="Image">C:\Users\Administrator\Desktop\Procdump\procdump64.exe</Data>
-      <DataName="CommandLine">procdump64.exe-malsass.exe1.dmp</Data>
+      <DataName="CommandLine">procdump64.exe -ma lsass.exe 1.dmp</Data>
       <DataName="OriginalFileName">procdump</Data>
       <DataName="ParentImage">C:\Windows\System32\cmd.exe</Data>
       <DataName="User">LAB\Administrator</Data>
@@ -164,7 +164,7 @@
   <Event>
     <EventData>
       <DataName="ProcessName">C:\Users\Administrator\Desktop\Procdump\procdump64.exe</Data>
-      <DataName="CommandLine">procdump64.exe-malsass.exe1.dmp</Data>
+      <DataName="CommandLine">procdump64.exe -ma lsass.exe 1.dmp</Data>
       <DataName="SubjectUserName">Administrator</Data>
     </EventData>
   </Event>
@@ -179,10 +179,10 @@
 
 **规则一：检测Procdump转储LSASS行为**：
 ```yaml
-title:Procdump转储LSASS凭据检测
-id:i9d0e1f2-3g4h-5i6j-dk5e-2f3g4h5i6j7k
-status:stable
-description:检测使用Procdump转储LSASS进程内存以获取凭据的行为
+title: Procdump转储LSASS凭据检测
+id: i9d0e1f2-3g4h-5i6j-dk5e-2f3g4h5i6j7k
+status: stable
+description: 检测使用Procdump转储LSASS进程内存以获取凭据的行为
 references:
   -https://attack.mitre.org/techniques/T1003/
   -https://adsecurity.org/?p=1760
@@ -190,14 +190,14 @@ tags:
   -attack.credential_access
   -attack.t1003
 logsource:
-  category:process_creation
-  product:windows
+  category: process_creation
+  product: windows
 detection:
   selection:
     EventID|in:
       -4688
       -1
-    OriginalFileName:'procdump'
+    OriginalFileName: 'procdump'
     CommandLine|contains:
       -'-malsass.exe'
       -'lsass.exe'
@@ -205,7 +205,7 @@ detection:
     Image|endswith:
       -'\procdump.exe'
       -'\procdump64.exe'
-  condition:selectionandnotfilter
+  condition: selection and not filter
 fields:
   -ComputerName
   -User
@@ -215,31 +215,31 @@ fields:
 falsepositives:
   -管理员合法使用Procdump进行调试
   -安全测试工具误报
-level:critical
+level: critical
 ```
 
 **规则二：检测Procdump访问LSASS进程**：
 ```yaml
-title:Procdump访问LSASS进程检测
-id:j0e1f2g3-4h5i-6j7k-el6f-3g4h5i6j7k8l
-status:stable
-description:检测Procdump尝试访问LSASS进程的行为
+title: Procdump访问LSASS进程检测
+id: j0e1f2g3-4h5i-6j7k-el6f-3g4h5i6j7k8l
+status: stable
+description: 检测Procdump尝试访问LSASS进程的行为
 references:
   -https://attack.mitre.org/techniques/T1003/
 tags:
   -attack.credential_access
   -attack.t1003
 logsource:
-  category:process_access
-  product:windows
+  category: process_access
+  product: windows
 detection:
   selection:
-    EventID:10
+    EventID: 10
     SourceImage|endswith:
       -'\procdump.exe'
       -'\procdump64.exe'
-    TargetImage|endswith:'\lsass.exe'
-  condition:selection
+    TargetImage|endswith: '\lsass.exe'
+  condition: selection
 fields:
   -ComputerName
   -SourceImage
@@ -247,7 +247,7 @@ fields:
   -CallTrace
 falsepositives:
   -合法调试工具访问LSASS
-level:high
+level: high
 ```
 
 **规则优化说明**：
@@ -274,7 +274,7 @@ level:high
    - 捕获`.dmp`文件传输流量（SMB445/TCP、FTP21/TCP）。
    - 示例Snort规则：
      ```snort
-     alerttcpanyany->any445(msg:"LSASSDumpFileTransfer";content:".dmp";sid:1000005;)
+     alert tcp any any -> any 445 (msg:"LSASS Dump File Transfer"; content:".dmp"; sid:1000005;)
      ```
 
 5. **关联分析**：
@@ -294,7 +294,7 @@ level:high
 
 3. **凭据保护**：
    - 启用CredentialGuard（Windows10/2016+），防止LSASS存储明文凭据。
-   - 禁用WDigest协议（组策略：计算机配置>管理模板>MSSecurityGuide>WDigestAuthentication）。
+   - 禁用WDigest协议（组策略：计算机配置>管理模板>MSSecurity Guide>WDigestAuthentication）。
 
 4. **工具限制**：
    - 使用AppLocker或WDAC限制`procdump.exe`和`mimikatz.exe`的执行。

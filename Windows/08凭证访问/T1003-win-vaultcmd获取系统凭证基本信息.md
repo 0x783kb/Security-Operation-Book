@@ -2,18 +2,18 @@
 
 ## 描述
 
-凭据导出（CredentialDumping,MITREATT&CKT1003）是指攻击者从操作系统或软件中提取账户登录名和密码（明文或哈希）以进行横向移动或访问受限资源。WindowsCredentialManager存储用户凭据（如Web、Windows、证书等），攻击者可通过`vaultcmd.exe`（Windows内置工具）查询和提取这些凭据信息。`vaultcmd`允许列出凭据保管库（Vault）、凭据概要及其属性，但无法直接提取明文密码（需结合其他工具如Mimikatz）。此技术通常用于初始凭据收集或权限提升。
+凭据导出是指攻击者从操作系统或软件中提取账户登录名和密码（明文或哈希）以进行横向移动或访问受限资源。Windows Credential Manager存储用户凭据（如Web、Windows、证书等），攻击者可通过`vaultcmd.exe`（Windows内置工具）查询和提取这些凭据信息。`vaultcmd`允许列出凭据保管库（Vault）、凭据概要及其属性，但无法直接提取明文密码（需结合其他工具如Mimikatz）。此技术通常用于初始凭据收集或权限提升。
 
 ## 测试案例
 
 **测试环境**：
-- 系统：WindowsServer2016/2019或Windows10
+- 系统：Windows Server 2016/2019或Windows10
 - 工具：vaultcmd.exe（系统自带）
 - 要求：本地管理员权限或普通用户权限（视凭据访问权限而定）、启用Windows安全日志或Sysmon
 - 域环境：lab.local（可选）
 
 **测试准备**：
-1. 确保系统启用了CredentialManager（默认启用）。
+1. 确保系统启用了Credential Manager（默认启用）。
 2. 启用Windows安全日志审计（组策略：计算机配置>策略>Windows设置>安全设置>本地策略>审核策略>进程跟踪）。
 3. 安装Sysmon（可选，增强进程监控）。
 4. 保存测试用凭据（如浏览器保存的Web凭据）。
@@ -37,30 +37,30 @@
    ```
    预期输出：
    ```
-   Vaultschema:
-   Name:WebCredentials
-     GUID:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
-   Name:WindowsCredentials
-     GUID:{77BC582B-0E2E-4F8E-B8A6-3F4A5B6C7D8E}
+   Vault schema:
+   Name: Web Credentials
+    GUID: {4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
+   Name: Windows Credentials
+    GUID: {77BC582B-0E2E-4F8E-B8A6-3F4A5B6C7D8E}
    ```
 3. **列出“WebCredentials”保管库的凭据**：
    ```cmd
-   vaultcmd/listcreds:"WebCredentials"
+   vaultcmd /listcreds:"WebCredentials"
    ```
    或（中文系统，使用GUID）：
    ```cmd
-   vaultcmd/listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
+   vaultcmd /listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
    ```
    预期输出：
    ```
    Credential:https://example.com
-     ResourceName:example.com
-     UserName:testuser
-     LastModified:2025-06-17
+   ResourceName:example.com
+   UserName:testuser
+   LastModified:2025-06-17 10:30:00 AM
    ```
 4. **列出保管库属性**：
    ```cmd
-   vaultcmd/listproperties:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
+   vaultcmd /listproperties:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
    ```
    预期输出：
    ```
@@ -107,7 +107,7 @@
 **复现步骤**：
 1. 打开CMD（以testuser身份）：
    ```cmd
-   C:\Users\testuser>vaultcmd/list
+   C:\Users\testuser>vaultcmd /list
    ```
    输出：
    ```
@@ -117,7 +117,7 @@
    ```
 2. 查询WebCredentials凭据：
    ```cmd
-   C:\Users\testuser>vaultcmd/listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
+   C:\Users\testuser>vaultcmd /listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
    ```
    输出：
    ```
@@ -128,7 +128,7 @@
    ```
 3. 查询保管库属性：
    ```cmd
-   C:\Users\testuser>vaultcmd/listproperties:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
+   C:\Users\testuser>vaultcmd /listproperties:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}
    ```
    输出：
    ```
@@ -148,7 +148,7 @@
   <Event>
     <EventData>
       <DataName="ProcessName">C:\Windows\System32\VaultCmd.exe</Data>
-      <DataName="CommandLine">vaultcmd/listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}</Data>
+      <DataName="CommandLine">vaultcmd /listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}</Data>
       <DataName="ParentProcessName">C:\Windows\System32\cmd.exe</Data>
       <DataName="SubjectUserName">testuser</Data>
     </EventData>
@@ -161,7 +161,7 @@
   <Event>
     <EventData>
       <DataName="Image">C:\Windows\System32\VaultCmd.exe</Data>
-      <DataName="CommandLine">vaultcmd/listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}</Data>
+      <DataName="CommandLine">vaultcmd /listcreds:{4BF4C442-9B8A-41A0-B380-DD4A704DDB28}</Data>
       <DataName="ParentImage">C:\Windows\System32\cmd.exe</Data>
       <DataName="User">LAB\testuser</Data>
     </EventData>
@@ -179,10 +179,10 @@
 
 **规则一：检测vaultcmd凭据查询行为**：
 ```yaml
-title:VaultCmd凭据查询检测
-id:h8c9d0e1-2f3g-4h9i-cj4d-1e2f3g4h5i6j
-status:stable
-description:检测使用vaultcmd.exe查询WindowsCredentialManager凭据的行为
+title: VaultCmd凭据查询检测
+id: h8c9d0e1-2f3g-4h9i-cj4d-1e2f3g4h5i6j
+status: stable
+description: 检测使用vaultcmd.exe查询Windows Credential Manager凭据的行为
 references:
   -https://attack.mitre.org/techniques/T1003/
   -https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E4%B8%ADCredential-Manager%E7%9A%84%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96/
@@ -190,20 +190,20 @@ tags:
   -attack.credential_access
   -attack.t1003
 logsource:
-  category:process_creation
-  product:windows
+  category: process_creation
+  product: windows
 detection:
   selection:
     EventID|in:
       -4688
       -1
-    Image|endswith:'\VaultCmd.exe'
+    Image|endswith: '\VaultCmd.exe'
     CommandLine|contains:
       -'/list'
       -'/listschema'
       -'/listcreds'
       -'/listproperties'
-  condition:selection
+  condition: selection
 fields:
   -ComputerName
   -User
@@ -212,7 +212,7 @@ fields:
 falsepositives:
   -管理员合法查询CredentialManager
   -系统维护脚本调用vaultcmd
-level:medium
+level: medium
 ```
 
 **规则优化说明**：

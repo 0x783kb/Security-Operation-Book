@@ -2,259 +2,315 @@
 
 ## 描述
 
-凭据转储（CredentialDumping,MITREATT&CKT1003）是指攻击者从操作系统或软件中提取账户登录名和密码（明文或哈希）以进行横向移动或访问受限资源。Windows系统中，用户登录凭据存储在本地安全机构子系统服务（LSASS）进程内存中。攻击者可通过Windows任务管理器以管理员权限转储`lsass.exe`内存，生成`.dmp`文件，随后使用Mimikatz等工具离线提取凭据。此技术简单且无需额外工具，但需管理员权限，且转储文件可能被安全软件检测。
+凭据转储（Credential Dumping，MITRE ATT&CK T1003）是指攻击者从操作系统或软件中提取用户登录凭据（明文密码、NTLM哈希或Kerberos票据）以实现横向移动或访问受限资源。在Windows系统中，本地安全机构子系统服务（LSASS）进程（lsass.exe）存储用户会话的凭据信息。攻击者可通过Windows任务管理器以管理员权限转储`lsass.exe`内存，生成`.dmp`文件，随后使用Mimikatz等工具离线提取凭据。此技术无需外部工具，操作简单，但需本地管理员权限，且转储文件可能被安全软件检测。
 
 ## 测试案例
 
-**测试环境**：
-- 系统：WindowsServer2016/2019或Windows10
+### 测试环境
+- 系统：Windows Server 2019或Windows 10
 - 工具：Windows任务管理器（内置）、Mimikatz（可选，离线分析）
-- 要求：本地管理员权限、域环境（可选，lab.local）
-- 用户：Administrator（测试账户）
-- 日志：Sysmon（推荐，事件ID1、11）、Windows安全日志（可选）
+- 要求：本地管理员权限、域环境（lab.local，可选）
+- 用户：Administrator（密码：Password123）
+- 日志：Sysmon（事件ID1、11）、Windows安全日志（事件ID4688、4656）
 
-**测试准备**：
-1. 确保以管理员身份登录（普通用户需提权）。
-2. 安装Sysmon（可选，配置事件ID1：进程创建，11：文件操作）。
-3. 启用Windows安全日志审计（组策略：计算机配置>策略>Windows设置>安全设置>本地策略>审核策略>进程跟踪、对象访问）。
-4. 下载Mimikatz（<https://github.com/gentilkiwi/mimikatz>）用于离线凭据提取（可选）。
-5. 确保系统有活跃用户会话（凭据存储在LSASS）。
+### 测试准备
+1. 确认管理员权限：
+   ```cmd
+   whoami /priv
+   ```
+   - 确保具有`SeDebugPrivilege`权限。
+2. 安装Sysmon（可选）：
+   - 下载：<https://docs.microsoft.com/sysinternals/downloads/sysmon>
+   - 配置：启用事件ID1（进程创建）、11（文件操作）。
+   - 示例配置：`sysmon.exe -i sysmonconfig.xml`
+3. 启用安全日志审计：
+   - 组策略：计算机配置 > 策略 > Windows设置 > 安全设置 > 本地策略 > 审核策略 > 进程跟踪、对象访问 > 启用成功和失败审计。
+4. 下载Mimikatz（可选）：
+   - URL：<https://github.com/gentilkiwi/mimikatz>
+   - 放置于本地（C:\Tools\mimikatz）。
+5. 确保活跃用户会话：
+   - 登录Administrator或其他用户，生成LSASS凭据。
 
-**测试步骤**：
+### 测试步骤
 1. **打开任务管理器**：
-   - 按`Ctrl+Alt+Del`，选择“任务管理器”；或右键任务栏，选择“任务管理器”。
-   - 若以管理员运行，点击“详细信息”标签。
-2. **显示所有用户进程**：
-   - 若`lsass.exe`不可见，点击“显示所有用户的进程”或以管理员身份重新打开任务管理器（右键任务管理器图标>以管理员身份运行）。
-3. **转储lsass.exe内存**：
-   - 在“进程”标签中找到`lsass.exe`（通常为“本地安全机构进程”）。
-   - 右键`lsass.exe`，选择“创建转储文件”。
-   - 弹出对话框显示转储文件路径（如`C:\Users\Administrator\AppData\Local\Temp\lsass.DMP`）。
+   - 按`Ctrl+Shift+Esc`或右键任务栏 > 任务管理器。
+   - 若非管理员模式，右键任务管理器图标 > 以管理员身份运行。
+2. **定位lsass.exe**：
+   - 切换到“详细信息”标签，找到`lsass.exe`（本地安全机构进程）。
+3. **转储内存**：
+   - 右键`lsass.exe` > 创建转储文件。
+   - 记录转储路径（如`C:\Users\Administrator\AppData\Local\Temp\lsass.DMP`）。
 4. **验证转储文件**：
-   - 导航到转储文件路径，确认`.dmp`文件存在（大小约50-100MB）。
+   - 导航到`C:\Users\Administrator\AppData\Local\Temp\`。
+   - 确认`lsass.DMP`存在（约50-100MB）。
 5. **离线提取凭据**（可选）：
-   - 将`.dmp`文件传输到本地分析系统（通过SMB、USB等）。
-   - 使用Mimikatz提取凭据：
+   - 复制`lsass.DMP`到分析系统。
+   - 使用Mimikatz：
      ```cmd
-     mimikatz.exe"sekurlsa::minidumplsass.DMP""sekurlsa::logonpasswords"exit
+     mimikatz.exe "sekurlsa::minidump lsass.DMP" "sekurlsa::logonpasswords" exit
      ```
-     预期输出：
-     ```
-     msv:
-       *Username:Administrator
-       *Domain:LAB
-       *NTLM:<NTLMHash>
-     wdigest:
-       *Username:Administrator
-       *Domain:LAB
-       *Password:Password123
-     ```
+     - 输出示例：
+       ```
+       msv:
+         * Username: Administrator
+         * Domain: LAB
+         * NTLM: <NTLMHash>
+       wdigest:
+         * Username: Administrator
+         * Domain: LAB
+         * Password: Password123
+       ```
 
-**参考资源**：
+### 参考资源
 - LSASS内存转储技术：<https://www.cnblogs.com/zUotTe0/p/14553082.html>
 - Mimikatz文档：<https://github.com/gentilkiwi/mimikatz>
-- MITREATT&CKT1003：<https://attack.mitre.org/techniques/T1003/>
+- MITRE ATT&CK T1003：<https://attack.mitre.org/techniques/T1003/>
 
 ## 检测日志
 
-**数据来源**：
-- **Sysmon日志**（推荐）：
+### 数据来源
+- **Sysmon日志**：
   - 事件ID1：进程创建（taskmgr.exe）
-  - 事件ID11：文件操作（lsass.DMP创建）
+  - 事件ID11：文件创建（lsass.DMP）
 - **Windows安全日志**：
-  - 事件ID4688：新进程创建（taskmgr.exe，可能不记录转储行为）
-  - 事件ID4656：文件访问（需启用对象访问审计，捕获lsass.DMP）
-- **文件系统日志**：
-  - 监控`%localappdata%\Temp\`或`C:\Windows\Temp\`的`.dmp`文件创建（需启用文件审计）。
-- **网络流量**（若涉及文件传输）：
-  - 捕获`.dmp`文件传输（SMB445/TCP、FTP21/TCP等）。
+  - 事件ID4688：进程创建（taskmgr.exe）
+  - 事件ID4656：文件访问（lsass.DMP，需启用对象访问审计）
+- **文件系统**：
+  - 监控`%localappdata%\Temp\`或`C:\Windows\Temp\`的`.dmp`文件
+- **网络流量**（可选）：
+  - 捕获`.dmp`文件传输（SMB 445/TCP、FTP 21/TCP）
 
-**关键日志字段**：
-- 事件ID1（Sysmon）：
-  - `Image`：C:\Windows\System32\taskmgr.exe
-  - `ParentImage`：explorer.exe或cmd.exe
-- 事件ID11（Sysmon）：
-  - `TargetFilename`：C:\Users\*\AppData\Local\Temp\lsass.DMP
-  - `Image`：C:\Windows\System32\taskmgr.exe
-- 事件ID4688（Windows安全日志）：
-  - `ProcessName`：C:\Windows\System32\taskmgr.exe
-  - `CommandLine`：（通常为空）
-
-**注意**：Windows安全日志默认不记录`lsass.exe`转储行为，需依赖Sysmon或文件审计增强检测。
+### 日志示例
+- **Sysmon事件ID1**（taskmgr.exe进程创建）：
+  ```xml
+  <Event>
+    <EventData>
+      <Data Name="Image">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="CommandLine">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="ParentImage">C:\Windows\explorer.exe</Data>
+      <Data Name="User">LAB\Administrator</Data>
+    </EventData>
+  </Event>
+  ```
+- **Sysmon事件ID11**（lsass.DMP文件创建）：
+  ```xml
+  <Event>
+    <EventData>
+      <Data Name="TargetFilename">C:\Users\Administrator\AppData\Local\Temp\lsass.DMP</Data>
+      <Data Name="Image">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="User">LAB\Administrator</Data>
+    </EventData>
+  </Event>
+  ```
+- **Windows事件ID4656**（文件访问，需启用审计）：
+  ```xml
+  <Event>
+    <EventData>
+      <Data Name="ObjectName">C:\Users\Administrator\AppData\Local\Temp\lsass.DMP</Data>
+      <Data Name="ProcessName">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="SubjectUserName">Administrator</Data>
+    </EventData>
+  </Event>
+  ```
 
 ## 测试复现
 
-**环境配置**：
-- 系统：Windows10
-- 工具：任务管理器（内置）
+### 环境配置
+- 系统：Windows 10
+- 工具：任务管理器
 - 用户：Administrator（密码：Password123）
 - 日志：Sysmon（事件ID1、11）
 - 路径：C:\Users\Administrator\AppData\Local\Temp\
 
-**复现步骤**：
-1. 以管理员身份打开任务管理器：
-   - 按`Ctrl+Shift+Esc`或右键任务栏>任务管理器。
-   - 点击“详细信息”标签。
-2. 找到`lsass.exe`：
-   - 滚动进程列表，定位“本地安全机构进程”（lsass.exe）。
-3. 创建转储文件：
-   - 右键`lsass.exe`>“创建转储文件”。
-   - 记录转储路径（如`C:\Users\Administrator\AppData\Local\Temp\lsass.DMP`）。
-4. 验证转储文件：
-   - 打开文件资源管理器，导航到`C:\Users\Administrator\AppData\Local\Temp\`。
-   - 确认`lsass.DMP`存在（约50MB）。
-5. （可选）离线分析：
-   - 传输`lsass.DMP`到本地系统。
-   - 使用Mimikatz：
-     ```cmd
-     C:\Tools\mimikatz>mimikatz.exe"sekurlsa::minidumplsass.DMP""sekurlsa::logonpasswords"exit
-     wdigest:
-       *Username:Administrator
-       *Domain:LAB
-       *Password:Password123
+### 复现步骤
+1. **启动任务管理器**：
+   ```cmd
+   taskmgr
+   ```
+   - 或按`Ctrl+Shift+Esc`。
+2. **转储lsass.exe**：
+   - 切换到“详细信息”标签，右键`lsass.exe` > 创建转储文件。
+   - 记录路径（如`C:\Users\Administrator\AppData\Local\Temp\lsass.DMP`）。
+3. **验证文件**：
+   ```cmd
+   dir C:\Users\Administrator\AppData\Local\Temp\lsass.DMP
+   ```
+   - 输出：确认文件存在。
+4. **离线分析**（可选）：
+   ```cmd
+   mimikatz.exe "sekurlsa::minidump C:\Users\Administrator\AppData\Local\Temp\lsass.DMP" "sekurlsa::logonpasswords" exit
+   ```
+   - 输出：
      ```
-6. 验证日志：检查Sysmon事件ID11（lsass.DMP创建）。
+     wdigest:
+       * Username: Administrator
+       * Domain: LAB
+       * Password: Password123
+     ```
+5. **检查日志**：
+   - Sysmon事件ID11：确认`lsass.DMP`创建。
 
 ## 测试留痕
 
-**Sysmon日志**：
-- **事件ID1**（进程创建，taskmgr.exe）：
+### Sysmon日志
+- **事件ID1**：
   ```xml
   <Event>
     <EventData>
-      <DataName="Image">C:\Windows\System32\taskmgr.exe</Data>
-      <DataName="CommandLine">C:\Windows\System32\taskmgr.exe</Data>
-      <DataName="ParentImage">C:\Windows\explorer.exe</Data>
-      <DataName="User">LAB\Administrator</Data>
+      <Data Name="Image">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="CommandLine">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="ParentImage">C:\Windows\explorer.exe</Data>
+      <Data Name="User">LAB\Administrator</Data>
     </EventData>
   </Event>
   ```
-- **事件ID11**（文件创建，lsass.DMP）：
+- **事件ID11**：
   ```xml
   <Event>
     <EventData>
-      <DataName="TargetFilename">C:\Users\Administrator\AppData\Local\Temp\lsass.DMP</Data>
-      <DataName="Image">C:\Windows\System32\taskmgr.exe</Data>
-      <DataName="User">LAB\Administrator</Data>
-    </EventData>
-  </Event>
-  ```
-
-**Windows安全日志**（若启用对象访问审计）：
-- **事件ID4656**（文件访问）：
-  ```xml
-  <Event>
-    <EventData>
-      <DataName="ObjectName">C:\Users\Administrator\AppData\Local\Temp\lsass.DMP</Data>
-      <DataName="ProcessName">C:\Windows\System32\taskmgr.exe</Data>
-      <DataName="SubjectUserName">Administrator</Data>
+      <Data Name="TargetFilename">C:\Users\Administrator\AppData\Local\Temp\lsass.DMP</Data>
+      <Data Name="Image">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="User">LAB\Administrator</Data>
     </EventData>
   </Event>
   ```
 
-**文件系统**：
-- 文件：`C:\Users\Administrator\AppData\Local\Temp\lsass.DMP`（约50-100MB）
+### Windows安全日志
+- **事件ID4656**（需启用审计）：
+  ```xml
+  <Event>
+    <EventData>
+      <Data Name="ObjectName">C:\Users\Administrator\AppData\Local\Temp\lsass.DMP</Data>
+      <Data Name="ProcessName">C:\Windows\System32\taskmgr.exe</Data>
+      <Data Name="SubjectUserName">Administrator</Data>
+    </EventData>
+  </Event>
+  ```
 
-**注意**：Windows安全日志默认不记录`lsass.exe`转储的具体行为，Sysmon事件ID11是主要检测点。
+### 文件系统
+- 文件：`C:\Users\Administrator\AppData\Local\Temp\lsass.DMP`（50-100MB）
 
 ## 检测规则/思路
 
-### Sigma规则
-
-**规则一：检测任务管理器创建lsass.DMP文件**：
-```yaml
-title:任务管理器转储LSASS内存检测
-id:k1f2g3h4-5i6j-7k8l-fm7g-4h5i6j7k8l9m
-status:stable
-description:检测通过Windows任务管理器转储LSASS进程内存的行为
-references:
-  -https://attack.mitre.org/techniques/T1003/
-  -https://www.cnblogs.com/zUotTe0/p/14553082.html
-tags:
-  -attack.credential_access
-  -attack.t1003
-logsource:
-  category:file_event
-  product:windows
-detection:
-  selection:
-    EventID:11
-    Image|endswith:'\taskmgr.exe'
-    TargetFilename|contains:'lsass.DMP'
-  condition:selection
-fields:
-  -ComputerName
-  -User
-  -Image
-  -TargetFilename
-falsepositives:
-  -管理员合法调试LSASS进程
-  -系统诊断工具生成转储文件
-level:high
-```
-
-**规则优化说明**：
-- 聚焦Sysmon事件ID11，检测`taskmgr.exe`创建`lsass.DMP`文件。
-- 限制`TargetFilename`包含`lsass.DMP`，提高检测精准性。
-- 考虑合法调试场景，降低误报。
-
-### 检测思路
-
+### 检测方法
 1. **日志监控**：
-   - 监控Sysmon事件ID11，检测`taskmgr.exe`创建`lsass.DMP`文件。
-   - 监控事件ID1，捕获`taskmgr.exe`异常启动（非explorer.exe父进程）。
-
+   - Sysmon事件ID11：检测`taskmgr.exe`创建`lsass.DMP`。
+   - Sysmon事件ID1：监控`taskmgr.exe`异常启动（非explorer.exe父进程）。
 2. **文件监控**：
-   - 启用文件审计，监控`%localappdata%\Temp\`和`C:\Windows\Temp\`的`.dmp`文件创建。
-   - 检查`lsass.DMP`文件的异常访问或传输。
-
+   - 审计`%localappdata%\Temp\`和`C:\Windows\Temp\`的`.dmp`文件创建。
+   - 监控`lsass.DMP`的异常访问或传输。
 3. **行为分析**：
-   - 检测非管理员用户以管理员权限启动任务管理器。
+   - 检测非预期管理员启动任务管理器。
    - 监控短时间内多次`.dmp`文件生成。
-
 4. **网络监控**：
-   - 捕获`.dmp`文件传输流量（SMB445/TCP、FTP21/TCP）。
-   - 示例Snort规则：
-     ```snort
-     alerttcpanyany->any445(msg:"LSASSDMPFileTransfer";content:"lsass.DMP";sid:1000006;)
-     ```
-
+   - 捕获`.dmp`文件传输（SMB 445/TCP、FTP 21/TCP）。
 5. **关联分析**：
-   - 结合事件ID4624（登录成功），检测转储后的异常登录。
+   - 结合事件ID4624，检测转储后的异常登录。
    - 监控Mimikatz执行（事件ID1，`mimikatz.exe`）。
 
+### Sigma规则
+#### 规则一：任务管理器转储LSASS
+```yaml
+title: 任务管理器转储LSASS内存检测
+id: k1f2g3h4-5i6j-7k8l-fm7g-4h5i6j7k8l9m
+status: stable
+description: 检测任务管理器创建lsass.DMP文件的LSASS内存转储行为
+references:
+  - https://attack.mitre.org/techniques/T1003/
+tags:
+  - attack.credential_access
+  - attack.t1003
+logsource:
+  product: windows
+  category: file_event
+detection:
+  selection:
+    EventID: 11
+    Image|endswith: '\taskmgr.exe'
+    TargetFilename|contains: 'lsass.DMP' 
+  condition: selection
+fields:
+  - ComputerName
+  - User
+  - Image
+  - TargetFilename
+falsepositives:
+  - 管理员合法调试
+  - 系统诊断工具生成转储
+level: high
+```
+
+#### 规则二：异常任务管理器启动
+```yaml
+title: 异常任务管理器启动检测
+id: l2g3h4i5-6j7k-8l9m-gn8h-5i6j7k8l9m0n
+status: stable
+description: 检测任务管理器异常启动，可能与LSASS转储相关
+references:
+  - https://attack.mitre.org/techniques/T1003/
+tags:
+  - attack.credential_access
+  - attack.t1003
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID|in:
+      - 4688
+      - 1
+    Image|endswith: '\taskmgr.exe'
+    ParentImage|notcontains:
+      - '\explorer.exe'
+      - '\cmd.exe'
+  condition: selection
+fields:
+  - ComputerName
+  - User
+  - Image
+  - ParentImage
+falsepositives:
+  - 管理员通过脚本启动任务管理器
+level: medium
+```
+
+### Splunk规则
+```spl
+index=sysmon EventCode=11 Image="*taskmgr.exe" TargetFilename="*lsass.DMP"
+OR (EventCode IN (1,4688) Image="*taskmgr.exe" NOT (ParentImage IN ("*explorer.exe","*cmd.exe")))
+| fields EventCode,Image,TargetFilename,ParentImage,User
+```
+
+规则说明：
+- 检测`taskmgr.exe`创建`lsass.DMP`或异常启动。
+- 减少误报：排除常见父进程。
+
 ## 防御建议
-
-1. **权限管理**：
-   - 限制普通用户对`lsass.exe`的访问权限（通过组策略）。
-   - 仅允许必要管理员运行任务管理器的高权限操作。
-
-2. **日志与监控**：
-   - 部署Sysmon，启用事件ID1（进程创建）、11（文件操作）。
-   - 启用对象访问审计，监控`%localappdata%\Temp\lsass.DMP`。
-   - 使用SIEM（如Splunk）关联`taskmgr.exe`和`.dmp`文件创建。
-
+1. **权限控制**：
+   - 限制`SeDebugPrivilege`权限，仅授权必要管理员。
+   - 使用组策略禁止普通用户访问`lsass.exe`。
+2. **日志监控**：
+   - 部署Sysmon，启用事件ID1、11。
+   - 启用对象访问审计，监控`lsass.DMP`。
+   - 使用SIEM关联`taskmgr.exe`和`.dmp`事件。
 3. **凭据保护**：
-   - 启用CredentialGuard（Windows10/2016+），防止LSASS存储明文凭据。
-   - 禁用WDigest协议（组策略：计算机配置>管理模板>MSSecurityGuide>WDigestAuthentication）。
-
+   - 启用Credential Guard（Windows 10/2016+）。
+   - 禁用WDigest协议（组策略）。
 4. **工具限制**：
-   - 使用AppLocker或WDAC限制`taskmgr.exe`的非预期执行。
-   - 监控Mimikatz等工具的运行，防止离线凭据提取。
-
+   - 使用AppLocker限制`taskmgr.exe`非预期执行。
+   - 监控Mimikatz运行。
 5. **主动防御**：
-   - 部署诱捕凭据（HoneyCredentials），监控异常LSASS访问。
-   - 使用EDR工具检测`taskmgr.exe`的异常行为或`.dmp`文件生成。
+   - 部署诱捕凭据，监控LSASS访问。
+   - 使用EDR检测`taskmgr.exe`异常行为。
 
 ## 参考推荐
-
-- MITREATT&CK:CredentialDumping(T1003)  
+- MITRE ATT&CK T1003:  
   <https://attack.mitre.org/techniques/T1003/>
-- LSASS内存转储技术  
+- LSASS内存转储技术:  
   <https://www.cnblogs.com/zUotTe0/p/14553082.html>
-- Mimikatz文档  
+- Mimikatz文档:  
   <https://github.com/gentilkiwi/mimikatz>
-- LSASS凭据提取防御  
+- LSASS防御最佳实践:  
   <https://adsecurity.org/?p=1760>
-- Windows任务管理器参考  
-  <https://docs.microsoft.com/en-us/windows/win32/taskschd/task-manager>
+- Sysmon配置指南:  
+  <https://github.com/SwiftOnSecurity/sysmon-config>
